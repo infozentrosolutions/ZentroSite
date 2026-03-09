@@ -1,0 +1,328 @@
+/* Custom CSS for Homepage Orbit Animation and Styling */
+
+/* Hero grid background */
+.hero-section-custom {
+  background-color: #0d1b2a;
+  background-image:
+    linear-gradient(rgba(13, 27, 42, 0.5), #0d1b2a),
+    url('../../assets/1773039361039.jpg');
+  background-size: cover, cover;
+  background-position: center, center;
+  overflow: hidden;
+}
+
+/* Blinking Stars Animation */
+.blinking-star {
+  opacity: 0.1;
+  animation: star-blink ease-in-out infinite;
+}
+
+@keyframes star-blink {
+
+  0%,
+  100% {
+    opacity: 0.1;
+    transform: scale(0.8);
+    box-shadow: none;
+  }
+
+  50% {
+    opacity: 0.9;
+    transform: scale(1.2);
+    box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.8);
+  }
+}
+
+/* Central glowing orb */
+.hero-center-orb {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0.7);
+}
+
+.hero-core {
+  position: relative;
+  z-index: 10;
+}
+
+.hero-core-inner {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0 0 30px rgba(168, 85, 247, 0.6);
+  z-index: 10;
+  position: relative;
+}
+
+.hero-core-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.4) 0%, rgba(59, 130, 246, 0) 70%);
+  z-index: 5;
+  animation: pulse-glow 4s infinite alternate;
+}
+
+@keyframes pulse-glow {
+  0% {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* Orbits */
+.hero-orbit {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 255, 255, 0.4);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: rotate-orbit linear infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.orbit-1 {
+  width: 180px;
+  height: 180px;
+  animation-duration: 20s;
+}
+
+.orbit-2 {
+  width: 260px;
+  height: 260px;
+  animation-duration: 30s;
+  animation-direction: reverse;
+}
+
+.orbit-3 {
+  width: 340px;
+  height: 340px;
+  animation-duration: 40s;
+}
+
+.orbit-4 {
+  width: 420px;
+  height: 420px;
+  animation-duration: 50s;
+  animation-direction: reverse;
+  border: 1px dashed rgba(255, 255, 255, 0.3);
+}
+
+/* Orbit Icons */
+.hero-orbit-icon {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+/* Reverse rotation for icons so they stay upright */
+.orbit-1 .hero-orbit-icon {
+  background: #ec4899;
+  animation: rotate-icon-reverse 20s linear infinite;
+}
+
+.orbit-2 .hero-orbit-icon {
+  background: #3b82f6;
+  top: 50%;
+  left: -15px;
+  transform: translateY(-50%);
+  animation: rotate-icon-reverse-horiz 30s linear infinite reverse;
+}
+
+.orbit-3 .hero-orbit-icon {
+  background: #10b981;
+  bottom: -15px;
+  top: auto;
+  animation: rotate-icon-reverse-bottom 40s linear infinite;
+}
+
+.orbit-4 .hero-orbit-icon {
+  background: #f59e0b;
+  top: 50%;
+  right: -15px;
+  left: auto;
+  transform: translateY(-50%);
+  animation: rotate-icon-reverse-horiz-right 50s linear infinite reverse;
+}
+
+@keyframes rotate-orbit {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes rotate-icon-reverse {
+  from {
+    transform: translateX(-50%) rotate(0deg);
+  }
+
+  to {
+    transform: translateX(-50%) rotate(-360deg);
+  }
+}
+
+@keyframes rotate-icon-reverse-bottom {
+  from {
+    transform: translateX(-50%) rotate(0deg);
+  }
+
+  to {
+    transform: translateX(-50%) rotate(-360deg);
+  }
+}
+
+@keyframes rotate-icon-reverse-horiz {
+  from {
+    transform: translateY(-50%) rotate(0deg);
+  }
+
+  to {
+    transform: translateY(-50%) rotate(-360deg);
+  }
+}
+
+@keyframes rotate-icon-reverse-horiz-right {
+  from {
+    transform: translateY(-50%) rotate(0deg);
+  }
+
+  to {
+    transform: translateY(-50%) rotate(-360deg);
+  }
+}
+
+/* Floating Glass Cards */
+.hero-float-card {
+  position: absolute;
+  background: rgba(15, 23, 42, 0.6);
+  /* Darker slate-900 with some opacity */
+  backdrop-filter: blur(16px);
+  /* Stronger blur */
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  /* Subtler border */
+  border-radius: 12px;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: white;
+  z-index: 20;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  /* Softer, darker shadow */
+}
+
+.card-1 {
+  top: 0%;
+  left: -15%;
+  animation: float 6s ease-in-out infinite;
+}
+
+.card-2 {
+  top: 45%;
+  right: -5%;
+  animation: float 5s ease-in-out infinite 1s;
+}
+
+.card-3 {
+  bottom: 0%;
+  left: -5%;
+  animation: float 7s ease-in-out infinite 2s;
+}
+
+.hfc-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hfc-icon.bg-primary {
+  background-color: rgba(59, 130, 246, 0.2);
+  color: #60a5fa;
+}
+
+.hfc-icon.bg-success {
+  background-color: rgba(16, 185, 129, 0.2);
+  color: #34d399;
+}
+
+.hfc-icon.bg-warning {
+  background-color: rgba(245, 158, 11, 0.2);
+  color: #fbbf24;
+}
+
+.hfc-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #94a3b8;
+  /* slate-400 instead of opacity */
+  font-weight: 600;
+}
+
+.hfc-value {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0) scale(0.8);
+  }
+
+  50% {
+    transform: translateY(-15px) scale(0.8);
+  }
+}
+
+/* Trust Avatars */
+.hero-trust-avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: 2px solid #0b1a3d;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+  font-size: 0.8rem;
+}
