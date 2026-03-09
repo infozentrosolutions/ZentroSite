@@ -20,7 +20,15 @@ connectDB().then(() => {
 const app = express();
 
 // Middleware to parse JSON
-app.use(cors());
+const allowedOrigins = [
+    process.env.FRONTEND_URL,
+    'http://localhost:5173',
+].filter(Boolean);
+
+app.use(cors({
+    origin: allowedOrigins,
+    credentials: true,
+}));
 app.use(express.json());
 
 // Root API endpoint
