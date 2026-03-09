@@ -150,7 +150,7 @@ const Home = () => {
                     ))}
                 </div>
 
-                <div className="relative z-10 max-w-full px-4 md:px-8 lg:px-12 mx-auto w-full grid md:grid-cols-2 gap-12 items-center">
+                <div className="relative z-10 max-w-full px-2 md:px-8 lg:px-12 mx-auto w-full grid grid-cols-2 gap-2 md:gap-12 items-center">
 
                     {/* Left Column Text Content */}
                     <div className="hero-text-container z-20">
@@ -200,8 +200,8 @@ const Home = () => {
                         </div>
                     </div>
 
-                    {/* Right Column Animations */}
-                    <div className="hidden md:flex justify-center items-center h-full relative z-20">
+                    {/* Right Column Animations - always visible */}
+                    <div className="flex justify-center items-center h-full relative z-20">
                         {/* Floating Cards */}
                         <div className="hero-float-card card-1 z-30">
                             <div className="hfc-icon bg-primary"><Briefcase size={20} /></div>
