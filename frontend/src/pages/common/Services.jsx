@@ -64,7 +64,7 @@ const Services = () => {
 
                     <div className="relative z-10 px-8 py-16 md:p-16 flex flex-col md:flex-row items-center justify-between gap-12">
                         {/* Left Content */}
-                        <div className="md:w-1/2 text-left">
+                        <div className="w-full md:w-1/2 text-center md:text-left">
                             <h2 className="text-4xl md:text-5xl font-semibold text-white mb-4 leading-tight">
                                 We also build and deliver <br />
                                 <span className="font-extrabold tracking-wide">freelancing projects!</span>
@@ -78,7 +78,7 @@ const Services = () => {
                         </div>
 
                         {/* Right Content - Abstract Logo Graphic */}
-                        <div className="md:w-1/2 relative flex justify-center items-center h-[300px]">
+                        <div className="w-full md:w-1/2 relative flex justify-center items-center h-[200px] md:h-[300px]">
                             {/* The Z Logo Abstract Recreation */}
                             <div className="relative w-64 h-64 flex items-center justify-center translate-x-4">
                                 {/* Central Z */}

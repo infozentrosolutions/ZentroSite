@@ -109,7 +109,7 @@ const Programs = () => {
                     animation-delay: 4s;
                 }
             `}</style>
-            <div ref={pinTriggerRef} className="max-w-7xl mx-auto relative z-10 pt-8 h-screen flex flex-col">
+            <div ref={pinTriggerRef} className="max-w-7xl mx-auto relative z-10 pt-8 flex flex-col">
                 <div className="text-center mb-8 flex-shrink-0">
                     <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4 tracking-tight">Available Programs</h1>
                     <p className="text-xl text-indigo-200 max-w-2xl mx-auto">
@@ -117,7 +117,7 @@ const Programs = () => {
                     </p>
                 </div>
 
-                <div className="flex flex-col md:flex-row gap-8 flex-grow overflow-hidden pb-8">
+                <div className="flex flex-col md:flex-row gap-4 md:gap-8 flex-grow overflow-hidden pb-8">
                     {/* Sidebar */}
                     <div className="w-full md:w-64 flex-shrink-0 z-20">
                         <div className="bg-white/5 backdrop-blur-xl rounded-2xl shadow-sm border border-white/10 p-4">
@@ -145,7 +145,7 @@ const Programs = () => {
                     </div>
 
                     {/* Main Content */}
-                    <div className="flex-1 min-w-0 pr-4">
+                    <div className="flex-1 min-w-0">
                         {activeTab === 'programs' ? (
                             loading ? (
                                 <div className="flex flex-col items-center justify-center py-20">
