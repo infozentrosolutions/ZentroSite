@@ -46,7 +46,7 @@ const Contact = () => {
             });
     };
     return (
-        <div style={{ zoom: "80%" }} className="min-h-screen pt-24 pb-20 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen pt-24 pb-20 px-4 sm:px-6 lg:px-8">
             <ToastContainer position="top-right" autoClose={4000} />
             <div className="max-w-7xl mx-auto">
                 <div className="text-center mb-16">
@@ -77,12 +77,12 @@ const Contact = () => {
                             </div>
                         </div>
 
-                        {/* Image shifted further up (-mt-80) and further right (pl-60) */}
-                        <div className="-mt-80 pl-60 flex justify-center items-center">
+                        {/* Illustration — hidden on mobile to keep layout clean */}
+                        <div className="hidden md:flex mt-auto justify-center items-end pt-8">
                             <img
                                 src={PremiumVector}
                                 alt="Support Illustration"
-                                className="w-96 h-auto object-contain drop-shadow-2xl transition-transform hover:scale-105 duration-500"
+                                className="w-72 h-auto object-contain drop-shadow-2xl transition-transform hover:scale-105 duration-500"
                             />
                         </div>
                     </div>

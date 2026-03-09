@@ -326,3 +326,25 @@
   color: white;
   font-size: 0.8rem;
 }
+
+/* ===== MOBILE RESPONSIVENESS ===== */
+@media (max-width: 768px) {
+
+  /* Hide floating cards and orb on mobile (they're in hidden md:flex anyway) */
+  .hero-float-card {
+    display: none;
+  }
+
+  .hero-center-orb {
+    width: 250px;
+    height: 250px;
+    transform: scale(0.6);
+  }
+
+  /* Adjust hero padding */
+  .hero-section-custom {
+    padding-top: 80px;
+    padding-bottom: 60px;
+    text-align: center;
+  }
+}
