@@ -68,11 +68,11 @@ const Contact = () => {
                                 </div>
                                 <div className="flex items-center space-x-4">
                                     <Phone className="w-6 h-6 text-indigo-300" />
-                                    <span className="text-lg">+91 98765 43210</span>
+                                    <span className="text-lg">+91 9597504603</span>
                                 </div>
                                 <div className="flex items-start space-x-4">
                                     <MapPin className="w-6 h-6 text-indigo-300 mt-1" />
-                                    <span className="text-lg">123 Startup Hub,<br />Innovation Park<br />Tech City 560001</span>
+                                    <span className="text-lg">435, Kanthasami Puthur,<br />Malliyakarai, Attur,<br />Salem District, Tamil Nadu - 636107</span>
                                 </div>
                             </div>
                         </div>

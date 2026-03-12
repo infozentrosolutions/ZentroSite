@@ -16,7 +16,7 @@ const Footer = () => {
                         </p>
                         <div className="flex space-x-4">
                             <a href="#" className="text-gray-400 hover:text-primary transition-colors"><Twitter size={20} /></a>
-                            <a href="https://www.linkedin.com/in/zentro-solutions-174707393/" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-primary transition-colors"><Linkedin size={20} /></a>
+                            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7437873064358526976" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-primary transition-colors"><Linkedin size={20} /></a>
                             <a href="https://github.com/infozentrosolutions" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-primary transition-colors"><Github size={20} /></a>
                         </div>
                     </div>
@@ -48,10 +48,10 @@ const Footer = () => {
                                 <Mail size={16} className="text-primary" /> <span>info.zentro.solutions@gmail.com</span>
                             </li>
                             <li className="flex items-center space-x-3">
-                                <Phone size={16} className="text-primary" /> <span>+91 98765 43210</span>
+                                <Phone size={16} className="text-primary" /> <span>+91 9597504603</span>
                             </li>
                             <li className="flex items-start space-x-3">
-                                <MapPin size={16} className="text-primary mt-1" /> <span>123 Startup Hub, Innovation Park, Tech City 560001</span>
+                                <MapPin size={16} className="text-primary mt-1" /> <span>435, Kanthasami Puthur, Malliyakarai, Attur, Salem District, Tamil Nadu - 636107</span>
                             </li>
                         </ul>
                     </div>

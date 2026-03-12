@@ -150,14 +150,10 @@ const Home = () => {
                     ))}
                 </div>
 
-                <div className="relative z-10 max-w-full px-2 md:px-8 lg:px-12 mx-auto w-full grid grid-cols-2 gap-2 md:gap-12 items-center">
+                <div className="relative z-10 max-w-full px-4 md:px-8 lg:px-12 mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-12 items-center">
 
                     {/* Left Column Text Content */}
-                    <div className="hero-text-container z-20">
-                        <div className="hero-text inline-block px-5 py-2 rounded-full border border-indigo-500/30 bg-indigo-500/20 text-indigo-300 text-sm font-bold tracking-wide mb-4 shadow-sm">
-                            🚀 The Ultimate Launchpad
-                        </div>
-
+                    <div className="hero-text-container z-20 text-center md:text-left flex flex-col items-center md:items-start">
                         <h1 className="hero-text text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight mb-6 leading-tight text-white">
                             From College Student to <br className="hidden md:block" />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-violet-400">
@@ -169,7 +165,7 @@ const Home = () => {
                             Master real-world tech skills with live internship programs. Bridge the gap between academic theory and what top companies actually demand.
                         </p>
 
-                        <div className="flex flex-col sm:flex-row items-center gap-4 mb-10">
+                        <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 mb-10">
                             <a href="https://forms.gle/gnFNyf6JbciYNSqy8" target="_blank" rel="noreferrer" className="hero-btn w-full sm:w-auto px-8 py-3.5 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-500 transition-all duration-300 shadow-xl shadow-indigo-600/20 flex items-center justify-center text-lg transform hover:-translate-y-1">
                                 Apply for Internship <ArrowRight className="ml-2 w-5 h-5" />
                             </a>
@@ -201,7 +197,7 @@ const Home = () => {
                     </div>
 
                     {/* Right Column Animations - always visible */}
-                    <div className="flex justify-center items-center h-full relative z-20">
+                    <div className="hidden md:flex justify-center items-center h-full relative z-20">
                         {/* Floating Cards */}
                         <div className="hero-float-card card-1 z-30">
                             <div className="hfc-icon bg-primary"><Briefcase size={20} /></div>
