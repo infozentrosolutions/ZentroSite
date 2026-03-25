@@ -1,9 +1,22 @@
 import { Target, Eye, Code, Calendar, CheckCircle, GraduationCap, Users, LayoutDashboard, Award, Settings } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 import ScrollReveal from '../../components/ScrollReveal';
 
 const About = () => {
     return (
         <div className="min-h-screen pt-24 pb-20 px-4 sm:px-6 lg:px-8">
+            <Helmet>
+                <title>About Zentro Solutions | Experts in Web Development & Training</title>
+                <meta name="description" content="Learn more about Zentro Solutions, a technology-driven startup providing real-world software development skills, internships, and industrial training." />
+                <meta name="keywords" content="about zentro solutions, software development startup, tech training india, student internships" />
+                <link rel="canonical" href="https://zentrosolution.fun/about" />
+
+                {/* Open Graph / Social Media */}
+                <meta property="og:title" content="About Zentro Solutions" />
+                <meta property="og:description" content="Learn how Zentro Solutions is bridging the gap between academics and industry through hands-on training." />
+                <meta property="og:url" content="https://zentrosolution.fun/about" />
+                <meta property="og:type" content="website" />
+            </Helmet>
             <div className="max-w-6xl mx-auto">
                 {/* Hero Section */}
                 <ScrollReveal className="text-center mb-16 max-w-4xl mx-auto">

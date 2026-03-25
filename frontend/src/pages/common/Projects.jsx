@@ -1,4 +1,5 @@
 import { ExternalLink, Folder } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 
 const Projects = () => {
     const projects = [
@@ -14,6 +15,18 @@ const Projects = () => {
 
     return (
         <div className="min-h-screen pt-24 pb-20 px-4 sm:px-6 lg:px-8">
+            <Helmet>
+                <title>Sample Projects | Zentro Solutions - Student Portfolio</title>
+                <meta name="description" content="View sample projects built by Zentro Solutions interns, including MERN stack apps, Python systems, and Java applications." />
+                <meta name="keywords" content="student projects, coding portfolio, web development samples, zentro solutions projects" />
+                <link rel="canonical" href="https://zentrosolution.fun/projects" />
+
+                {/* Open Graph / Social Media */}
+                <meta property="og:title" content="Internship Projects | Zentro Solutions" />
+                <meta property="og:description" content="Take a look at the industry-standard projects our students build." />
+                <meta property="og:url" content="https://zentrosolution.fun/projects" />
+                <meta property="og:type" content="website" />
+            </Helmet>
             <div className="max-w-7xl mx-auto">
                 <div className="text-center mb-16">
                     <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Sample Projects</h1>

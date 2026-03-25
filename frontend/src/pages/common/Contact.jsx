@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import { toast, ToastContainer } from 'react-toastify';
@@ -47,6 +48,18 @@ const Contact = () => {
     };
     return (
         <div className="min-h-screen pt-24 pb-20 px-4 sm:px-6 lg:px-8">
+            <Helmet>
+                <title>Contact Us | Zentro Solutions - Get in Touch</title>
+                <meta name="description" content="Have questions about our internship programs or services? Contact Zentro Solutions today for expert guidance and support." />
+                <meta name="keywords" content="contact zentro solutions, web development support, internship inquiry, salem tech office" />
+                <link rel="canonical" href="https://zentrosolution.fun/contact" />
+
+                {/* Open Graph / Social Media */}
+                <meta property="og:title" content="Contact Zentro Solutions" />
+                <meta property="og:description" content="Reach out to us for any queries related to our programs and services." />
+                <meta property="og:url" content="https://zentrosolution.fun/contact" />
+                <meta property="og:type" content="website" />
+            </Helmet>
             <ToastContainer position="top-right" autoClose={4000} />
             <div className="max-w-7xl mx-auto">
                 <div className="text-center mb-16">

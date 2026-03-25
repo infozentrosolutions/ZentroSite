@@ -1,4 +1,5 @@
 import { useState, useContext, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Mail, Lock, ArrowRight, ShieldCheck, UserCircle, Eye, EyeOff } from 'lucide-react';
 import { AuthContext } from '../../context/AuthContext';
@@ -60,6 +61,18 @@ const Login = () => {
 
     return (
         <div style={{ zoom: "80%" }} className="min-h-[125vh] bg-[#FDFBF7] flex items-center justify-center p-4 pt-32 pb-12 sm:p-6 lg:p-8 relative overflow-hidden">
+            <Helmet>
+                <title>Login | Zentro Solutions - Student & Admin Portal</title>
+                <meta name="description" content="Access your Zentro Solutions dashboard to manage your internship, track tasks, and monitor performance." />
+                <meta name="keywords" content="zentro solutions login, student portal, admin login, internship dashboard" />
+                <link rel="canonical" href="https://zentrosolution.fun/login" />
+
+                {/* Open Graph / Social Media */}
+                <meta property="og:title" content="Zentro Solutions Login" />
+                <meta property="og:description" content="Sign in to access your student or admin dashboard." />
+                <meta property="og:url" content="https://zentrosolution.fun/login" />
+                <meta property="og:type" content="website" />
+            </Helmet>
             <ToastContainer position="top-right" autoClose={4000} />
             {/* Background ambient blobs */}
             <div className={`absolute top-0 left-0 w-96 h-96 rounded-full mix-blend-multiply filter blur-[100px] opacity-40 transition-colors duration-1000 ${isStudentMode ? 'bg-indigo-300' : 'bg-purple-300'}`}></div>

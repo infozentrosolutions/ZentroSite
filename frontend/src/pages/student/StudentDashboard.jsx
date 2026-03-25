@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { CheckSquare, Calendar, Video, FileText, Download, BookOpen, Upload, Award, User, Lock, ExternalLink } from 'lucide-react';
 import { AuthContext } from '../../context/AuthContext';
 
@@ -6,6 +7,10 @@ const StudentDashboard = () => {
     const { user } = useContext(AuthContext);
     return (
         <div className="max-w-7xl mx-auto space-y-6 animate-fade-in pb-10">
+            <Helmet>
+                <title>Student Dashboard | Zentro Solutions</title>
+                <meta name="robots" content="noindex, nofollow" />
+            </Helmet>
             {/* 1. My Internship & 2. Profile Summary */}
             <div className="grid md:grid-cols-3 gap-6">
                 <div className="md:col-span-2 bg-white p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-center">

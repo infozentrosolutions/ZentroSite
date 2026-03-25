@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useSearchParams } from 'react-router-dom';
 import { Briefcase, Users, Layers, Calendar, Award, Video, Plus, Edit, Trash2, UserPlus, UserMinus, ShieldAlert, CheckCircle, XCircle } from 'lucide-react';
 import { AuthContext } from '../../context/AuthContext';
@@ -300,6 +301,10 @@ const SuperDashboard = () => {
 
     return (
         <div className="max-w-7xl mx-auto space-y-6 pb-10">
+            <Helmet>
+                <title>Super Dashboard | Zentro Solutions - Admin Control</title>
+                <meta name="robots" content="noindex, nofollow" />
+            </Helmet>
             <ToastContainer position="top-right" autoClose={3000} />
             <div className="flex flex-col md:flex-row md:justify-between md:items-center bg-white p-4 md:p-6 rounded-2xl shadow-sm border border-gray-100 mb-6 gap-4">
                 <div className="min-w-0">

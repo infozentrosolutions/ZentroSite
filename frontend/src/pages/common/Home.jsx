@@ -1,11 +1,11 @@
 import { useRef, useLayoutEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight, Code, Users, Award, Briefcase, ArrowDown, XCircle, CheckCircle, GraduationCap, Rocket, Star, Handshake } from 'lucide-react';
 import './Home.css';
-import Footer from '../../components/Footer';
-import api from '../../utils/api';
+
 import logo from '../../assets/logo.png';
 
 import moonImg from '../../assets/images (2).jpeg';
@@ -129,6 +129,42 @@ const Home = () => {
 
     return (
         <div ref={comp} className="min-h-screen bg-[#FDFBF7] text-gray-900 font-sans overflow-hidden">
+            <Helmet>
+                <title>Zentro Solutions | Web Development, Internships & Projects</title>
+                <meta name="description" content="Zentro Solutions offers expert web development services, internships, and final year projects for students to build industry-ready skills." />
+                <meta name="keywords" content="zentro solutions, web development, internships, final year projects, software training" />
+                <link rel="canonical" href="https://zentrosolution.fun/" />
+
+                {/* Open Graph / Social Media */}
+                <meta property="og:title" content="Zentro Solutions | Web Development & Internships" />
+                <meta property="og:description" content="Build real-world skills with expert mentorship in web development and internship programs at Zentro Solutions." />
+                <meta property="og:image" content="https://zentrosolution.fun/logo.png" />
+                <meta property="og:url" content="https://zentrosolution.fun/" />
+                <meta property="og:type" content="website" />
+
+                {/* Twitter Meta Tags */}
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="Zentro Solutions | Web Development" />
+                <meta name="twitter:description" content="Join Zentro Solutions for industrial training and projects." />
+                <meta name="twitter:image" content="https://zentrosolution.fun/logo.png" />
+
+                {/* Structured Data (Advanced SEO) */}
+                <script type="application/ld+json">
+                    {`
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Zentro Solutions",
+  "url": "https://zentrosolution.fun",
+  "logo": "https://zentrosolution.fun/logo.png",
+  "description": "Zentro Solutions provides industry-leading web development services, student internships, and final year projects for CSE and IT students.",
+  "sameAs": [
+    "https://www.linkedin.com/company/zentrosolutions"
+  ]
+}
+`}
+                </script>
+            </Helmet>
 
             {/* 1. Hero Section */}
             <section className="hero-section-custom relative w-full min-h-screen flex flex-col justify-center items-center text-left md:text-left px-4 pt-20 pb-20 border-b border-gray-100/10">
@@ -155,9 +191,9 @@ const Home = () => {
                     {/* Left Column Text Content */}
                     <div className="hero-text-container z-20 text-center md:text-left flex flex-col items-center md:items-start">
                         <h1 className="hero-text text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight mb-6 leading-tight text-white">
-                            From College Student to <br className="hidden md:block" />
+                            Zentro Solutions: Web Development<br className="hidden md:block" />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-violet-400">
-                                Industry-Ready Developer
+                                Internships & Final Year Projects
                             </span>
                         </h1>
 
@@ -240,9 +276,9 @@ const Home = () => {
 
                             <div className="hero-core">
                                 <div className="hero-core-inner overflow-hidden border-2 border-indigo-400 relative flex items-center justify-center">
-                                    <img src={moonImg} alt="Moon" className="absolute inset-0 w-full h-full object-cover z-0" />
+                                    <img src={moonImg} alt="Zentro Solutions Web Development Background" className="absolute inset-0 w-full h-full object-cover z-0" />
                                     <div className="relative z-10 w-20 h-20 shimmer-effect drop-shadow-[0_0_8px_rgba(255,255,255,0.5)] flex items-center justify-center">
-                                        <img src={logo} alt="Zentro Logo" className="w-full h-full object-contain mix-blend-screen" />
+                                        <img src={logo} alt="Zentro Solutions Logo" className="w-full h-full object-contain mix-blend-screen" />
                                     </div>
                                 </div>
                                 <div className="hero-core-glow" />

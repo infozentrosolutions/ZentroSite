@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { CheckCircle, ArrowRight, RefreshCcw, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -47,6 +48,18 @@ const Quiz = ({ isEmbedded = false, onViewPrograms }) => {
 
     return (
         <div className={`${isEmbedded ? 'py-4' : 'min-h-screen py-12'} flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 relative`}>
+            <Helmet>
+                <title>Internship Finder Quiz | Zentro Solutions - Career Match</title>
+                <meta name="description" content="Take our quick quiz to find the perfect internship program at Zentro Solutions that matches your skills and interests." />
+                <meta name="keywords" content="career quiz, developer internship match, zentro solutions quiz, tech career finder" />
+                <link rel="canonical" href="https://zentrosolution.fun/quiz" />
+
+                {/* Open Graph / Social Media */}
+                <meta property="og:title" content="Zentro Solutions - Internship Finder Quiz" />
+                <meta property="og:description" content="Discover your perfect tech match with our quick 5-question quiz." />
+                <meta property="og:url" content="https://zentrosolution.fun/quiz" />
+                <meta property="og:type" content="website" />
+            </Helmet>
             {!isEmbedded && (
                 <Link
                     to="/programs"

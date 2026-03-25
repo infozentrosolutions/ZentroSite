@@ -1,4 +1,5 @@
 import { Laptop, Code, GraduationCap, Brush, Rocket, Lock } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import ScrollReveal from '../../components/ScrollReveal';
 
@@ -23,6 +24,18 @@ const Services = () => {
 
     return (
         <div className="min-h-screen pt-24 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+            <Helmet>
+                <title>Services | Zentro Solutions - Web Development & Internship Training</title>
+                <meta name="description" content="Discover the services offered by Zentro Solutions, including enterprise software development, modern web apps, and intensive internship training." />
+                <meta name="keywords" content="software development services, web design salem, corporate training, zentro solutions services" />
+                <link rel="canonical" href="https://zentrosolution.fun/services" />
+
+                {/* Open Graph / Social Media */}
+                <meta property="og:title" content="Zentro Solutions Services" />
+                <meta property="og:description" content="Explore our professional software development and training services." />
+                <meta property="og:url" content="https://zentrosolution.fun/services" />
+                <meta property="og:type" content="website" />
+            </Helmet>
             <style>{`
                 @keyframes float {
                     0% { transform: translate(0px, 0px) rotate(0deg); }

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useLayoutEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import api from '../../utils/api';
 import { Briefcase, Calendar, Clock, ArrowRight, BookOpen, CheckCircle, GraduationCap } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
@@ -69,6 +70,18 @@ const Programs = () => {
 
     return (
         <div ref={comp} className="min-h-screen py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-[#0B0F19]">
+            <Helmet>
+                <title>Internship Programs | Zentro Solutions - MERN, Python, Java Training</title>
+                <meta name="description" content="Choose from a variety of internship programs at Zentro Solutions. Get hands-on experience in MERN Stack, Python, Java, and Web Development." />
+                <meta name="keywords" content="internship programs, mern stack training, python internship, java programming course, zentro solutions programs" />
+                <link rel="canonical" href="https://zentrosolution.fun/programs" />
+
+                {/* Open Graph / Social Media */}
+                <meta property="og:title" content="Zentro Solutions Internship Programs" />
+                <meta property="og:description" content="Explore and enroll in hands-on internship programs in MERN stack, Python, and more." />
+                <meta property="og:url" content="https://zentrosolution.fun/programs" />
+                <meta property="og:type" content="website" />
+            </Helmet>
             <style>{`
                 @keyframes fadeInUp {
                     from { opacity: 0; transform: translateY(20px); }
