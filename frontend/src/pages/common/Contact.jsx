@@ -59,6 +59,27 @@ const Contact = () => {
                 <meta property="og:description" content="Reach out to us for any queries related to our programs and services." />
                 <meta property="og:url" content="https://zentrosolution.fun/contact" />
                 <meta property="og:type" content="website" />
+
+                {/* Breadcrumb Schema */}
+                <script type="application/ld+json">
+                    {`
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "name": "Home",
+    "item": "https://zentrosolution.fun/"
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "name": "Contact",
+    "item": "https://zentrosolution.fun/contact"
+  }]
+}
+`}
+                </script>
             </Helmet>
             <ToastContainer position="top-right" autoClose={4000} />
             <div className="max-w-7xl mx-auto">

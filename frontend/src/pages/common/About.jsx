@@ -16,6 +16,27 @@ const About = () => {
                 <meta property="og:description" content="Learn how Zentro Solutions is bridging the gap between academics and industry through hands-on training." />
                 <meta property="og:url" content="https://zentrosolution.fun/about" />
                 <meta property="og:type" content="website" />
+
+                {/* Breadcrumb Schema */}
+                <script type="application/ld+json">
+                    {`
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "name": "Home",
+    "item": "https://zentrosolution.fun/"
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "name": "About",
+    "item": "https://zentrosolution.fun/about"
+  }]
+}
+`}
+                </script>
             </Helmet>
             <div className="max-w-6xl mx-auto">
                 {/* Hero Section */}

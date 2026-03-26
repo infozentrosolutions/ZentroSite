@@ -160,7 +160,12 @@ const Home = () => {
   "description": "Zentro Solutions provides industry-leading web development services, student internships, and final year projects for CSE and IT students.",
   "sameAs": [
     "https://www.linkedin.com/company/zentrosolutions"
-  ]
+  ],
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://zentrosolution.fun/programs?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
 }
 `}
                 </script>

@@ -26,6 +26,27 @@ const Projects = () => {
                 <meta property="og:description" content="Take a look at the industry-standard projects our students build." />
                 <meta property="og:url" content="https://zentrosolution.fun/projects" />
                 <meta property="og:type" content="website" />
+
+                {/* Breadcrumb Schema */}
+                <script type="application/ld+json">
+                    {`
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "name": "Home",
+    "item": "https://zentrosolution.fun/"
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "name": "Projects",
+    "item": "https://zentrosolution.fun/projects"
+  }]
+}
+`}
+                </script>
             </Helmet>
             <div className="max-w-7xl mx-auto">
                 <div className="text-center mb-16">

@@ -35,6 +35,27 @@ const Services = () => {
                 <meta property="og:description" content="Explore our professional software development and training services." />
                 <meta property="og:url" content="https://zentrosolution.fun/services" />
                 <meta property="og:type" content="website" />
+
+                {/* Breadcrumb Schema */}
+                <script type="application/ld+json">
+                    {`
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "name": "Home",
+    "item": "https://zentrosolution.fun/"
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "name": "Services",
+    "item": "https://zentrosolution.fun/services"
+  }]
+}
+`}
+                </script>
             </Helmet>
             <style>{`
                 @keyframes float {
