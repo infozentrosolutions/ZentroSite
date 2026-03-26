@@ -4,6 +4,7 @@ import { Mail, Phone, MapPin, Send } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { motion } from 'framer-motion';
 import PremiumVector from '../../assets/Premium_Vector-removebg-preview.png';
 
 const Contact = () => {
@@ -83,14 +84,25 @@ const Contact = () => {
             </Helmet>
             <ToastContainer position="top-right" autoClose={4000} />
             <div className="max-w-7xl mx-auto">
-                <div className="text-center mb-16">
+                <motion.div
+                    initial={{ opacity: 0, y: -30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.7 }}
+                    className="text-center mb-16"
+                >
+                    <span className="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 text-sm font-bold rounded-full mb-4 tracking-wider uppercase">Say Hello</span>
                     <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Contact Us</h1>
                     <p className="text-xl text-gray-500 max-w-2xl mx-auto">Have questions about our internship programs? We're here to help.</p>
-                </div>
+                </motion.div>
 
-                <div className="grid md:grid-cols-2 gap-12 bg-white rounded-2xl shadow-soft overflow-hidden">
+                <div className="grid md:grid-cols-2 gap-0 bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100">
                     {/* Contact Info */}
-                    <div className="bg-primary p-10 text-white flex flex-col justify-between">
+                    <motion.div
+                        initial={{ opacity: 0, x: -60 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.7, delay: 0.2 }}
+                        className="bg-gradient-to-br from-indigo-700 to-violet-800 p-10 text-white flex flex-col justify-between"
+                    >
                         <div>
                             <h3 className="text-3xl font-bold mb-6">Get in Touch</h3>
                             <p className="text-indigo-100 mb-10 leading-relaxed">Fill out the form and our team will get back to you within 24 hours.</p>
@@ -119,58 +131,64 @@ const Contact = () => {
                                 className="w-72 h-auto object-contain drop-shadow-2xl transition-transform hover:scale-105 duration-500"
                             />
                         </div>
-                    </div>
+                    </motion.div>
 
                     {/* Form */}
-                    <div className="p-10">
+                    <motion.div
+                        initial={{ opacity: 0, x: 60 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.7, delay: 0.3 }}
+                        className="p-10"
+                    >
                         <form ref={formRef} className="space-y-6" onSubmit={sendEmail}>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700">Full Name</label>
+                                <label className="block text-sm font-semibold text-gray-700 mb-1">Full Name</label>
                                 <input
                                     type="text"
-                                    name="name" // Matches {{name}} in EmailJS template
+                                    name="name"
                                     value={formData.name}
                                     onChange={(e) => {
                                         handleChange(e);
-                                        // Also update user_name for the Subject line {{user_name}}
                                         setFormData(prev => ({ ...prev, name: e.target.value, user_name: e.target.value }));
                                     }}
-                                    className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all placeholder-gray-500 text-gray-900"
+                                    className="w-full px-4 py-3 mt-1 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all placeholder-gray-400 text-gray-900 bg-gray-50 hover:bg-white"
                                     placeholder="John Doe"
                                 />
-                                {/* Hidden input to send user_name to EmailJS for the subject line */}
                                 <input type="hidden" name="user_name" value={formData.user_name} />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700">Email Address</label>
+                                <label className="block text-sm font-semibold text-gray-700 mb-1">Email Address</label>
                                 <input
                                     type="email"
                                     name="from_email"
                                     value={formData.from_email}
                                     onChange={handleChange}
-                                    className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all placeholder-gray-500 text-gray-900"
+                                    className="w-full px-4 py-3 mt-1 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all placeholder-gray-400 text-gray-900 bg-gray-50 hover:bg-white"
                                     placeholder="john@example.com"
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700">Message</label>
+                                <label className="block text-sm font-semibold text-gray-700 mb-1">Message</label>
                                 <textarea
                                     name="message"
                                     rows="4"
                                     value={formData.message}
                                     onChange={handleChange}
-                                    className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all resize-none placeholder-gray-500 text-gray-900"
+                                    className="w-full px-4 py-3 mt-1 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all resize-none placeholder-gray-400 text-gray-900 bg-gray-50 hover:bg-white"
                                     placeholder="How can we help you?"
                                 ></textarea>
                             </div>
-                            <button
+                            <motion.button
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.97 }}
                                 disabled={loading}
-                                className="px-6 py-2.5 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-all duration-300 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 w-full flex items-center justify-center space-x-2 disabled:bg-indigo-400 disabled:cursor-not-allowed">
+                                className="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 transition-all duration-300 shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 w-full flex items-center justify-center space-x-2 disabled:bg-indigo-400 disabled:cursor-not-allowed"
+                            >
                                 <span>{loading ? 'Sending...' : 'Send Message'}</span>
                                 {!loading && <Send size={18} />}
-                            </button>
+                            </motion.button>
                         </form>
-                    </div>
+                    </motion.div>
                 </div>
             </div>
         </div>

@@ -1,5 +1,6 @@
 import { Target, Eye, Code, Calendar, CheckCircle, GraduationCap, Users, LayoutDashboard, Award, Settings } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
+import { motion } from 'framer-motion';
 import ScrollReveal from '../../components/ScrollReveal';
 
 const About = () => {
@@ -40,7 +41,13 @@ const About = () => {
             </Helmet>
             <div className="max-w-6xl mx-auto">
                 {/* Hero Section */}
-                <ScrollReveal className="text-center mb-16 max-w-4xl mx-auto">
+                <motion.div
+                    initial={{ opacity: 0, y: -30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.7 }}
+                    className="text-center mb-16 max-w-4xl mx-auto"
+                >
+                    <span className="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 text-sm font-bold rounded-full mb-4 tracking-wider uppercase">Who We Are</span>
                     <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">About Zentro Solutions</h1>
                     <p className="text-lg text-gray-600 leading-relaxed mb-4">
                         Zentro Solutions is a technology-driven startup focused on empowering students with real-world software development skills. We believe that true learning happens through hands-on experience, practical implementation, and real project building.
@@ -48,7 +55,7 @@ const About = () => {
                     <p className="text-lg text-gray-600 leading-relaxed">
                         Our mission is to bridge the gap between academic knowledge and industry expectations by providing structured internship programs designed to build confident, skilled, and job-ready developers.
                     </p>
-                </ScrollReveal>
+                </motion.div>
 
                 {/* What students build */}
                 <ScrollReveal delay={0.1} className="mb-20">
@@ -69,7 +76,13 @@ const About = () => {
 
                 {/* Mission & Vision */}
                 <div className="grid md:grid-cols-2 gap-8 mb-20">
-                    <ScrollReveal delay={0.1} className="bg-white rounded-2xl shadow-md border border-gray-100 p-8 md:p-10 border-t-4 border-t-primary transition-all duration-300 hover:shadow-lg">
+                    <motion.div
+                        initial={{ opacity: 0, x: -40 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6 }}
+                        className="bg-white rounded-2xl shadow-md border border-gray-100 p-8 md:p-10 border-t-4 border-t-indigo-600 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                    >
                         <div className="flex items-center mb-6">
                             <div className="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center mr-4">
                                 <Target className="text-primary w-6 h-6" />
@@ -79,9 +92,15 @@ const About = () => {
                         <p className="text-gray-600 leading-relaxed text-lg">
                             To create industry-ready developers by delivering affordable, high-quality internship programs that focus on practical learning and professional growth.
                         </p>
-                    </ScrollReveal>
+                    </motion.div>
 
-                    <ScrollReveal delay={0.2} className="bg-white rounded-2xl shadow-md border border-gray-100 p-8 md:p-10 border-t-4 border-t-accent transition-all duration-300 hover:shadow-lg">
+                    <motion.div
+                        initial={{ opacity: 0, x: 40 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.15 }}
+                        className="bg-white rounded-2xl shadow-md border border-gray-100 p-8 md:p-10 border-t-4 border-t-yellow-500 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                    >
                         <div className="flex items-center mb-6">
                             <div className="w-12 h-12 bg-yellow-50 rounded-xl flex items-center justify-center mr-4">
                                 <Eye className="text-accent w-6 h-6" />
@@ -91,7 +110,7 @@ const About = () => {
                         <p className="text-gray-600 leading-relaxed text-lg">
                             To become a trusted technology training platform that nurtures innovation, builds confidence, and shapes the next generation of software professionals.
                         </p>
-                    </ScrollReveal>
+                    </motion.div>
                 </div>
 
                 {/* What Makes Us Different */}
@@ -111,10 +130,18 @@ const About = () => {
                             { icon: Code, text: "Real Project Development" },
                             { icon: Settings, text: "Performance-Based Evaluation" }
                         ].map((Feature, idx) => (
-                            <ScrollReveal key={idx} delay={idx * 0.05} className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col items-center text-center hover:shadow-md transition-shadow">
-                                <Feature.icon className="w-8 h-8 text-indigo-400 mb-4" />
+                            <motion.div
+                                key={idx}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.4, delay: idx * 0.06 }}
+                                whileHover={{ scale: 1.05 }}
+                                className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col items-center text-center hover:shadow-md transition-shadow cursor-default"
+                            >
+                                <Feature.icon className="w-8 h-8 text-indigo-500 mb-4" />
                                 <span className="font-semibold text-gray-800">{Feature.text}</span>
-                            </ScrollReveal>
+                            </motion.div>
                         ))}
                     </div>
                 </div>

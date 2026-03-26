@@ -1,6 +1,7 @@
 import { Laptop, Code, GraduationCap, Brush, Rocket, Lock } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import ScrollReveal from '../../components/ScrollReveal';
 
 const Services = () => {
@@ -69,20 +70,35 @@ const Services = () => {
                 }
             `}</style>
             <div className="max-w-7xl mx-auto">
-                <ScrollReveal className="text-center mb-16">
+                <motion.div
+                    initial={{ opacity: 0, y: -30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.7 }}
+                    className="text-center mb-16"
+                >
+                    <span className="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 text-sm font-bold rounded-full mb-4 tracking-wider uppercase">What We Offer</span>
                     <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Our Services</h1>
                     <p className="text-xl text-gray-500 max-w-2xl mx-auto">What we offer to businesses and learners worldwide.</p>
-                </ScrollReveal>
+                </motion.div>
 
                 <div className="grid md:grid-cols-3 gap-8">
                     {services.map((svc, idx) => (
-                        <ScrollReveal key={idx} delay={idx * 0.1} className="bg-white rounded-xl shadow-md border border-gray-100 p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-2 transition-transform duration-300">
-                            <div className="w-16 h-16 bg-indigo-50 rounded-xl flex items-center justify-center mb-6">
+                        <motion.div
+                            key={idx}
+                            initial={{ opacity: 0, y: 40 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: idx * 0.15 }}
+                            whileHover={{ y: -8, scale: 1.02 }}
+                            className="bg-white rounded-2xl shadow-md border border-gray-100 p-8 transition-all duration-300 hover:shadow-xl relative overflow-hidden group"
+                        >
+                            <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                            <div className="w-16 h-16 bg-indigo-50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                                 {svc.icon}
                             </div>
                             <h3 className="text-2xl font-bold text-gray-900 mb-4">{svc.title}</h3>
                             <p className="text-gray-600 leading-relaxed">{svc.desc}</p>
-                        </ScrollReveal>
+                        </motion.div>
                     ))}
                 </div>
 
