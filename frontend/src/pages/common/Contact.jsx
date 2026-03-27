@@ -118,7 +118,7 @@ const Contact = () => {
                                 </div>
                                 <div className="flex items-start space-x-4">
                                     <MapPin className="w-6 h-6 text-indigo-300 mt-1" />
-                                    <span className="text-lg">435, Kanthasami Puthur,<br />Malliyakarai, Attur,<br />Salem District, Tamil Nadu - 636107</span>
+                                    <span className="text-lg"><br />Malliyakarai, Attur,<br />Salem District, Tamil Nadu - 636107</span>
                                 </div>
                             </div>
                         </div>

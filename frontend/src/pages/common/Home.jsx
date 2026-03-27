@@ -196,7 +196,7 @@ const Home = () => {
                     {/* Left Column Text Content */}
                     <div className="hero-text-container z-20 text-center md:text-left flex flex-col items-center md:items-start">
                         <h1 className="hero-text text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight mb-6 leading-tight text-white">
-                            Zentro Solutions: Web Development<br className="hidden md:block" />
+                            Zentro Solutions Web Development<br className="hidden md:block" />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-violet-400">
                                 Internships & Final Year Projects
                             </span>
