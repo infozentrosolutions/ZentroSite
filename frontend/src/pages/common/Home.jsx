@@ -130,22 +130,22 @@ const Home = () => {
     return (
         <div ref={comp} className="min-h-screen bg-[#FDFBF7] text-gray-900 font-sans overflow-hidden">
             <Helmet>
-                <title>Zentro Solutions | Web Development, Internships & Projects</title>
-                <meta name="description" content="Zentro Solutions offers expert web development services, internships, and final year projects for students to build industry-ready skills." />
-                <meta name="keywords" content="zentro solutions, web development, internships, final year projects, software training" />
+                <title>Zentro Solutions | Web Development, Software Solutions and Digital Transformation</title>
+                <meta name="description" content="Zentro Solutions delivers innovative IT services, specializing in web development, software solutions, and digital transformation to help businesses scale efficiently." />
+                <meta name="keywords" content="zentro solutions, zentro solution, zentro solutions attur, web development, software solutions, digital transformation" />
                 <link rel="canonical" href="https://zentrosolution.fun/" />
 
                 {/* Open Graph / Social Media */}
-                <meta property="og:title" content="Zentro Solutions | Web Development & Internships" />
-                <meta property="og:description" content="Build real-world skills with expert mentorship in web development and internship programs at Zentro Solutions." />
+                <meta property="og:title" content="Zentro Solutions | Web Development, Software Solutions and Digital Transformation" />
+                <meta property="og:description" content="Zentro Solutions delivers innovative IT services, specializing in web development, software solutions, and digital transformation to help businesses scale efficiently." />
                 <meta property="og:image" content="https://zentrosolution.fun/logo.png" />
                 <meta property="og:url" content="https://zentrosolution.fun/" />
                 <meta property="og:type" content="website" />
 
                 {/* Twitter Meta Tags */}
                 <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:title" content="Zentro Solutions | Web Development" />
-                <meta name="twitter:description" content="Join Zentro Solutions for industrial training and projects." />
+                <meta name="twitter:title" content="Zentro Solutions | IT Services in Attur" />
+                <meta name="twitter:description" content="Web development, software solutions, and digital transformation by Zentro Solutions." />
                 <meta name="twitter:image" content="https://zentrosolution.fun/logo.png" />
 
                 {/* Structured Data (Advanced SEO) */}
@@ -153,11 +153,19 @@ const Home = () => {
                     {`
 {
   "@context": "https://schema.org",
-  "@type": "Organization",
+    "@type": "Organization",
   "name": "Zentro Solutions",
+    "alternateName": ["Zentro Solution", "Zentro Solutions Attur"],
   "url": "https://zentrosolution.fun",
   "logo": "https://zentrosolution.fun/logo.png",
-  "description": "Zentro Solutions provides industry-leading web development services, student internships, and final year projects for CSE and IT students.",
+    "description": "Zentro Solutions delivers innovative IT services, specializing in web development, software solutions, and digital transformation to help businesses scale efficiently.",
+    "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Attur",
+        "addressRegion": "Tamil Nadu",
+        "postalCode": "636107",
+        "addressCountry": "IN"
+    },
   "sameAs": [
     "https://www.linkedin.com/company/zentrosolutions"
   ],
@@ -203,7 +211,7 @@ const Home = () => {
                         </h1>
 
                         <p className="hero-text text-sm md:text-base text-indigo-100/80 mb-10 max-w-lg font-medium leading-relaxed">
-                            Master real-world tech skills with live internship programs. Bridge the gap between academic theory and what top companies actually demand.
+                            Zentro Solutions, also searched as Zentro Solution in Attur, delivers innovative IT services and practical programs in web development, software solutions, and digital transformation.
                         </p>
 
                         <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 mb-10">
