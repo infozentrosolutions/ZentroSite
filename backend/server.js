@@ -23,6 +23,8 @@ const app = express();
 const allowedOrigins = [
     process.env.FRONTEND_URL,
     'http://localhost:5173',
+    'https://zentrosolution.fun',
+    'https://www.zentrosolution.fun',
 ].filter(Boolean);
 
 app.use(cors({
