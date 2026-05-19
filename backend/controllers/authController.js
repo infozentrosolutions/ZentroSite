@@ -36,6 +36,7 @@ const login = async (req, res) => {
                     _id: user._id,
                     name: user.name,
                     email: user.email,
+                    batch: user.batch || null,
                     role: isPortalUser ? 'student' : user.role,
                     token: generateToken(user._id)
                 });
@@ -87,6 +88,7 @@ const register = async (req, res) => {
                 _id: user._id,
                 name: user.name,
                 email: user.email,
+                batch: user.batch || null,
                 role: user.role
             });
         } else {

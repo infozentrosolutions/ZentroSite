@@ -1,19 +1,95 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useSearchParams } from 'react-router-dom';
 import { CheckSquare, Calendar, Video, FileText, Download, BookOpen, Upload, Award, User, Lock, ExternalLink } from 'lucide-react';
 import { AuthContext } from '../../context/AuthContext';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const StudentDashboard = () => {
     const { user } = useContext(AuthContext);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const activeTab = searchParams.get('tab') || 'overview';
+    const liveClassUrl = import.meta.env.VITE_LIVE_CLASS_URL || 'https://meet.google.com';
+    const studentKey = user?._id || user?.email || 'student';
+    const [repoUrl, setRepoUrl] = useState(localStorage.getItem(`studentRepo:${studentKey}`) || '');
+    const [submissionStatus, setSubmissionStatus] = useState(localStorage.getItem(`studentRepoStatus:${studentKey}`) || 'Not submitted yet.');
+    const [taskDone, setTaskDone] = useState(localStorage.getItem(`studentTaskDone:${studentKey}`) === 'true');
+
+    const overviewRef = useRef(null);
+    const tasksRef = useRef(null);
+    const attendanceRef = useRef(null);
+    const liveRef = useRef(null);
+    const submitRef = useRef(null);
+    const assessmentRef = useRef(null);
+    const certificateRef = useRef(null);
+    const profileRef = useRef(null);
+
+    const sectionRefs = {
+        overview: overviewRef,
+        tasks: tasksRef,
+        attendance: attendanceRef,
+        live: liveRef,
+        submit: submitRef,
+        assessment: assessmentRef,
+        certificate: certificateRef,
+        profile: profileRef,
+    };
+
+    useEffect(() => {
+        const validTabs = Object.keys(sectionRefs);
+        if (!validTabs.includes(activeTab)) {
+            setSearchParams({ tab: 'overview' });
+            return;
+        }
+
+        const target = sectionRefs[activeTab]?.current;
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }, [activeTab, sectionRefs, setSearchParams]);
+
+    const handleJoinClass = () => {
+        window.open(liveClassUrl, '_blank', 'noopener,noreferrer');
+    };
+
+    const handleRepositorySubmit = (e) => {
+        e.preventDefault();
+        const trimmedUrl = repoUrl.trim();
+
+        if (!trimmedUrl) {
+            toast.error('Enter your GitHub repository link');
+            return;
+        }
+
+        if (!/^https?:\/\//i.test(trimmedUrl)) {
+            toast.error('Enter a valid repository URL');
+            return;
+        }
+
+        localStorage.setItem(`studentRepo:${studentKey}`, trimmedUrl);
+        localStorage.setItem(`studentRepoStatus:${studentKey}`, 'Repository submitted for review.');
+        setSubmissionStatus('Repository submitted for review.');
+        toast.success('Project submitted successfully');
+    };
+
+    const handleTaskToggle = () => {
+        const nextValue = !taskDone;
+        setTaskDone(nextValue);
+        localStorage.setItem(`studentTaskDone:${studentKey}`, String(nextValue));
+        toast.success(nextValue ? 'Task marked complete' : 'Task marked pending');
+    };
+
     return (
         <div className="max-w-7xl mx-auto space-y-6 animate-fade-in pb-10">
+            <ToastContainer position="top-right" autoClose={3000} />
             <Helmet>
                 <title>Student Dashboard | Zentro Solutions</title>
                 <meta name="robots" content="noindex, nofollow" />
             </Helmet>
             {/* 1. My Internship & 2. Profile Summary */}
-            <div className="grid md:grid-cols-3 gap-6">
-                <div className="md:col-span-2 bg-white p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-center">
+            <div ref={sectionRefs.overview} className="grid md:grid-cols-3 gap-6">
+                <div className="md:col-span-2 bg-white p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-center scroll-mt-8">
                     <div className="flex items-center mb-4 text-primary">
                         <BookOpen className="mr-3" size={28} />
                         <h1 className="text-3xl font-bold text-gray-900">My Internship</h1>
@@ -21,17 +97,18 @@ const StudentDashboard = () => {
                     <h2 className="text-2xl font-bold text-gray-800 mb-2">MERN Stack Development</h2>
                     <p className="text-gray-500 mb-6">Mastering MongoDB, Express, React, and Node.js through practical projects.</p>
                     <div className="flex gap-4">
-                        <span className="px-4 py-2 bg-indigo-50 text-indigo-700 font-semibold rounded-lg text-sm border border-indigo-100">Batch: March 2024 (A)</span>
+                        <span className="px-4 py-2 bg-indigo-50 text-indigo-700 font-semibold rounded-lg text-sm border border-indigo-100">Batch: {user?.batch || 'Assigned by admin'}</span>
                         <span className="px-4 py-2 bg-blue-50 text-blue-700 font-semibold rounded-lg text-sm border border-blue-100">Duration: 15 Days</span>
                     </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center">
+                <div ref={sectionRefs.profile} className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center scroll-mt-8">
                     <div className="w-20 h-20 bg-indigo-100 rounded-full flex items-center justify-center mb-4">
                         <User size={32} className="text-primary" />
                     </div>
                     <h3 className="text-xl font-bold text-gray-900">{user?.name || 'Loading...'}</h3>
                     <p className="text-gray-500 text-sm mb-4">{user?.email || 'Loading...'}</p>
+                    <p className="text-xs text-gray-500 mb-3">Batch: {user?.batch || 'Not assigned yet'}</p>
                     <div className="flex items-center text-xs text-gray-400 bg-gray-50 px-3 py-1.5 rounded-full border border-gray-200">
                         <Lock size={12} className="mr-1" /> Profile is Read-Only
                     </div>
@@ -39,7 +116,7 @@ const StudentDashboard = () => {
             </div>
 
             {/* 3. Join Live Class & 4. Attendance */}
-            <div className="grid md:grid-cols-2 gap-6">
+            <div ref={sectionRefs.live} className="grid md:grid-cols-2 gap-6 scroll-mt-8">
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex items-center justify-between">
                     <div>
                         <div className="flex items-center mb-2">
@@ -48,12 +125,12 @@ const StudentDashboard = () => {
                         </div>
                         <p className="text-gray-500 text-sm">Join the daily interactive mentor session.</p>
                     </div>
-                    <a href="#" className="flex items-center px-6 py-3 bg-red-50 text-red-600 font-bold rounded-xl hover:bg-red-100 border border-red-100 transition-colors">
+                    <button type="button" onClick={handleJoinClass} className="flex items-center px-6 py-3 bg-red-50 text-red-600 font-bold rounded-xl hover:bg-red-100 border border-red-100 transition-colors">
                         Join Now <ExternalLink size={18} className="ml-2" />
-                    </a>
+                    </button>
                 </div>
 
-                <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                <div ref={sectionRefs.attendance} className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 scroll-mt-8">
                     <div className="flex items-center justify-between mb-4">
                         <h2 className="text-xl font-bold text-gray-900 flex items-center">
                             <Calendar className="text-primary mr-2" /> Attendance
@@ -72,7 +149,7 @@ const StudentDashboard = () => {
 
             {/* 5. Daily Tasks & 6. Submit Project */}
             <div className="grid md:grid-cols-3 gap-6">
-                <div className="md:col-span-2 bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                <div ref={sectionRefs.tasks} className="md:col-span-2 bg-white rounded-xl shadow-sm border border-gray-100 p-6 scroll-mt-8">
                     <div className="flex items-center justify-between mb-6">
                         <h2 className="text-xl font-bold text-gray-900 flex items-center">
                             <CheckSquare className="text-primary mr-2" /> Daily Tasks
@@ -84,13 +161,15 @@ const StudentDashboard = () => {
                         <div className="border border-gray-100 bg-gray-50/50 p-5 rounded-xl">
                             <div className="flex justify-between items-start mb-2">
                                 <h3 className="font-bold text-gray-900 text-lg">Task 12: React Router & State</h3>
-                                <span className="px-3 py-1 bg-yellow-100 text-yellow-700 text-xs font-bold rounded-full border border-yellow-200">Pending</span>
+                                <span className={`px-3 py-1 text-xs font-bold rounded-full border ${taskDone ? 'bg-green-100 text-green-700 border-green-200' : 'bg-yellow-100 text-yellow-700 border-yellow-200'}`}>{taskDone ? 'Completed' : 'Pending'}</span>
                             </div>
                             <p className="text-gray-600 mb-4 text-sm">Implement client-side routing and global state management using Context API for the e-commerce cart.</p>
 
-                            {/* Read Only Submission Status */}
-                            <div className="bg-white p-3 rounded-lg border border-gray-200 flex items-center justify-between">
-                                <span className="text-sm text-gray-500">Not submitted yet. Submit via form below.</span>
+                            <div className="bg-white p-3 rounded-lg border border-gray-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                                <span className="text-sm text-gray-500">{taskDone ? 'Marked complete for today.' : 'Not completed yet. Mark it when done.'}</span>
+                                <button type="button" onClick={handleTaskToggle} className="px-4 py-2 rounded-lg text-sm font-semibold bg-indigo-600 text-white hover:bg-indigo-700 transition-colors">
+                                    {taskDone ? 'Mark Pending' : 'Mark Complete'}
+                                </button>
                             </div>
                         </div>
 
@@ -106,21 +185,28 @@ const StudentDashboard = () => {
 
                 <div className="space-y-6">
                     {/* Submit Project */}
-                    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 bg-indigo-50/30">
+                    <div ref={sectionRefs.submit} className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 bg-indigo-50/30 scroll-mt-8">
                         <h2 className="text-xl font-bold text-gray-900 flex items-center mb-4">
                             <Upload className="text-primary mr-2" /> Submit Project
                         </h2>
                         <p className="text-sm text-gray-600 mb-4">Submit your final mega project GitHub repository link here for evaluation.</p>
-                        <div className="space-y-3">
-                            <input type="text" placeholder="https://github.com/..." className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-primary" />
-                            <button className="w-full py-2.5 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors shadow-sm text-sm">
+                        <form className="space-y-3" onSubmit={handleRepositorySubmit}>
+                            <input
+                                type="url"
+                                value={repoUrl}
+                                onChange={(e) => setRepoUrl(e.target.value)}
+                                placeholder="https://github.com/..."
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-primary"
+                            />
+                            <button type="submit" className="w-full py-2.5 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors shadow-sm text-sm">
                                 Submit Repository
                             </button>
-                        </div>
+                        </form>
+                        <p className="text-xs text-gray-500 mt-3">{submissionStatus}</p>
                     </div>
 
                     {/* 7. Assessment & 8. Certificate */}
-                    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                    <div ref={sectionRefs.assessment} className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 scroll-mt-8">
                         <h2 className="text-lg font-bold text-gray-900 flex items-center mb-4">
                             <FileText className="text-accent mr-2" /> Assessment Score
                         </h2>
@@ -131,12 +217,16 @@ const StudentDashboard = () => {
                         <p className="text-xs text-gray-500 bg-gray-50 p-2 rounded border border-gray-100">Top 10% of the batch. Excellent performance in backend APIs.</p>
                     </div>
 
-                    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 text-center border-dashed border-2 border-indigo-100">
+                    <div ref={sectionRefs.certificate} className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 text-center border-dashed border-2 border-indigo-100 scroll-mt-8">
                         <Award className="w-10 h-10 text-primary mx-auto mb-2 opacity-80" />
                         <h3 className="font-bold text-gray-900 mb-1">Certificate</h3>
                         <p className="text-xs text-gray-500 mb-4">Unlocked upon completion.</p>
-                        <button className="w-full py-2 bg-gray-100 text-gray-400 font-medium rounded-lg cursor-not-allowed flex items-center justify-center text-sm" disabled>
-                            <Download size={16} className="mr-2" /> Download Link
+                        <button
+                            type="button"
+                            onClick={() => toast.info('Certificate will be available after completion and approval')}
+                            className="w-full py-2 bg-gray-100 text-gray-500 font-medium rounded-lg flex items-center justify-center text-sm hover:bg-gray-200 transition-colors"
+                        >
+                            <Download size={16} className="mr-2" /> View Status
                         </button>
                     </div>
                 </div>

@@ -1,24 +1,24 @@
-import { Link, useLocation, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { Home, BookOpen, CheckSquare, Calendar, Users, Briefcase, FileText, Settings, LogOut, Video, Upload, Award, User, X } from 'lucide-react';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { AuthContext } from '../context/AuthContext';
 
 const Sidebar = ({ onClose, isOpen = true }) => {
-    // In a real app, this would be determined by auth state context
-    // For demo, we parse the role from the URL
+    const { logout } = useContext(AuthContext);
     const pathname = window.location.pathname;
     const role = pathname.includes('admin') ? 'admin' : pathname.includes('teacher') ? 'teacher' : 'student';
     const [searchParams] = useSearchParams();
-    const activeTab = searchParams.get('tab') || 'internships';
+    const activeTab = searchParams.get('tab') || (role === 'student' ? 'overview' : 'internships');
 
     const studentLinks = [
-        { name: 'My Internship', path: '/dashboard/student', icon: <BookOpen size={20} /> },
-        { name: 'Daily Tasks', path: '/dashboard/student', icon: <CheckSquare size={20} /> },
-        { name: 'Attendance', path: '/dashboard/student', icon: <Calendar size={20} /> },
-        { name: 'Live Class', path: '/dashboard/student', icon: <Video size={20} /> },
-        { name: 'Submit Project', path: '/dashboard/student', icon: <Upload size={20} /> },
-        { name: 'Assessment', path: '/dashboard/student', icon: <FileText size={20} /> },
-        { name: 'Certificate', path: '/dashboard/student', icon: <Award size={20} /> },
-        { name: 'Profile', path: '/dashboard/student', icon: <User size={20} /> },
+        { id: 'overview', name: 'My Internship', icon: <BookOpen size={20} /> },
+        { id: 'tasks', name: 'Daily Tasks', icon: <CheckSquare size={20} /> },
+        { id: 'attendance', name: 'Attendance', icon: <Calendar size={20} /> },
+        { id: 'live', name: 'Live Class', icon: <Video size={20} /> },
+        { id: 'submit', name: 'Submit Project', icon: <Upload size={20} /> },
+        { id: 'assessment', name: 'Assessment', icon: <FileText size={20} /> },
+        { id: 'certificate', name: 'Certificate', icon: <Award size={20} /> },
+        { id: 'profile', name: 'Profile', icon: <User size={20} /> },
     ];
 
     const superLinks = [
@@ -48,7 +48,7 @@ const Sidebar = ({ onClose, isOpen = true }) => {
                     return (
                         <Link 
                             key={idx} 
-                            to={link.id ? `?tab=${link.id}` : link.path} 
+                            to={link.id ? `?tab=${link.id}` : '/dashboard/student'} 
                             className={`flex items-center space-x-3 px-3 py-3 rounded-lg transition-colors ${
                                 isActive 
                                     ? 'bg-indigo-50 text-primary font-semibold' 
@@ -64,10 +64,17 @@ const Sidebar = ({ onClose, isOpen = true }) => {
             </div>
 
             <div className="p-4 border-t border-gray-100">
-                <Link to="/" className="flex items-center space-x-3 px-3 py-3 text-red-500 rounded-lg hover:bg-red-50 transition-colors w-full">
+                <button
+                    type="button"
+                    onClick={() => {
+                        logout();
+                        window.location.href = '/';
+                    }}
+                    className="flex items-center space-x-3 px-3 py-3 text-red-500 rounded-lg hover:bg-red-50 transition-colors w-full"
+                >
                     <LogOut size={20} />
                     <span className="font-medium">Logout</span>
-                </Link>
+                </button>
             </div>
         </aside>
     );
@@ -119,10 +126,17 @@ const Sidebar = ({ onClose, isOpen = true }) => {
                             })}
                         </div>
                         <div className="p-4 border-t border-gray-100 mt-auto">
-                            <Link to="/" className="flex items-center space-x-3 px-3 py-3 text-red-500 rounded-lg hover:bg-red-50 transition-colors w-full">
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    logout();
+                                    window.location.href = '/';
+                                }}
+                                className="flex items-center space-x-3 px-3 py-3 text-red-500 rounded-lg hover:bg-red-50 transition-colors w-full"
+                            >
                                 <LogOut size={20} />
                                 <span className="font-medium text-sm">Logout</span>
-                            </Link>
+                            </button>
                         </div>
                     </div>
                 </>
