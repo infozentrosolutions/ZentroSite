@@ -34,6 +34,9 @@ const SuperDashboard = () => {
     const [showTeacherModal, setShowTeacherModal] = useState(false);
     const [newTeacher, setNewTeacher] = useState({ name: '', email: '', password: '' });
     const [teachers, setTeachers] = useState([]);
+    const [showStudentForm, setShowStudentForm] = useState(false);
+    const [newStudent, setNewStudent] = useState({ name: '', email: '', password: '', batch: '' });
+    const [studentSaving, setStudentSaving] = useState(false);
 
     // Certificate Management State
     const [certificates, setCertificates] = useState([]);
@@ -201,6 +204,36 @@ const SuperDashboard = () => {
             toast.success('Teacher created successfully!');
         } catch (err) {
             toast.error(err.response?.data?.message || 'Failed to create teacher');
+        }
+    };
+
+    const handleGenerateStudent = async (e) => {
+        e.preventDefault();
+
+        if (!newStudent.name || !newStudent.email || !newStudent.password) {
+            toast.error('Please fill all fields');
+            return;
+        }
+
+        setStudentSaving(true);
+
+        try {
+            const res = await api.post('/auth/register', {
+                name: newStudent.name,
+                email: newStudent.email,
+                password: newStudent.password,
+                batch: newStudent.batch,
+                role: 'student'
+            });
+
+            setStudents(prev => [{ ...res.data, role: 'student' }, ...prev]);
+            setNewStudent({ name: '', email: '', password: '', batch: '' });
+            setShowStudentForm(false);
+            toast.success('Student created successfully!');
+        } catch (err) {
+            toast.error(err.response?.data?.message || 'Failed to create student');
+        } finally {
+            setStudentSaving(false);
         }
     };
 
@@ -396,8 +429,75 @@ const SuperDashboard = () => {
             {/* Other tabs kept functionally mock for now, ready structure wise */}
             {activeTab === 'students' && (
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-                    <div className="flex justify-between items-center mb-6">
-                        <h2 className="text-xl font-bold text-gray-900">Student Roster</h2>
+                    <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 mb-6">
+                        <div>
+                            <h2 className="text-xl font-bold text-gray-900">Student Roster</h2>
+                            <p className="text-sm text-gray-500 mt-1">Students added here can log in with the email and password you create.</p>
+                        </div>
+                        {role === 'admin' && (
+                            <form onSubmit={handleGenerateStudent} className="w-full lg:max-w-xl bg-gray-50 border border-gray-200 rounded-2xl p-4 space-y-3">
+                                <div className="flex items-center justify-between gap-3">
+                                    <div>
+                                        <h3 className="font-semibold text-gray-900 flex items-center">
+                                            <UserPlus size={16} className="mr-2 text-primary" /> Add Student
+                                        </h3>
+                                        <p className="text-xs text-gray-500 mt-0.5">Create a student account manually.</p>
+                                    </div>
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowStudentForm(prev => !prev)}
+                                        className="text-sm font-medium text-primary hover:underline"
+                                    >
+                                        {showStudentForm ? 'Hide' : 'Show'}
+                                    </button>
+                                </div>
+
+                                {showStudentForm && (
+                                    <div className="grid sm:grid-cols-3 gap-3">
+                                        <input
+                                            type="text"
+                                            required
+                                            placeholder="Student name"
+                                            value={newStudent.name}
+                                            onChange={(e) => setNewStudent({ ...newStudent, name: e.target.value })}
+                                            className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                                        />
+                                        <input
+                                            type="email"
+                                            required
+                                            placeholder="Student email"
+                                            value={newStudent.email}
+                                            onChange={(e) => setNewStudent({ ...newStudent, email: e.target.value })}
+                                            className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                                        />
+                                        <input
+                                            type="password"
+                                            required
+                                            placeholder="Password"
+                                            value={newStudent.password}
+                                            onChange={(e) => setNewStudent({ ...newStudent, password: e.target.value })}
+                                            className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                                        />
+                                        <input
+                                            type="text"
+                                            placeholder="Batch assignment"
+                                            value={newStudent.batch}
+                                            onChange={(e) => setNewStudent({ ...newStudent, batch: e.target.value })}
+                                            className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 sm:col-span-3"
+                                        />
+                                        <div className="sm:col-span-3 flex justify-end">
+                                            <button
+                                                type="submit"
+                                                disabled={studentSaving}
+                                                className="px-4 py-2 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50"
+                                            >
+                                                {studentSaving ? 'Adding...' : 'Add Student'}
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
+                            </form>
+                        )}
                     </div>
                     <div>
                         {loading ? (
@@ -411,6 +511,7 @@ const SuperDashboard = () => {
                                         <tr>
                                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
                                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Batch</th>
                                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Internship</th>
                                         </tr>
                                     </thead>
@@ -419,6 +520,7 @@ const SuperDashboard = () => {
                                             <tr key={s._id}>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{s.name}</td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{s.email}</td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{s.batch || '-'}</td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{internships.find(i => i._id === s.internshipAssigned)?.title || '-'}</td>
                                             </tr>
                                         ))}
