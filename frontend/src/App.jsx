@@ -70,9 +70,10 @@ function App() {
     <Router>
       <ScrollToTop />
       <Routes>
+        <Route path="/" element={<Home />} />
+
         {/* Public Routes */}
         <Route element={<PublicLayout />}>
-          <Route path="/" element={<Home />} />
           <Route path="/programs" element={<Programs />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
