@@ -222,7 +222,7 @@ const Programs = () => {
                                                         <p className="text-[11px] tracking-widest text-indigo-300/70 uppercase font-bold mb-1">Fee</p>
                                                         <p className="text-2xl font-black text-white">₹{prog.fee}</p>
                                                     </div>
-                                                    <a href="https://forms.gle/gnFNyf6JbciYNSqy8" target="_blank" rel="noopener noreferrer" className="group px-6 py-3 bg-indigo-600 text-white text-base font-bold rounded-xl hover:bg-indigo-500 hover:shadow-[0_0_20px_rgba(99,102,241,0.6)] transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 focus:ring-offset-[#0B0F19] flex items-center hover:scale-[1.05]">
+                                                    <a href="https://forms.gle/VfspwyCfBU6FESDn6" target="_blank" rel="noopener noreferrer" className="group px-6 py-3 bg-indigo-600 text-white text-base font-bold rounded-xl hover:bg-indigo-500 hover:shadow-[0_0_20px_rgba(99,102,241,0.6)] transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 focus:ring-offset-[#0B0F19] flex items-center hover:scale-[1.05]">
                                                         <span>Apply Now</span>
                                                         <ArrowRight size={18} className="ml-2 transition-transform duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:translate-x-1.5" />
                                                     </a>

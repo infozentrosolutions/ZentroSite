@@ -324,7 +324,7 @@ const Home = () => {
                             </p>
 
                             <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row md:items-start">
-                                <a href="https://forms.gle/gnFNyf6JbciYNSqy8" target="_blank" rel="noreferrer" className="hero-btn liquid-glass inline-flex w-full items-center justify-center rounded-xl bg-indigo-600 px-8 py-3.5 text-lg font-bold text-white shadow-xl shadow-indigo-600/20 transition-all duration-300 hover:-translate-y-1 hover:bg-indigo-500 sm:w-auto">
+                                <a href="https://forms.gle/VfspwyCfBU6FESDn6" target="_blank" rel="noreferrer" className="hero-btn liquid-glass inline-flex w-full items-center justify-center rounded-xl bg-indigo-600 px-8 py-3.5 text-lg font-bold text-white shadow-xl shadow-indigo-600/20 transition-all duration-300 hover:-translate-y-1 hover:bg-indigo-500 sm:w-auto">
                                     Apply for Internship <ArrowRight className="ml-2 w-5 h-5" />
                                 </a>
                                 <Link to="/programs" className="hero-btn liquid-glass inline-flex w-full items-center justify-center rounded-xl border border-white/10 bg-white/5 px-8 py-3.5 text-lg font-bold text-white shadow-sm transition-all duration-300 hover:bg-white/10 sm:w-auto">
@@ -650,7 +650,7 @@ const Home = () => {
                                 <Link to="/programs" className="inline-flex items-center rounded-full bg-indigo-600 px-6 py-3 font-semibold text-white transition-transform hover:-translate-y-0.5">
                                     Full Programs Page <ArrowRight className="ml-2 w-4 h-4" />
                                 </Link>
-                                <a href="https://forms.gle/gnFNyf6JbciYNSqy8" target="_blank" rel="noreferrer" className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-6 py-3 font-semibold text-white transition-transform hover:-translate-y-0.5">
+                                <a href="https://forms.gle/VfspwyCfBU6FESDn6" target="_blank" rel="noreferrer" className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-6 py-3 font-semibold text-white transition-transform hover:-translate-y-0.5">
                                     Apply Now
                                 </a>
                             </div>
