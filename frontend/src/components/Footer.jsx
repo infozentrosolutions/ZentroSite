@@ -51,7 +51,7 @@ const Footer = () => {
                                 <Phone size={16} className="text-primary" /> <span>+91 9597504603</span>
                             </li>
                             <li className="flex items-start space-x-3">
-                                <MapPin size={16} className="text-primary mt-1" /> <span>435, Kanthasami Puthur, Malliyakarai, Attur, Salem District, Tamil Nadu - 636107</span>
+                                <MapPin size={16} className="text-primary mt-1" /> <span>Attur, Salem District, Tamil Nadu - 636107</span>
                             </li>
                         </ul>
                     </div>

@@ -10,10 +10,13 @@ import Home from './pages/common/Home';
 import Programs from './pages/common/Programs';
 import About from './pages/common/About';
 import Services from './pages/common/Services';
+import InternPeoples from './pages/common/InternPeoples';
+import InternPublicProfile from './pages/common/InternPublicProfile';
 import Projects from './pages/common/Projects';
 import Contact from './pages/common/Contact';
 import Quiz from './pages/common/Quiz';
 import NotFound from './pages/common/NotFound';
+import StudentPublicProfile from './pages/common/StudentPublicProfile';
 
 import Login from './pages/auth/Login';
 
@@ -77,12 +80,14 @@ function App() {
           <Route path="/programs" element={<Programs />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/intern-peoples" element={<InternPeoples />} />
+          <Route path="/intern-profile/:internId" element={<InternPublicProfile />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/quiz" element={<Quiz />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/login/admin" element={<Login />} />
           <Route path="/login/teacher" element={<Login />} />
+          <Route path="/student-profile/:studentId" element={<StudentPublicProfile />} />
         </Route>
 
         {/* Dashboard Routes */}

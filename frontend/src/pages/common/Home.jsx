@@ -74,7 +74,7 @@ const Home = () => {
     const contactPoints = [
         { label: 'Email', value: 'info.zentro.solutions@gmail.com', icon: Mail },
         { label: 'Phone', value: '+91 9597504603', icon: Phone },
-        { label: 'Location', value: 'Malliyakarai, Attur, Salem District, Tamil Nadu - 636107', icon: MapPin }
+        { label: 'Location', value: 'Attur, Salem District, Tamil Nadu - 636107', icon: MapPin }
     ];
 
     const sectionVariants = {

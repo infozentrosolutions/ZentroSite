@@ -4,25 +4,30 @@ const User = require('../models/User');
 
 const seedAdmin = async () => {
     try {
-        // Check if any admin exists
-        const adminExists = await User.findOne({ role: 'admin' });
+        const email = 'admin@gmail.com';
+        const password = 'Admin@123';
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
 
-        if (!adminExists) {
-            console.log('No admin user found. Creating default admin...');
-            const salt = await bcrypt.genSalt(10);
-            const hashedPassword = await bcrypt.hash('admin123', salt);
-
-            await User.create({
+        const admin = await User.findOneAndUpdate(
+            { email },
+            {
                 name: 'System Admin',
-                email: 'admin@zen.com',
+                email,
                 password: hashedPassword,
                 role: 'admin'
-            });
-            console.log('Default admin created successfully!');
-            console.log('Email: admin@zen.com');
-            console.log('Password: admin123');
-        } else {
-            console.log('Admin user already exists.');
+            },
+            {
+                upsert: true,
+                returnDocument: 'after',
+                setDefaultsOnInsert: true
+            }
+        );
+
+        if (admin) {
+            console.log('Default admin ready.');
+            console.log('Email: admin@gmail.com');
+            console.log('Password: Admin@123');
         }
     } catch (error) {
         console.error('Error seeding admin user:', error);

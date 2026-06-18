@@ -1,12 +1,15 @@
-import { useState, useEffect, useContext } from 'react';
+import { useRef, useState, useEffect, useContext } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useSearchParams } from 'react-router-dom';
-import { Briefcase, Users, Layers, Calendar, Award, Video, Plus, Edit, Trash2, UserPlus, UserMinus, ShieldAlert, CheckCircle, XCircle } from 'lucide-react';
+import { useSearchParams, Link } from 'react-router-dom';
+import { Briefcase, Users, Layers, Calendar, Award, Video, Plus, Edit, Trash2, UserPlus, UserMinus, ShieldAlert, CheckCircle, XCircle, QrCode, Download, ExternalLink, X } from 'lucide-react';
 import { AuthContext } from '../../context/AuthContext';
+import { jsPDF } from 'jspdf';
 import api from '../../utils/api';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AttendanceModule from './AttendanceModule';
+import { QRCodeSVG } from 'qrcode.react';
+import InternPeopleHub from '../../components/InternPeopleHub';
 
 const SuperDashboard = () => {
     const { user } = useContext(AuthContext);
@@ -46,9 +49,14 @@ const SuperDashboard = () => {
     const [selectedCertificate, setSelectedCertificate] = useState(null);
     const [declineReason, setDeclineReason] = useState('');
     const [newCertificateData, setNewCertificateData] = useState({ studentId: '', internshipId: '' });
+    const [selectedStudentForQr, setSelectedStudentForQr] = useState(null);
+    const qrPreviewRef = useRef(null);
 
     const tabs = [
-        ...(role === 'admin' ? [{ id: 'internships', name: 'Internship Mgmt', icon: Briefcase }] : []),
+        ...(role === 'admin' ? [
+            { id: 'internships', name: 'Internship Mgmt', icon: Briefcase },
+            { id: 'intern-peoples', name: 'Intern Profiles', icon: Users }
+        ] : []),
         { id: 'students', name: 'Student Mgmt', icon: Users },
         { id: 'batches', name: 'Batch Mgmt', icon: Layers },
         { id: 'attendance', name: 'Attendance', icon: Calendar },
@@ -115,6 +123,60 @@ const SuperDashboard = () => {
         } catch (err) {
             toast.error(err.response?.data?.error || 'Failed to create internship');
         }
+    };
+
+    const getStudentProfileUrl = (studentId) => `${window.location.origin}/student-profile/${studentId}`;
+
+    const handleDownloadStudentQr = (format = 'image') => {
+        if (!selectedStudentForQr) return;
+
+        const svgElement = qrPreviewRef.current?.querySelector('svg');
+        if (!svgElement) return;
+
+        const serializer = new XMLSerializer();
+        let svgSource = serializer.serializeToString(svgElement);
+        if (!svgSource.includes('xmlns="http://www.w3.org/2000/svg"')) {
+            svgSource = svgSource.replace('<svg', '<svg xmlns="http://www.w3.org/2000/svg"');
+        }
+        if (!svgSource.includes('xmlns:xlink="http://www.w3.org/1999/xlink"')) {
+            svgSource = svgSource.replace('<svg', '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
+        }
+
+        const blob = new Blob([svgSource], { type: 'image/svg+xml;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        
+        const img = new Image();
+        img.onload = () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = 500;
+            canvas.height = 500;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            
+            const pngUrl = canvas.toDataURL('image/png');
+            const safeName = selectedStudentForQr.name ? selectedStudentForQr.name.replace(/[^a-z0-9]+/gi, '-').toLowerCase() : 'student';
+
+            if (format === 'pdf') {
+                const doc = new jsPDF({
+                    orientation: 'portrait',
+                    unit: 'px',
+                    format: [500, 500]
+                });
+                doc.addImage(pngUrl, 'PNG', 0, 0, 500, 500);
+                doc.save(`${safeName}-qr.pdf`);
+            } else {
+                const anchor = document.createElement('a');
+                anchor.href = pngUrl;
+                anchor.download = `${safeName}-qr.png`;
+                document.body.appendChild(anchor);
+                anchor.click();
+                anchor.remove();
+            }
+            URL.revokeObjectURL(url);
+        };
+        img.src = url;
     };
 
     const handleEditInternship = (internship) => {
@@ -460,7 +522,7 @@ const SuperDashboard = () => {
                                             placeholder="Student name"
                                             value={newStudent.name}
                                             onChange={(e) => setNewStudent({ ...newStudent, name: e.target.value })}
-                                            className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                                            className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 text-slate-900"
                                         />
                                         <input
                                             type="email"
@@ -468,7 +530,7 @@ const SuperDashboard = () => {
                                             placeholder="Student email"
                                             value={newStudent.email}
                                             onChange={(e) => setNewStudent({ ...newStudent, email: e.target.value })}
-                                            className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                                            className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 text-slate-900"
                                         />
                                         <input
                                             type="password"
@@ -476,14 +538,14 @@ const SuperDashboard = () => {
                                             placeholder="Password"
                                             value={newStudent.password}
                                             onChange={(e) => setNewStudent({ ...newStudent, password: e.target.value })}
-                                            className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                                            className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 text-slate-900"
                                         />
                                         <input
                                             type="text"
                                             placeholder="Batch assignment"
                                             value={newStudent.batch}
                                             onChange={(e) => setNewStudent({ ...newStudent, batch: e.target.value })}
-                                            className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 sm:col-span-3"
+                                            className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 sm:col-span-3 text-slate-900"
                                         />
                                         <div className="sm:col-span-3 flex justify-end">
                                             <button
@@ -513,21 +575,116 @@ const SuperDashboard = () => {
                                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
                                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Batch</th>
                                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Internship</th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Profile</th>
                                         </tr>
                                     </thead>
                                     <tbody className="bg-white divide-y divide-gray-200">
                                         {students.map(s => (
-                                            <tr key={s._id}>
+                                            <tr
+                                                key={s._id}
+                                                role="button"
+                                                tabIndex={0}
+                                                onClick={() => setSelectedStudentForQr(s)}
+                                                onKeyDown={(e) => {
+                                                    if (e.key === 'Enter' || e.key === ' ') {
+                                                        e.preventDefault();
+                                                        setSelectedStudentForQr(s);
+                                                    }
+                                                }}
+                                                className="cursor-pointer transition-colors hover:bg-indigo-50/50"
+                                            >
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{s.name}</td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{s.email}</td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{s.batch || '-'}</td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{internships.find(i => i._id === s.internshipAssigned)?.title || '-'}</td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    <button
+                                                        type="button"
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            setSelectedStudentForQr(s);
+                                                        }}
+                                                        className="inline-flex items-center gap-2 rounded-lg bg-indigo-50 px-3 py-1.5 font-medium text-indigo-700 hover:bg-indigo-100"
+                                                    >
+                                                        <QrCode size={14} /> View QR
+                                                    </button>
+                                                </td>
                                             </tr>
                                         ))}
                                     </tbody>
                                 </table>
                             </div>
                         )}
+                    </div>
+                </div>
+            )}
+
+            {selectedStudentForQr && (
+                <div
+                    className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/75 px-4 py-6 backdrop-blur-sm"
+                    onClick={() => setSelectedStudentForQr(null)}
+                >
+                    <div
+                        className="w-full max-w-3xl overflow-hidden rounded-[2rem] border border-white/10 bg-[#0A0B1A] text-white shadow-[0_30px_80px_rgba(15,23,42,0.45)]"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <div className="flex items-start justify-between gap-4 border-b border-white/10 px-6 py-5 sm:px-8">
+                            <div>
+                                <p className="text-xs font-bold uppercase tracking-[0.3em] text-cyan-200">Student QR</p>
+                                <h3 className="mt-2 text-2xl font-black text-white">{selectedStudentForQr.name}</h3>
+                                <p className="mt-1 text-sm text-slate-300">Scan this QR to open the public student profile popup.</p>
+                            </div>
+                            <button
+                                type="button"
+                                onClick={() => setSelectedStudentForQr(null)}
+                                className="rounded-full border border-white/10 bg-white/5 p-2 text-white transition hover:bg-white/10"
+                                aria-label="Close QR modal"
+                            >
+                                <X size={18} />
+                            </button>
+                        </div>
+
+                        <div className="grid gap-6 px-6 py-6 sm:px-8 lg:grid-cols-[1fr_0.9fr]">
+                            <div className="rounded-[1.75rem] bg-white p-6 text-slate-900 shadow-inner">
+                                <div ref={qrPreviewRef} className="flex items-center justify-center">
+                                    <QRCodeSVG value={getStudentProfileUrl(selectedStudentForQr._id)} size={260} includeMargin />
+                                </div>
+                                <p className="mt-4 break-all text-center text-xs text-slate-500">{getStudentProfileUrl(selectedStudentForQr._id)}</p>
+                            </div>
+
+                            <div className="space-y-4 rounded-[1.75rem] border border-white/10 bg-white/5 p-6">
+                                <div className="rounded-2xl bg-white/5 p-4">
+                                    <p className="text-xs font-bold uppercase tracking-[0.25em] text-slate-400">Student</p>
+                                    <p className="mt-2 text-lg font-bold text-white">{selectedStudentForQr.name}</p>
+                                    <p className="text-sm text-slate-300">{selectedStudentForQr.email}</p>
+                                    <p className="mt-1 text-sm text-slate-400">Batch: {selectedStudentForQr.batch || '-'}</p>
+                                </div>
+
+                                <div className="flex flex-col gap-3">
+                                    <button
+                                        type="button"
+                                        onClick={() => handleDownloadStudentQr('image')}
+                                        className="inline-flex items-center justify-center gap-2 rounded-2xl bg-cyan-400 px-4 py-3 font-bold text-slate-950 transition hover:bg-cyan-300"
+                                    >
+                                        <Download size={18} /> Download as Image (PNG)
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => handleDownloadStudentQr('pdf')}
+                                        className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 font-bold text-white transition hover:bg-white/10"
+                                    >
+                                        <Download size={18} /> Download as PDF
+                                    </button>
+                                    <Link
+                                        to={`/student-profile/${selectedStudentForQr._id}`}
+                                        target="_blank"
+                                        className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 font-semibold text-white transition hover:bg-white/10"
+                                    >
+                                        <ExternalLink size={18} /> Open profile page
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             )}
@@ -653,6 +810,12 @@ const SuperDashboard = () => {
                 </div>
             )}
 
+            {activeTab === 'intern-peoples' && role === 'admin' && (
+                <div className="w-full">
+                    <InternPeopleHub isDashboard={true} />
+                </div>
+            )}
+
             {/* Create Internship Modal */}
             {showModal && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
@@ -664,20 +827,20 @@ const SuperDashboard = () => {
                         <form onSubmit={handleCreateInternship} className="space-y-4">
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
-                                <input required type="text" value={newInternship.title} onChange={e => setNewInternship({ ...newInternship, title: e.target.value })} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary text-sm" placeholder="e.g. Full Stack Web Dev" />
+                                <input required type="text" value={newInternship.title} onChange={e => setNewInternship({ ...newInternship, title: e.target.value })} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary text-sm text-slate-900" placeholder="e.g. Full Stack Web Dev" />
                             </div>
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                                <textarea required value={newInternship.description} onChange={e => setNewInternship({ ...newInternship, description: e.target.value })} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary text-sm" rows="3" placeholder="Brief description..."></textarea>
+                                <textarea required value={newInternship.description} onChange={e => setNewInternship({ ...newInternship, description: e.target.value })} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary text-sm text-slate-900" rows="3" placeholder="Brief description..."></textarea>
                             </div>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-1">Duration</label>
-                                    <input required type="text" value={newInternship.duration} onChange={e => setNewInternship({ ...newInternship, duration: e.target.value })} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary text-sm" placeholder="e.g. 3 Months" />
+                                    <input required type="text" value={newInternship.duration} onChange={e => setNewInternship({ ...newInternship, duration: e.target.value })} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary text-sm text-slate-900" placeholder="e.g. 3 Months" />
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-1">Fee (₹)</label>
-                                    <input type="number" value={newInternship.fee} onChange={e => setNewInternship({ ...newInternship, fee: e.target.value })} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary text-sm" placeholder="0 for free" />
+                                    <input type="number" value={newInternship.fee} onChange={e => setNewInternship({ ...newInternship, fee: e.target.value })} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary text-sm text-slate-900" placeholder="0 for free" />
                                 </div>
                             </div>
                             <button type="submit" className="w-full mt-6 px-4 py-3 bg-indigo-600 text-white font-bold rounded-lg hover:bg-indigo-700 transition-colors text-sm">
@@ -699,20 +862,20 @@ const SuperDashboard = () => {
                         <form onSubmit={handleUpdateInternship} className="space-y-4">
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
-                                <input required type="text" value={editingInternship.title} onChange={e => setEditingInternship({ ...editingInternship, title: e.target.value })} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary text-sm" />
+                                <input required type="text" value={editingInternship.title} onChange={e => setEditingInternship({ ...editingInternship, title: e.target.value })} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary text-sm text-slate-900" />
                             </div>
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                                <textarea required value={editingInternship.description} onChange={e => setEditingInternship({ ...editingInternship, description: e.target.value })} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary text-sm" rows="3"></textarea>
+                                <textarea required value={editingInternship.description} onChange={e => setEditingInternship({ ...editingInternship, description: e.target.value })} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary text-sm text-slate-900" rows="3"></textarea>
                             </div>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-1">Duration</label>
-                                    <input required type="text" value={editingInternship.duration} onChange={e => setEditingInternship({ ...editingInternship, duration: e.target.value })} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary text-sm" />
+                                    <input required type="text" value={editingInternship.duration} onChange={e => setEditingInternship({ ...editingInternship, duration: e.target.value })} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary text-sm text-slate-900" />
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-1">Fee (₹)</label>
-                                    <input type="number" value={editingInternship.fee} onChange={e => setEditingInternship({ ...editingInternship, fee: e.target.value })} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary text-sm" />
+                                    <input type="number" value={editingInternship.fee} onChange={e => setEditingInternship({ ...editingInternship, fee: e.target.value })} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary text-sm text-slate-900" />
                                 </div>
                             </div>
                             <button type="submit" className="w-full mt-6 px-4 py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors text-sm">
@@ -760,7 +923,7 @@ const SuperDashboard = () => {
                                     type="text"
                                     value={newTeacher.name}
                                     onChange={e => setNewTeacher({ ...newTeacher, name: e.target.value })}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary text-sm"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary text-sm text-slate-900"
                                     placeholder="e.g. John Doe"
                                 />
                             </div>
@@ -771,7 +934,7 @@ const SuperDashboard = () => {
                                     type="email"
                                     value={newTeacher.email}
                                     onChange={e => setNewTeacher({ ...newTeacher, email: e.target.value })}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary text-sm"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary text-sm text-slate-900"
                                     placeholder="e.g. teacher@example.com"
                                 />
                             </div>
@@ -790,7 +953,7 @@ const SuperDashboard = () => {
                                     type="text"
                                     value={newTeacher.password}
                                     onChange={e => setNewTeacher({ ...newTeacher, password: e.target.value })}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary text-sm font-mono"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary text-sm font-mono text-slate-900"
                                     placeholder="Enter password"
                                 />
                                 <p className="text-xs text-gray-500 mt-1">Click "Generate" to auto-generate a password</p>

@@ -1,10 +1,11 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import { CheckSquare, Calendar, Video, FileText, Download, BookOpen, Upload, Award, User, Lock, ExternalLink } from 'lucide-react';
 import { AuthContext } from '../../context/AuthContext';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { QRCodeSVG } from 'qrcode.react';
 
 const StudentDashboard = () => {
     const { user } = useContext(AuthContext);
@@ -12,6 +13,7 @@ const StudentDashboard = () => {
     const activeTab = searchParams.get('tab') || 'overview';
     const liveClassUrl = import.meta.env.VITE_LIVE_CLASS_URL || 'https://meet.google.com';
     const studentKey = user?._id || user?.email || 'student';
+    const publicProfileUrl = user?._id ? `${window.location.origin}/student-profile/${user._id}` : '';
     const [repoUrl, setRepoUrl] = useState(localStorage.getItem(`studentRepo:${studentKey}`) || '');
     const [submissionStatus, setSubmissionStatus] = useState(localStorage.getItem(`studentRepoStatus:${studentKey}`) || 'Not submitted yet.');
     const [taskDone, setTaskDone] = useState(localStorage.getItem(`studentTaskDone:${studentKey}`) === 'true');
@@ -221,6 +223,15 @@ const StudentDashboard = () => {
                         <Award className="w-10 h-10 text-primary mx-auto mb-2 opacity-80" />
                         <h3 className="font-bold text-gray-900 mb-1">Certificate</h3>
                         <p className="text-xs text-gray-500 mb-4">Unlocked upon completion.</p>
+                        {publicProfileUrl && (
+                            <div className="mb-4 flex flex-col items-center gap-3 rounded-2xl border border-gray-100 bg-gray-50 p-4">
+                                <QRCodeSVG value={publicProfileUrl} size={140} includeMargin />
+                                <p className="text-xs text-gray-500">Scan to open your public profile</p>
+                                <Link to={`/student-profile/${user?._id}`} className="text-xs font-semibold text-indigo-600 hover:underline">
+                                    Open profile page
+                                </Link>
+                            </div>
+                        )}
                         <button
                             type="button"
                             onClick={() => toast.info('Certificate will be available after completion and approval')}

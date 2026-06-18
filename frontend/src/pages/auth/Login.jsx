@@ -106,7 +106,7 @@ const Login = () => {
                                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                         <Mail className="h-5 w-5 text-gray-400" />
                                     </div>
-                                    <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="pl-10 w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all outline-none" placeholder={isStudentMode ? 'student@example.com' : 'info.zentro.solutions@gmail.com'} />
+                                            <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="pl-10 w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all outline-none text-slate-900" placeholder={isStudentMode ? 'student@example.com' : 'admin@gmail.com'} />
                                 </div>
                             </div>
                             <div>
@@ -115,7 +115,7 @@ const Login = () => {
                                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                         <Lock className="h-5 w-5 text-gray-400" />
                                     </div>
-                                    <input type={showPassword ? 'text' : 'password'} required value={password} onChange={(e) => setPassword(e.target.value)} className="pl-10 pr-12 w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all outline-none" placeholder="••••••••" />
+                                    <input type={showPassword ? 'text' : 'password'} required value={password} onChange={(e) => setPassword(e.target.value)} className="pl-10 pr-12 w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all outline-none text-slate-900" placeholder="••••••••" />
                                     <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400">
                                         {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                                     </button>
@@ -240,7 +240,7 @@ const Login = () => {
                                             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none transition-colors group-focus-within:text-violet-600">
                                                 <Mail className="h-5 w-5 text-gray-400 group-focus-within:text-violet-500" />
                                             </div>
-                                            <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="pl-12 w-full px-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500 focus:bg-white transition-all outline-none font-medium text-gray-900 placeholder-gray-400" placeholder="info.zentro.solutions@gmail.com" />
+                                            <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="pl-12 w-full px-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500 focus:bg-white transition-all outline-none font-medium text-gray-900 placeholder-gray-400" placeholder="admin@gmail.com" />
                                         </div>
                                     </div>
                                     <div>

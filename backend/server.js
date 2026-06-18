@@ -7,6 +7,8 @@ const internshipRoutes = require('./routes/internshipRoutes');
 const userRoutes = require('./routes/userRoutes');
 const certificateRoutes = require('./routes/certificateRoutes');
 const attendanceRoutes = require('./routes/attendanceRoutes');
+const internPeopleRoutes = require('./routes/internPeopleRoutes');
+const publicRoutes = require('./routes/publicRoutes');
 const seedAdmin = require('./utils/seedAdmin'); // Import seed utility
 
 // Load env vars
@@ -52,6 +54,8 @@ app.use('/api/internships', internshipRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/certificates', certificateRoutes);
 app.use('/api/attendance', attendanceRoutes);
+app.use('/api/interns', internPeopleRoutes);
+app.use('/api/public', publicRoutes);
 
 const PORT = process.env.PORT || 5000;
 

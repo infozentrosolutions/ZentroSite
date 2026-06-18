@@ -1,4 +1,4 @@
-import { Laptop, Code, GraduationCap, Brush, Rocket, Lock } from 'lucide-react';
+import { Laptop, Code, GraduationCap, Brush, Rocket, Lock, Users } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -31,13 +31,11 @@ const Services = () => {
                 <meta name="keywords" content="software development services, web design salem, corporate training, zentro solutions services" />
                 <link rel="canonical" href="https://zentrosolution.fun/services" />
 
-                {/* Open Graph / Social Media */}
                 <meta property="og:title" content="Zentro Solutions Services" />
                 <meta property="og:description" content="Explore our professional software development and training services." />
                 <meta property="og:url" content="https://zentrosolution.fun/services" />
                 <meta property="og:type" content="website" />
 
-                {/* Breadcrumb Schema */}
                 <script type="application/ld+json">
                     {`
 {
@@ -102,18 +100,14 @@ const Services = () => {
                     ))}
                 </div>
 
-                {/* Freelancing Banner */}
                 <ScrollReveal className="mt-28 relative rounded-3xl overflow-hidden bg-[#0A0B1A] border border-white/10 shadow-2xl">
-                    {/* Background Universe/Space Effect */}
                     <div className="absolute inset-0">
                         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-violet-900/40 via-[#0A0B1A] to-[#0A0B1A]"></div>
-                        {/* Soft background glows */}
                         <div className="absolute top-10 right-20 w-80 h-80 bg-indigo-500/20 rounded-full mix-blend-screen filter blur-[100px] pointer-events-none"></div>
                         <div className="absolute bottom-10 right-60 w-80 h-80 bg-purple-500/20 rounded-full mix-blend-screen filter blur-[100px] pointer-events-none"></div>
                     </div>
 
                     <div className="relative z-10 px-8 py-16 md:p-16 flex flex-col md:flex-row items-center justify-between gap-12">
-                        {/* Left Content */}
                         <div className="w-full md:w-1/2 text-center md:text-left">
                             <h2 className="text-4xl md:text-5xl font-semibold text-white mb-4 leading-tight">
                                 We also build and deliver <br />
@@ -127,11 +121,8 @@ const Services = () => {
                             </Link>
                         </div>
 
-                        {/* Right Content - Abstract Logo Graphic */}
                         <div className="w-full md:w-1/2 relative flex justify-center items-center h-[200px] md:h-[300px]">
-                            {/* The Z Logo Abstract Recreation */}
                             <div className="relative w-64 h-64 flex items-center justify-center translate-x-4">
-                                {/* Central Z */}
                                 <div className="text-[12rem] font-black text-[#0A0B1A] select-none italic tracking-tighter leading-none"
                                     style={{
                                         fontFamily: 'serif',
@@ -140,11 +131,9 @@ const Services = () => {
                                     }}>
                                     Z
                                 </div>
-                                {/* Center Swoosh */}
                                 <div className="absolute w-[130%] h-10 bg-gradient-to-r from-blue-500 via-cyan-400 to-indigo-500 rounded-[100%] z-20 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-[80%] -rotate-6 shadow-[0_5px_15px_rgba(56,189,248,0.5)]"></div>
                                 <div className="absolute w-[130%] h-8 bg-[#0A0B1A] rounded-[100%] z-20 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-[40%] -rotate-6"></div>
 
-                                {/* Floating Icons */}
                                 <div className="absolute -top-4 -left-8 w-14 h-14 bg-[#20B2AA] rounded-xl flex items-center justify-center shadow-lg transform -rotate-12 animate-float z-30 ring-1 ring-white/20">
                                     <Code className="text-white w-7 h-7" />
                                 </div>
@@ -161,6 +150,12 @@ const Services = () => {
                         </div>
                     </div>
                 </ScrollReveal>
+
+                <div className="mt-20 flex justify-center">
+                    <Link to="/intern-peoples" className="inline-flex items-center gap-2 rounded-full bg-cyan-400 px-6 py-3 text-sm font-bold text-slate-950 transition-transform hover:-translate-y-0.5">
+                        <Users size={16} /> Open Intern Peoples
+                    </Link>
+                </div>
             </div>
         </div>
     );

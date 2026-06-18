@@ -104,7 +104,7 @@ const StudentLogin = () => {
                 <div className="mt-8 pt-6 border-t border-gray-800 text-center">
                     <p className="text-sm text-gray-400">
                         Staff member? {' '}
-                        <Link to="/login/admin" className="font-bold text-white hover:text-indigo-400 transition-colors underline">
+                        <Link to="/login" className="font-bold text-white hover:text-indigo-400 transition-colors underline">
                             Admin/Teacher Login here
                         </Link>
                     </p>

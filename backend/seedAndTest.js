@@ -12,9 +12,9 @@ const seedAdminAndTest = async () => {
         console.log('Connected.');
 
         // 1. Seed Admin
-        const adminEmail = 'superadmin' + Date.now() + '@test.com';
+        const adminEmail = 'admin@gmail.com';
         const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash('admin123', salt);
+        const hashedPassword = await bcrypt.hash('Admin@123', salt);
 
         const admin = await User.create({
             name: 'Super Admin',
@@ -32,7 +32,7 @@ const seedAdminAndTest = async () => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 email: adminEmail,
-                password: 'admin123'
+                password: 'Admin@123'
             })
         });
         const loginData = await loginRes.json();

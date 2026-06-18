@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const rawBaseURL = import.meta.env.VITE_API_URL || 'https://zentrosite.onrender.com/api';
+const rawBaseURL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:5000/api' : 'https://zentrosite.onrender.com/api');
 // Ensure the base URL always ends with /api
 const baseURL = rawBaseURL.endsWith('/api') ? rawBaseURL : rawBaseURL.replace(/\/$/, '') + '/api';
 

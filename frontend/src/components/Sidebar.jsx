@@ -23,6 +23,7 @@ const Sidebar = ({ onClose, isOpen = true }) => {
 
     const superLinks = [
         { id: 'internships', name: 'Internship Mgmt', icon: <Briefcase size={20} />, activeFor: ['admin'] },
+        { id: 'intern-peoples', name: 'Intern Profiles', icon: <Users size={20} />, activeFor: ['admin'] },
         { id: 'students', name: 'Student Mgmt', icon: <Users size={20} />, activeFor: ['admin', 'teacher'] },
         { id: 'batches', name: 'Batch Mgmt', icon: <Users size={20} />, activeFor: ['admin', 'teacher'] },
         { id: 'attendance', name: 'Attendance', icon: <Calendar size={20} />, activeFor: ['admin', 'teacher'] },
