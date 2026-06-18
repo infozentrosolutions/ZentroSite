@@ -122,8 +122,8 @@ const InternCard = ({ intern, canDelete, onDelete, onSelect }) => {
 };
 
 const InternPeopleHub = ({ isDashboard = false }) => {
-    const { user, logout } = useContext(AuthContext);
-    const isAdmin = user?.role === 'admin';
+    const { user } = useContext(AuthContext);
+    const isAdmin = isDashboard && user?.role === 'admin';
     const role = user?.role || '';
     const navigate = useNavigate();
 
@@ -417,28 +417,7 @@ const InternPeopleHub = ({ isDashboard = false }) => {
                         </p>
                     </div>
 
-                    <div className="flex flex-wrap gap-3">
-                        {user && (role === 'admin' || role === 'teacher') && (
-                            <button
-                                type="button"
-                                onClick={() => navigate(`/dashboard/${role}`)}
-                                className="inline-flex items-center gap-2 rounded-full bg-cyan-400 px-5 py-3 text-sm font-bold text-slate-950 transition-transform hover:-translate-y-0.5"
-                            >
-                                <Users size={16} />
-                                Staff Dashboard
-                            </button>
-                        )}
-                        {user && (
-                            <button
-                                type="button"
-                                onClick={logout}
-                                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-white/10"
-                            >
-                                <LogOut size={16} />
-                                Logout
-                            </button>
-                        )}
-                    </div>
+                    {/* Public page does not show staff dashboard or logout buttons here */}
                 </div>
 
                 {sectionOpen && (
