@@ -2,12 +2,13 @@ import { useContext, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as XLSX from 'xlsx';
 import { motion } from 'framer-motion';
-import { BadgeCheck, FileUp, Loader2, LogOut, Mail, Phone, Plus, RefreshCw, ShieldAlert, Trash2, Upload, UserCircle2, Users, QrCode, Download, ExternalLink, X } from 'lucide-react';
+import { BadgeCheck, FileUp, Loader2, LogOut, Mail, Phone, Plus, RefreshCw, ShieldAlert, Trash2, Upload, UserCircle2, Users, QrCode, Download, ExternalLink, X, Edit } from 'lucide-react';
 import { AuthContext } from '../context/AuthContext';
 import api from '../utils/api';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { QRCodeSVG } from 'qrcode.react';
+import { maskEmail, maskPhone } from '../utils/masking';
 
 const defaultInternForm = {
     name: '',
@@ -17,7 +18,8 @@ const defaultInternForm = {
     batch: '',
     stack: '',
     summary: '',
-    photoUrl: ''
+    photoUrl: '',
+    internId: ''
 };
 
 const sanitizeKey = (value) => String(value || '').toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -46,11 +48,12 @@ const normalizeExcelRow = (row) => {
         batch: getField(normalizedRow, ['batch', 'batchname']),
         stack: getField(normalizedRow, ['stack', 'skills', 'skillset', 'technology', 'domain']),
         summary: getField(normalizedRow, ['summary', 'description', 'about', 'profile']),
-        photoUrl: getField(normalizedRow, ['photourl', 'photo', 'image', 'avatar'])
+        photoUrl: getField(normalizedRow, ['photourl', 'photo', 'image', 'avatar']),
+        internId: getField(normalizedRow, ['internid', 'id', 'internno', 'rollno', 'studentno'])
     };
 };
 
-const InternCard = ({ intern, canDelete, onDelete, onSelect }) => {
+const InternCard = ({ intern, canDelete, onDelete, onSelect, onEdit }) => {
     const initials = intern?.name ? intern.name.split(' ').map(part => part[0]).join('').slice(0, 2).toUpperCase() : 'IN';
 
     return (
@@ -85,34 +88,49 @@ const InternCard = ({ intern, canDelete, onDelete, onSelect }) => {
                             <h3 className="text-lg font-extrabold leading-tight text-slate-950">{intern.name}</h3>
                             {intern.status === 'active' && <BadgeCheck size={16} className="text-emerald-500" />}
                         </div>
-                        <p className="text-sm font-medium text-indigo-700">{intern.role || 'Intern'}</p>
+                        <p className="text-sm font-medium text-indigo-700">{intern.role || 'Intern'}{intern.internId ? ` • ${intern.internId}` : ''}</p>
                         <p className="mt-1 text-sm text-slate-500">{intern.batch || 'Open Batch'}{intern.stack ? ` • ${intern.stack}` : ''}</p>
                     </div>
                 </div>
-                {canDelete && (
-                    <button
-                        type="button"
-                        onClick={(event) => {
-                            event.stopPropagation();
-                            onDelete(intern._id);
-                        }}
-                        className="rounded-full bg-red-50 p-2 text-red-600 transition-colors hover:bg-red-100"
-                        title="Remove intern"
-                    >
-                        <Trash2 size={16} />
-                    </button>
-                )}
+                <div className="flex gap-2">
+                    {onEdit && (
+                        <button
+                            type="button"
+                            onClick={(event) => {
+                                event.stopPropagation();
+                                onEdit(intern);
+                            }}
+                            className="rounded-full bg-indigo-50 p-2 text-indigo-600 transition-colors hover:bg-indigo-100"
+                            title="Edit intern"
+                        >
+                            <Edit size={16} />
+                        </button>
+                    )}
+                    {canDelete && (
+                        <button
+                            type="button"
+                            onClick={(event) => {
+                                event.stopPropagation();
+                                onDelete(intern._id);
+                            }}
+                            className="rounded-full bg-red-50 p-2 text-red-600 transition-colors hover:bg-red-100"
+                            title="Remove intern"
+                        >
+                            <Trash2 size={16} />
+                        </button>
+                    )}
+                </div>
             </div>
 
             <div className="relative mt-5 space-y-2 text-sm text-slate-600">
                 <div className="flex items-center gap-2">
                     <Mail size={14} className="text-indigo-600" />
-                    <span className="truncate">{intern.email}</span>
+                    <span className="truncate">{maskEmail(intern.email)}</span>
                 </div>
                 {intern.phone && (
                     <div className="flex items-center gap-2">
                         <Phone size={14} className="text-indigo-600" />
-                        <span>{intern.phone}</span>
+                        <span>{maskPhone(intern.phone)}</span>
                     </div>
                 )}
                 {intern.summary && <p className="pt-2 leading-relaxed text-slate-500">{intern.summary}</p>}
@@ -134,6 +152,7 @@ const InternPeopleHub = ({ isDashboard = false }) => {
     const [uploading, setUploading] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
     const [manualForm, setManualForm] = useState(defaultInternForm);
+    const [editingInternId, setEditingInternId] = useState(null);
 
     const stats = useMemo(() => ([
         { label: 'Active Profiles', value: internPeople.filter(person => person.status !== 'inactive').length },
@@ -165,17 +184,40 @@ const InternPeopleHub = ({ isDashboard = false }) => {
         }
     };
 
+    const handleEditClick = (intern) => {
+        setEditingInternId(intern._id);
+        setManualForm({
+            name: intern.name || '',
+            email: intern.email || '',
+            phone: intern.phone || '',
+            role: intern.role || 'Intern',
+            batch: intern.batch || '',
+            stack: intern.stack || '',
+            summary: intern.summary || '',
+            photoUrl: intern.photoUrl || '',
+            internId: intern.internId || ''
+        });
+    };
+
     const handleCreateIntern = async (event) => {
         event.preventDefault();
         setSavingIntern(true);
 
         try {
-            const response = await api.post('/interns', manualForm);
-            setInternPeople(prev => [response.data.data, ...prev]);
-            setManualForm(defaultInternForm);
-            toast.success('Intern profile added successfully');
+            if (editingInternId) {
+                const response = await api.put(`/interns/${editingInternId}`, manualForm);
+                setInternPeople(prev => prev.map(person => person._id === editingInternId ? response.data.data : person));
+                setEditingInternId(null);
+                setManualForm(defaultInternForm);
+                toast.success('Intern profile updated successfully');
+            } else {
+                const response = await api.post('/interns', manualForm);
+                setInternPeople(prev => [response.data.data, ...prev]);
+                setManualForm(defaultInternForm);
+                toast.success('Intern profile added successfully');
+            }
         } catch (error) {
-            toast.error(error.response?.data?.error || 'Failed to add intern profile');
+            toast.error(error.response?.data?.error || 'Failed to save intern profile');
         } finally {
             setSavingIntern(false);
         }
@@ -276,6 +318,7 @@ const InternPeopleHub = ({ isDashboard = false }) => {
                                         canDelete={true}
                                         onDelete={handleDeleteIntern}
                                         onSelect={handleCardClick}
+                                        onEdit={handleEditClick}
                                     />
                                 ))}
                             </div>
@@ -289,8 +332,8 @@ const InternPeopleHub = ({ isDashboard = false }) => {
                                     <Plus size={20} />
                                 </div>
                                 <div>
-                                    <h3 className="font-bold text-gray-900 text-base">Add Intern Profile</h3>
-                                    <p className="text-xs text-gray-500">Create a new profile manually.</p>
+                                    <h3 className="font-bold text-gray-900 text-base">{editingInternId ? 'Edit Intern Profile' : 'Add Intern Profile'}</h3>
+                                    <p className="text-xs text-gray-500">{editingInternId ? 'Update this profile manually.' : 'Create a new profile manually.'}</p>
                                 </div>
                             </div>
 
@@ -343,6 +386,13 @@ const InternPeopleHub = ({ isDashboard = false }) => {
                                         className="w-full rounded-xl border border-gray-200 bg-white px-3.5 py-2 text-sm text-slate-900 outline-none transition focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
                                     />
                                 </div>
+                                <input
+                                    type="text"
+                                    placeholder="Intern ID (e.g. zst-int-23)"
+                                    value={manualForm.internId}
+                                    onChange={(event) => setManualForm(prev => ({ ...prev, internId: event.target.value }))}
+                                    className="w-full rounded-xl border border-gray-200 bg-white px-3.5 py-2 text-sm text-slate-900 outline-none transition focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                                />
                                 <textarea
                                     rows="3"
                                     placeholder="Short summary"
@@ -357,14 +407,28 @@ const InternPeopleHub = ({ isDashboard = false }) => {
                                     onChange={(event) => setManualForm(prev => ({ ...prev, photoUrl: event.target.value }))}
                                     className="w-full rounded-xl border border-gray-200 bg-white px-3.5 py-2 text-sm text-slate-900 outline-none transition focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
                                 />
-                                <button
-                                    type="submit"
-                                    disabled={savingIntern}
-                                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-70"
-                                >
-                                    {savingIntern ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus size={16} />}
-                                    {savingIntern ? 'Saving...' : 'Add Profile'}
-                                </button>
+                                <div className="flex gap-2">
+                                    <button
+                                        type="submit"
+                                        disabled={savingIntern}
+                                        className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-70"
+                                    >
+                                        {savingIntern ? <Loader2 className="h-4 w-4 animate-spin" /> : editingInternId ? <BadgeCheck size={16} /> : <Plus size={16} />}
+                                        {savingIntern ? 'Saving...' : editingInternId ? 'Update Profile' : 'Add Profile'}
+                                    </button>
+                                    {editingInternId && (
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                setEditingInternId(null);
+                                                setManualForm(defaultInternForm);
+                                            }}
+                                            className="rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm font-bold text-slate-700 transition hover:bg-gray-150 shadow-sm"
+                                        >
+                                            Cancel
+                                        </button>
+                                    )}
+                                </div>
                             </div>
                         </form>
 
@@ -452,6 +516,7 @@ const InternPeopleHub = ({ isDashboard = false }) => {
                                             canDelete={isAdmin}
                                             onDelete={handleDeleteIntern}
                                             onSelect={handleCardClick}
+                                            onEdit={isAdmin ? handleEditClick : null}
                                         />
                                     ))}
                                 </div>
@@ -471,8 +536,8 @@ const InternPeopleHub = ({ isDashboard = false }) => {
                                             <Plus size={20} />
                                         </div>
                                         <div>
-                                            <h3 className="text-xl font-extrabold text-white">Add Intern</h3>
-                                            <p className="text-sm text-slate-300">Create a new profile manually.</p>
+                                            <h3 className="text-xl font-extrabold text-white">{editingInternId ? 'Edit Intern' : 'Add Intern'}</h3>
+                                            <p className="text-sm text-slate-300">{editingInternId ? 'Update this profile manually.' : 'Create a new profile manually.'}</p>
                                         </div>
                                     </div>
 
@@ -525,6 +590,13 @@ const InternPeopleHub = ({ isDashboard = false }) => {
                                                 className="w-full rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white outline-none transition focus:border-cyan-400"
                                             />
                                         </div>
+                                        <input
+                                            type="text"
+                                            placeholder="Intern ID (e.g. zst-int-23)"
+                                            value={manualForm.internId}
+                                            onChange={(event) => setManualForm(prev => ({ ...prev, internId: event.target.value }))}
+                                            className="w-full rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white outline-none transition focus:border-cyan-400"
+                                        />
                                         <textarea
                                             rows="4"
                                             placeholder="Short summary"
@@ -539,14 +611,28 @@ const InternPeopleHub = ({ isDashboard = false }) => {
                                             onChange={(event) => setManualForm(prev => ({ ...prev, photoUrl: event.target.value }))}
                                             className="w-full rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white outline-none transition focus:border-cyan-400"
                                         />
-                                        <button
-                                            type="submit"
-                                            disabled={savingIntern}
-                                            className="inline-flex items-center justify-center gap-2 rounded-2xl bg-emerald-400 px-4 py-3 font-bold text-slate-950 transition hover:bg-emerald-300 disabled:cursor-not-allowed disabled:opacity-70"
-                                        >
-                                            {savingIntern ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus size={16} />}
-                                            {savingIntern ? 'Saving...' : 'Add Intern'}
-                                        </button>
+                                        <div className="flex gap-3">
+                                            <button
+                                                type="submit"
+                                                disabled={savingIntern}
+                                                className="flex-1 inline-flex items-center justify-center gap-2 rounded-2xl bg-emerald-400 px-4 py-3 font-bold text-slate-955 transition hover:bg-emerald-300 disabled:cursor-not-allowed disabled:opacity-70"
+                                            >
+                                                {savingIntern ? <Loader2 className="h-4 w-4 animate-spin text-slate-950" /> : editingInternId ? <BadgeCheck size={16} className="text-slate-955" /> : <Plus size={16} className="text-slate-955" />}
+                                                {savingIntern ? 'Saving...' : editingInternId ? 'Update Intern' : 'Add Intern'}
+                                            </button>
+                                            {editingInternId && (
+                                                <button
+                                                    type="button"
+                                                    onClick={() => {
+                                                        setEditingInternId(null);
+                                                        setManualForm(defaultInternForm);
+                                                    }}
+                                                    className="rounded-2xl border border-white/10 bg-white/10 px-4 py-3 font-bold text-white transition hover:bg-white/15"
+                                                >
+                                                    Cancel
+                                                </button>
+                                            )}
+                                        </div>
                                     </div>
                                 </motion.form>
 

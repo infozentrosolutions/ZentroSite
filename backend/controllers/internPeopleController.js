@@ -14,6 +14,7 @@ const mapInternPayload = (payload = {}) => ({
     stack: normalizeString(payload.stack),
     summary: normalizeString(payload.summary),
     photoUrl: normalizeString(payload.photoUrl),
+    internId: normalizeString(payload.internId),
     status: payload.status === 'inactive' ? 'inactive' : 'active'
 });
 

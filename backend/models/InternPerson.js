@@ -37,6 +37,10 @@ const internPersonSchema = new mongoose.Schema({
         type: String,
         default: ''
     },
+    internId: {
+        type: String,
+        default: ''
+    },
     status: {
         type: String,
         enum: ['active', 'inactive'],

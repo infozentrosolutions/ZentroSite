@@ -5,6 +5,7 @@ import { Loader2, Mail, Phone, MapPin, ShieldCheck, ArrowLeft, Download } from '
 import { QRCodeSVG } from 'qrcode.react';
 import { jsPDF } from 'jspdf';
 import api from '../../utils/api';
+import { maskEmail, maskPhone } from '../../utils/masking';
 
 const InternPublicProfile = () => {
     const { internId } = useParams();
@@ -136,15 +137,23 @@ const InternPublicProfile = () => {
                                         <div className="rounded-2xl bg-slate-50 p-4">
                                             <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400">Email</p>
                                             <div className="mt-2 flex items-center gap-2 text-slate-700">
-                                                <Mail size={16} className="text-indigo-600" /> {intern?.email}
+                                                <Mail size={16} className="text-indigo-600" /> {maskEmail(intern?.email)}
                                             </div>
                                         </div>
                                         <div className="rounded-2xl bg-slate-50 p-4">
                                             <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400">Phone</p>
                                             <div className="mt-2 flex items-center gap-2 text-slate-700">
-                                                <Phone size={16} className="text-indigo-600" /> {intern?.phone || 'Not provided'}
+                                                <Phone size={16} className="text-indigo-600" /> {maskPhone(intern?.phone) || 'Not provided'}
                                             </div>
                                         </div>
+                                        {intern?.internId && (
+                                            <div className="rounded-2xl bg-slate-50 p-4">
+                                                <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400">Intern ID</p>
+                                                <div className="mt-2 flex items-center gap-2 text-slate-700 font-semibold">
+                                                    {intern.internId}
+                                                </div>
+                                            </div>
+                                        )}
                                         <div className="rounded-2xl bg-slate-50 p-4">
                                             <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400">Batch</p>
                                             <div className="mt-2 flex items-center gap-2 text-slate-700">

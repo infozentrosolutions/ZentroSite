@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import AttendanceModule from './AttendanceModule';
 import { QRCodeSVG } from 'qrcode.react';
 import InternPeopleHub from '../../components/InternPeopleHub';
+import { maskEmail } from '../../utils/masking';
 
 const SuperDashboard = () => {
     const { user } = useContext(AuthContext);
@@ -40,6 +41,7 @@ const SuperDashboard = () => {
     const [showStudentForm, setShowStudentForm] = useState(false);
     const [newStudent, setNewStudent] = useState({ name: '', email: '', password: '', batch: '' });
     const [studentSaving, setStudentSaving] = useState(false);
+    const [editingStudentId, setEditingStudentId] = useState(null);
 
     // Certificate Management State
     const [certificates, setCertificates] = useState([]);
@@ -272,28 +274,43 @@ const SuperDashboard = () => {
     const handleGenerateStudent = async (e) => {
         e.preventDefault();
 
-        if (!newStudent.name || !newStudent.email || !newStudent.password) {
-            toast.error('Please fill all fields');
+        if (!newStudent.name || !newStudent.email || (!editingStudentId && !newStudent.password)) {
+            toast.error('Please fill all required fields');
             return;
         }
 
         setStudentSaving(true);
 
         try {
-            const res = await api.post('/auth/register', {
-                name: newStudent.name,
-                email: newStudent.email,
-                password: newStudent.password,
-                batch: newStudent.batch,
-                role: 'student'
-            });
+            if (editingStudentId) {
+                const res = await api.put(`/users/${editingStudentId}`, {
+                    name: newStudent.name,
+                    email: newStudent.email,
+                    password: newStudent.password,
+                    batch: newStudent.batch
+                });
 
-            setStudents(prev => [{ ...res.data, role: 'student' }, ...prev]);
-            setNewStudent({ name: '', email: '', password: '', batch: '' });
-            setShowStudentForm(false);
-            toast.success('Student created successfully!');
+                setStudents(prev => prev.map(s => s._id === editingStudentId ? res.data.data : s));
+                setNewStudent({ name: '', email: '', password: '', batch: '' });
+                setEditingStudentId(null);
+                setShowStudentForm(false);
+                toast.success('Student updated successfully!');
+            } else {
+                const res = await api.post('/auth/register', {
+                    name: newStudent.name,
+                    email: newStudent.email,
+                    password: newStudent.password,
+                    batch: newStudent.batch,
+                    role: 'student'
+                });
+
+                setStudents(prev => [{ ...res.data, role: 'student' }, ...prev]);
+                setNewStudent({ name: '', email: '', password: '', batch: '' });
+                setShowStudentForm(false);
+                toast.success('Student created successfully!');
+            }
         } catch (err) {
-            toast.error(err.response?.data?.message || 'Failed to create student');
+            toast.error(err.response?.data?.message || err.response?.data?.error || 'Failed to save student');
         } finally {
             setStudentSaving(false);
         }
@@ -501,9 +518,9 @@ const SuperDashboard = () => {
                                 <div className="flex items-center justify-between gap-3">
                                     <div>
                                         <h3 className="font-semibold text-gray-900 flex items-center">
-                                            <UserPlus size={16} className="mr-2 text-primary" /> Add Student
+                                            <UserPlus size={16} className="mr-2 text-primary" /> {editingStudentId ? 'Edit Student Account' : 'Add Student'}
                                         </h3>
-                                        <p className="text-xs text-gray-500 mt-0.5">Create a student account manually.</p>
+                                        <p className="text-xs text-gray-500 mt-0.5">{editingStudentId ? 'Modify student account details manually.' : 'Create a student account manually.'}</p>
                                     </div>
                                     <button
                                         type="button"
@@ -534,8 +551,8 @@ const SuperDashboard = () => {
                                         />
                                         <input
                                             type="password"
-                                            required
-                                            placeholder="Password"
+                                            required={!editingStudentId}
+                                            placeholder={editingStudentId ? "Password (leave blank)" : "Password"}
                                             value={newStudent.password}
                                             onChange={(e) => setNewStudent({ ...newStudent, password: e.target.value })}
                                             className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 text-slate-900"
@@ -547,14 +564,27 @@ const SuperDashboard = () => {
                                             onChange={(e) => setNewStudent({ ...newStudent, batch: e.target.value })}
                                             className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 sm:col-span-3 text-slate-900"
                                         />
-                                        <div className="sm:col-span-3 flex justify-end">
+                                        <div className="sm:col-span-3 flex justify-end gap-2">
                                             <button
                                                 type="submit"
                                                 disabled={studentSaving}
                                                 className="px-4 py-2 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50"
                                             >
-                                                {studentSaving ? 'Adding...' : 'Add Student'}
+                                                {studentSaving ? 'Saving...' : editingStudentId ? 'Update Student' : 'Add Student'}
                                             </button>
+                                            {editingStudentId && (
+                                                <button
+                                                    type="button"
+                                                    onClick={() => {
+                                                        setEditingStudentId(null);
+                                                        setNewStudent({ name: '', email: '', password: '', batch: '' });
+                                                        setShowStudentForm(false);
+                                                    }}
+                                                    className="px-4 py-2 border border-gray-200 bg-white text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+                                                >
+                                                    Cancel
+                                                </button>
+                                            )}
                                         </div>
                                     </div>
                                 )}
@@ -575,7 +605,7 @@ const SuperDashboard = () => {
                                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
                                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Batch</th>
                                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Internship</th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Profile</th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody className="bg-white divide-y divide-gray-200">
@@ -594,20 +624,41 @@ const SuperDashboard = () => {
                                                 className="cursor-pointer transition-colors hover:bg-indigo-50/50"
                                             >
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{s.name}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{s.email}</td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{maskEmail(s.email)}</td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{s.batch || '-'}</td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{internships.find(i => i._id === s.internshipAssigned)?.title || '-'}</td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                    <button
-                                                        type="button"
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
-                                                            setSelectedStudentForQr(s);
-                                                        }}
-                                                        className="inline-flex items-center gap-2 rounded-lg bg-indigo-50 px-3 py-1.5 font-medium text-indigo-700 hover:bg-indigo-100"
-                                                    >
-                                                        <QrCode size={14} /> View QR
-                                                    </button>
+                                                    <div className="flex gap-2">
+                                                        <button
+                                                            type="button"
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                setSelectedStudentForQr(s);
+                                                            }}
+                                                            className="inline-flex items-center gap-2 rounded-lg bg-indigo-50 px-3 py-1.5 font-medium text-indigo-700 hover:bg-indigo-100"
+                                                        >
+                                                            <QrCode size={14} /> View QR
+                                                        </button>
+                                                        {role === 'admin' && (
+                                                            <button
+                                                                type="button"
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation();
+                                                                    setEditingStudentId(s._id);
+                                                                    setNewStudent({
+                                                                        name: s.name || '',
+                                                                        email: s.email || '',
+                                                                        password: '',
+                                                                        batch: s.batch || ''
+                                                                    });
+                                                                    setShowStudentForm(true);
+                                                                }}
+                                                                className="inline-flex items-center gap-2 rounded-lg bg-indigo-50 px-3 py-1.5 font-medium text-indigo-700 hover:bg-indigo-100"
+                                                            >
+                                                                <Edit size={14} /> Edit
+                                                            </button>
+                                                        )}
+                                                    </div>
                                                 </td>
                                             </tr>
                                         ))}
@@ -656,7 +707,7 @@ const SuperDashboard = () => {
                                 <div className="rounded-2xl bg-white/5 p-4">
                                     <p className="text-xs font-bold uppercase tracking-[0.25em] text-slate-400">Student</p>
                                     <p className="mt-2 text-lg font-bold text-white">{selectedStudentForQr.name}</p>
-                                    <p className="text-sm text-slate-300">{selectedStudentForQr.email}</p>
+                                    <p className="text-sm text-slate-300">{maskEmail(selectedStudentForQr.email)}</p>
                                     <p className="mt-1 text-sm text-slate-400">Batch: {selectedStudentForQr.batch || '-'}</p>
                                 </div>
 

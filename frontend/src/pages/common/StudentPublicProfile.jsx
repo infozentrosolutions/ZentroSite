@@ -5,6 +5,7 @@ import { Loader2, Mail, MapPin, ShieldCheck, ArrowLeft, Download } from 'lucide-
 import { QRCodeSVG } from 'qrcode.react';
 import { jsPDF } from 'jspdf';
 import api from '../../utils/api';
+import { maskEmail } from '../../utils/masking';
 
 const StudentPublicProfile = () => {
     const { studentId } = useParams();
@@ -131,7 +132,7 @@ const StudentPublicProfile = () => {
                                     <div className="rounded-2xl bg-slate-50 p-4">
                                         <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400">Email</p>
                                         <div className="mt-2 flex items-center gap-2 text-slate-700">
-                                            <Mail size={16} className="text-indigo-600" /> {student?.email}
+                                            <Mail size={16} className="text-indigo-600" /> {maskEmail(student?.email)}
                                         </div>
                                     </div>
                                     <div className="rounded-2xl bg-slate-50 p-4">
