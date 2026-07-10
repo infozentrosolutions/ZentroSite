@@ -92,13 +92,13 @@ const InternPublicProfile = () => {
     };
 
     return (
-        <div className="min-h-screen bg-[radial-gradient(circle_at_top,_#111827_0%,_#0f172a_40%,_#020617_100%)] px-3 py-6 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-[radial-gradient(circle_at_top,_#111827_0%,_#0f172a_40%,_#020617_100%)] px-3 pt-20 pb-8 sm:px-6 sm:pt-24 sm:pb-10 lg:px-8">
             <Helmet>
                 <title>{intern ? `${intern.name} | Zentro Solutions` : 'Intern Profile | Zentro Solutions'}</title>
                 <meta name="robots" content="index, follow" />
             </Helmet>
 
-            <div className="mx-auto flex min-h-[calc(100vh-5rem)] max-w-6xl items-center justify-center">
+            <div className="mx-auto w-full max-w-6xl">
                 <div className="w-full rounded-2xl sm:rounded-[2rem] border border-white/10 bg-white/95 p-3 sm:p-5 shadow-[0_30px_80px_rgba(15,23,42,0.35)] backdrop-blur lg:p-8">
                     <div className="mb-5 flex justify-start">
                         <Link to="/intern-peoples" className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-0.5">
