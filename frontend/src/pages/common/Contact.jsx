@@ -91,7 +91,7 @@ const Contact = () => {
                     className="text-center mb-16"
                 >
                     <span className="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 text-sm font-bold rounded-full mb-4 tracking-wider uppercase">Say Hello</span>
-                    <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Contact Us</h1>
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">Contact Us</h1>
                     <p className="text-xl text-gray-500 max-w-2xl mx-auto">Have questions about our internship programs? We're here to help.</p>
                 </motion.div>
 
@@ -101,16 +101,16 @@ const Contact = () => {
                         initial={{ opacity: 0, x: -60 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.7, delay: 0.2 }}
-                        className="bg-gradient-to-br from-indigo-700 to-violet-800 p-10 text-white flex flex-col justify-between"
+                        className="bg-gradient-to-br from-indigo-700 to-violet-800 p-6 sm:p-10 text-white flex flex-col justify-between"
                     >
                         <div>
                             <h3 className="text-3xl font-bold mb-6">Get in Touch</h3>
                             <p className="text-indigo-100 mb-10 leading-relaxed">Fill out the form and our team will get back to you within 24 hours.</p>
 
                             <div className="space-y-6">
-                                <div className="flex items-center space-x-4">
-                                    <Mail className="w-6 h-6 text-indigo-300" />
-                                    <span className="text-lg">info.zentro.solutions@gmail.com</span>
+                                <div className="flex items-start space-x-4">
+                                    <Mail className="w-5 h-5 text-indigo-300 shrink-0 mt-0.5" />
+                                    <span className="text-base break-all">info.zentro.solutions@gmail.com</span>
                                 </div>
                                 <div className="flex items-center space-x-4">
                                     <Phone className="w-6 h-6 text-indigo-300" />
@@ -138,7 +138,7 @@ const Contact = () => {
                         initial={{ opacity: 0, x: 60 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.7, delay: 0.3 }}
-                        className="p-10"
+                        className="p-6 sm:p-10"
                     >
                         <form ref={formRef} className="space-y-6" onSubmit={sendEmail}>
                             <div>

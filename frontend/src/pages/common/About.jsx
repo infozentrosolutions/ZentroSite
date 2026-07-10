@@ -48,7 +48,7 @@ const About = () => {
                     className="text-center mb-16 max-w-4xl mx-auto"
                 >
                     <span className="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 text-sm font-bold rounded-full mb-4 tracking-wider uppercase">Who We Are</span>
-                    <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">About Zentro Solutions</h1>
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-6">About Zentro Solutions</h1>
                     <p className="text-lg text-gray-600 leading-relaxed mb-4">
                         Zentro Solutions is a <strong>service-based software company</strong> and a <strong>student training institute</strong> based in Attur, Salem District, Tamil Nadu. We build software for clients and build skills in students — both with the same passion for quality and real-world impact.
                     </p>
@@ -74,10 +74,10 @@ const About = () => {
                             For clients, we deliver production-grade software. For students, we build real-world skills. Both, on real projects.
                         </p>
                         <p className="text-gray-500 mb-8 max-w-2xl mx-auto text-sm">Student training tracks include:</p>
-                        <div className="flex flex-wrap justify-center gap-4">
-                            {['Java Development', 'Python Programming', 'Web Development (HTML, CSS, JS)', 'MERN Stack Development', 'Software Project Engineering'].map(skill => (
-                                <span key={skill} className="px-5 py-2.5 bg-white text-primary font-semibold rounded-xl shadow-sm border border-gray-100 flex items-center">
-                                    <Code size={18} className="mr-2 opacity-70" /> {skill}
+                        <div className="flex flex-wrap justify-center gap-3">
+                            {['Java Development', 'Python Programming', 'Web Dev (HTML/CSS/JS)', 'MERN Stack', 'Software Engineering'].map(skill => (
+                                <span key={skill} className="px-4 py-2 bg-white text-primary text-sm font-semibold rounded-xl shadow-sm border border-gray-100 flex items-center gap-2">
+                                    <Code size={15} className="opacity-70 shrink-0" /> {skill}
                                 </span>
                             ))}
                         </div>
@@ -157,7 +157,7 @@ const About = () => {
                 </div>
 
                 {/* Commitment */}
-                <ScrollReveal delay={0.2} className="bg-gray-900 rounded-3xl p-10 md:p-16 text-center text-white relative overflow-hidden shadow-xl">
+                <ScrollReveal delay={0.2} className="bg-gray-900 rounded-3xl p-6 sm:p-10 md:p-16 text-center text-white relative overflow-hidden shadow-xl">
                     <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 rounded-full bg-primary opacity-20 blur-3xl"></div>
                     <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-accent opacity-20 blur-3xl"></div>
 

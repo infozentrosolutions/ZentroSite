@@ -92,22 +92,22 @@ const InternPublicProfile = () => {
     };
 
     return (
-        <div className="min-h-screen bg-[radial-gradient(circle_at_top,_#111827_0%,_#0f172a_40%,_#020617_100%)] px-4 py-10 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-[radial-gradient(circle_at_top,_#111827_0%,_#0f172a_40%,_#020617_100%)] px-3 py-6 sm:px-6 lg:px-8">
             <Helmet>
                 <title>{intern ? `${intern.name} | Zentro Solutions` : 'Intern Profile | Zentro Solutions'}</title>
                 <meta name="robots" content="index, follow" />
             </Helmet>
 
             <div className="mx-auto flex min-h-[calc(100vh-5rem)] max-w-6xl items-center justify-center">
-                <div className="w-full rounded-[2rem] border border-white/10 bg-white/95 p-4 shadow-[0_30px_80px_rgba(15,23,42,0.35)] backdrop-blur sm:p-6 lg:p-8">
+                <div className="w-full rounded-2xl sm:rounded-[2rem] border border-white/10 bg-white/95 p-3 sm:p-5 shadow-[0_30px_80px_rgba(15,23,42,0.35)] backdrop-blur lg:p-8">
                     <div className="mb-5 flex justify-start">
                         <Link to="/intern-peoples" className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-0.5">
                             <ArrowLeft size={16} /> Back to Intern Peoples
                         </Link>
                     </div>
 
-                    <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-                        <div className="rounded-[2rem] border border-slate-200 bg-white p-6 sm:p-8 shadow-[0_24px_60px_rgba(15,23,42,0.10)]">
+                    <div className="grid gap-4 grid-cols-1 lg:grid-cols-[1.1fr_0.9fr]">
+                        <div className="rounded-2xl sm:rounded-[2rem] border border-slate-200 bg-white p-4 sm:p-6 shadow-[0_24px_60px_rgba(15,23,42,0.10)]">
                             {loading ? (
                                 <div className="flex min-h-[260px] items-center justify-center text-slate-500">
                                     <Loader2 className="mr-2 h-5 w-5 animate-spin" /> Loading intern profile...
@@ -116,7 +116,7 @@ const InternPublicProfile = () => {
                                 <div className="rounded-2xl border border-red-100 bg-red-50 p-6 text-red-700">{error}</div>
                             ) : (
                                 <>
-                                    <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-4">
+                                    <div className="flex flex-col items-center text-center gap-4">
                                         <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-600 to-violet-700 text-2xl font-black text-white shadow-lg">
                                             {intern?.photoUrl ? (
                                                 <img src={intern.photoUrl} alt={intern.name} className="h-full w-full object-cover" />
@@ -133,7 +133,7 @@ const InternPublicProfile = () => {
                                         </div>
                                     </div>
 
-                                    <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                                    <div className="mt-6 grid gap-3 grid-cols-1 sm:grid-cols-2">
                                         <div className="rounded-2xl bg-slate-50 p-4">
                                             <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400">Email</p>
                                             <div className="mt-2 flex items-center gap-2 text-slate-700">
@@ -175,15 +175,15 @@ const InternPublicProfile = () => {
                             )}
                         </div>
 
-                        <div className="rounded-[2rem] border border-slate-200 bg-[#0A0B1A] p-8 text-white shadow-[0_24px_60px_rgba(15,23,42,0.20)]">
+                        <div className="rounded-2xl sm:rounded-[2rem] border border-slate-200 bg-[#0A0B1A] p-5 sm:p-8 text-white shadow-[0_24px_60px_rgba(15,23,42,0.20)]">
                             <p className="text-xs font-bold uppercase tracking-[0.3em] text-cyan-200">QR Code</p>
                             <h2 className="mt-3 text-2xl font-black">Scan to verify profile</h2>
                             <p className="mt-3 text-sm leading-6 text-slate-300">
                                 This QR opens the public intern profile page in the website.
                             </p>
 
-                            <div data-intern-qr-preview className="mt-8 flex items-center justify-center rounded-[1.75rem] bg-white p-6 shadow-inner">
-                                {profileUrl && <QRCodeSVG value={profileUrl} size={220} includeMargin />}
+                            <div data-intern-qr-preview className="mt-6 flex items-center justify-center rounded-[1.75rem] bg-white p-4 sm:p-6 shadow-inner">
+                                {profileUrl && <QRCodeSVG value={profileUrl} size={180} includeMargin />}
                             </div>
 
                             <button

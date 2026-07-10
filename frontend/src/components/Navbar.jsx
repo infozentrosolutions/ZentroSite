@@ -91,7 +91,7 @@ const Navbar = () => {
 
           {/* Mobile Menu Dropdown */}
           {isOpen && (
-            <div className="absolute top-20 right-0 w-[240px] bg-black rounded-3xl p-4 shadow-2xl border border-gray-800 lg:hidden flex flex-col space-y-2 origin-top-right mobile-menu">
+            <div className="absolute top-full left-0 right-0 bg-black rounded-b-2xl p-4 shadow-2xl border-t border-gray-800 lg:hidden flex flex-col space-y-2 mobile-menu z-50">
               {navLinks.map((link) => {
                 const isActive = location.pathname === link.path;
                 return (
