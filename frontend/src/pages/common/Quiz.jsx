@@ -72,8 +72,8 @@ const Quiz = ({ isEmbedded = false, onViewPrograms }) => {
 
             <div className={`max-w-xl w-full ${isEmbedded ? '' : 'mt-10'}`}>
                 <div className="text-center mb-10">
-                    <h2 className="text-3xl font-extrabold text-gray-900">Internship Finder Quiz</h2>
-                    <p className="mt-2 text-gray-600">Answer 5 quick questions to find your perfect tech match.</p>
+                    <h2 className={`text-3xl font-extrabold ${isEmbedded ? 'text-white' : 'text-gray-900'}`}>Internship Finder Quiz</h2>
+                    <p className={`mt-2 ${isEmbedded ? 'text-indigo-200' : 'text-gray-600'}`}>Answer 5 quick questions to find your perfect tech match.</p>
                 </div>
 
                 {!result ? (

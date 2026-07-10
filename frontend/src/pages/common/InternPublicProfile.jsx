@@ -107,7 +107,7 @@ const InternPublicProfile = () => {
                     </div>
 
                     <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-                        <div className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-[0_24px_60px_rgba(15,23,42,0.10)]">
+                        <div className="rounded-[2rem] border border-slate-200 bg-white p-6 sm:p-8 shadow-[0_24px_60px_rgba(15,23,42,0.10)]">
                             {loading ? (
                                 <div className="flex min-h-[260px] items-center justify-center text-slate-500">
                                     <Loader2 className="mr-2 h-5 w-5 animate-spin" /> Loading intern profile...
@@ -116,20 +116,20 @@ const InternPublicProfile = () => {
                                 <div className="rounded-2xl border border-red-100 bg-red-50 p-6 text-red-700">{error}</div>
                             ) : (
                                 <>
-                                    <div className="flex items-start gap-4">
-                                        <div className="flex h-20 w-20 items-center justify-center overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-600 to-violet-700 text-2xl font-black text-white shadow-lg">
+                                    <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-4">
+                                        <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-600 to-violet-700 text-2xl font-black text-white shadow-lg">
                                             {intern?.photoUrl ? (
                                                 <img src={intern.photoUrl} alt={intern.name} className="h-full w-full object-cover" />
                                             ) : (
                                                 intern?.name?.split(' ').map(part => part[0]).join('').slice(0, 2).toUpperCase() || 'IN'
                                             )}
                                         </div>
-                                        <div>
+                                        <div className="flex flex-col items-center sm:items-start">
                                             <span className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-700">
                                                 <ShieldCheck size={14} /> Verified Intern
                                             </span>
-                                            <h1 className="mt-3 text-3xl font-black text-slate-950">{intern?.name}</h1>
-                                            <p className="mt-1 text-slate-500">Public profile verification page for QR scanning.</p>
+                                            <h1 className="mt-3 text-2xl sm:text-3xl font-black text-slate-950 leading-tight">{intern?.name}</h1>
+                                            <p className="mt-1 text-sm text-slate-500">Public profile verification page for QR scanning.</p>
                                         </div>
                                     </div>
 

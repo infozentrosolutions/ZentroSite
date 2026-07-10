@@ -291,9 +291,9 @@ const AttendanceModule = () => {
                     </table>
                 </div>
                 {/* Pagination placeholder matching the design language */}
-                <div className="px-6 py-4 border-t border-gray-100 bg-gray-50/30 flex items-center justify-between">
-                    <span className="text-sm text-gray-500">Showing {filteredStudents.length} of {students.length} students</span>
-                    <div className="flex gap-1">
+                <div className="px-6 py-4 border-t border-gray-100 bg-gray-50/30 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <span className="text-sm text-gray-500 text-center sm:text-left">Showing {filteredStudents.length} of {students.length} students</span>
+                    <div className="flex gap-1 flex-wrap justify-center">
                         <button className="px-3 py-1 text-sm border border-gray-200 rounded-md bg-white text-gray-500 hover:bg-gray-50">Previous</button>
                         <button className="px-3 py-1 text-sm border border-indigo-500 rounded-md bg-indigo-50 text-indigo-700 font-medium">1</button>
                         <button className="px-3 py-1 text-sm border border-gray-200 rounded-md bg-white text-gray-500 hover:bg-gray-50">2</button>

@@ -469,7 +469,7 @@ const InternPeopleHub = ({ isDashboard = false }) => {
         <section className="mt-24 overflow-hidden rounded-[2rem] border border-slate-200 bg-[#0A0B1A] text-white shadow-[0_30px_80px_rgba(10,11,26,0.35)]">
             <ToastContainer position="top-right" autoClose={3500} />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(99,102,241,0.22),_transparent_34%),radial-gradient(circle_at_top_right,_rgba(14,165,233,0.18),_transparent_28%),linear-gradient(135deg,_rgba(10,11,26,1),_rgba(17,24,39,1))]" />
-            <div className="relative z-10 p-8 md:p-12">
+            <div className="relative z-10 p-4 sm:p-8 md:p-12">
                 <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
                     <div className="max-w-2xl">
                         <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-1 text-xs font-bold uppercase tracking-[0.25em] text-cyan-100">

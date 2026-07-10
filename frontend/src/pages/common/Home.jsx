@@ -1,10 +1,10 @@
-import { useLayoutEffect, useRef } from 'react';
+import { useState, useLayoutEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowRight, Code, Users, Award, Briefcase, ArrowDown, XCircle, CheckCircle, GraduationCap, Rocket, Star, Handshake, Mail, Phone, MapPin, ExternalLink } from 'lucide-react';
+import { ArrowRight, Code, Users, Award, Briefcase, ArrowDown, XCircle, CheckCircle, GraduationCap, Rocket, Star, Handshake, Mail, Phone, MapPin, ExternalLink, MoreVertical } from 'lucide-react';
 import './Home.css';
 import Footer from '../../components/Footer';
 
@@ -15,6 +15,7 @@ import moonImg from '../../assets/images (2).jpeg';
 gsap.registerPlugin(ScrollTrigger);
 
 const Home = () => {
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const comp = useRef(null);
     const heroRef = useRef(null);
     const problemRef = useRef(null);
@@ -229,6 +230,87 @@ const Home = () => {
                 </script>
             </Helmet>
 
+            <header className="fixed top-0 left-0 w-full z-50 bg-[#0A0B1A]/85 backdrop-blur-md border-b border-white/10 py-3.5 shadow-2xl">
+                <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between relative">
+                    <Link to="/" className="flex items-center gap-3 shrink-0">
+                        <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-white shadow-sm">
+                            <img src={logo} alt="Zentro Solutions" className="h-8 w-8 object-contain" />
+                        </div>
+                        <span className="text-sm sm:text-lg md:text-xl font-bold text-white tracking-tight">Zentro Solutions</span>
+                    </Link>
+
+                    <div className="hidden lg:flex items-center justify-center flex-1">
+                        <div className="bg-black/80 rounded-full px-1.5 py-1 flex items-center space-x-1 shadow-[0_0_15px_rgba(0,0,0,0.5)] border border-gray-800">
+                            {[
+                                { name: 'Home', path: '/' },
+                                { name: 'About', path: '/about' },
+                                { name: 'Services', path: '/services' },
+                                { name: 'Programs', path: '/programs' },
+                                { name: 'Projects', path: '/projects' },
+                                { name: 'Contact', path: '/contact' }
+                            ].map((link) => {
+                                const isActive = link.path === '/';
+                                return (
+                                    <Link
+                                        key={link.name}
+                                        to={link.path}
+                                        className={`text-sm font-medium transition-all px-4 py-1.5 rounded-full ${isActive ? 'bg-purple-600 text-white shadow-md' : 'text-gray-300 hover:text-white hover:bg-white/10'}`}
+                                    >
+                                        {link.name}
+                                    </Link>
+                                );
+                            })}
+                        </div>
+                    </div>
+
+                    <div className="flex items-center gap-2 shrink-0">
+                        <Link to="/login" className="hidden lg:flex items-center bg-white px-6 py-2 rounded-full text-sm font-bold text-black border-2 border-transparent hover:border-purple-600 hover:shadow-[0_0_15px_rgba(168,85,247,0.4)] transition-all">
+                            Login
+                        </Link>
+                        <button
+                            type="button"
+                            className="lg:hidden text-white hover:text-gray-300 p-2 rounded-full transition-colors"
+                            aria-label="Toggle menu"
+                            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                        >
+                            {mobileMenuOpen ? <XCircle size={24} /> : <MoreVertical size={24} />}
+                        </button>
+                    </div>
+
+                    {/* Mobile Menu Dropdown */}
+                    {mobileMenuOpen && (
+                        <div className="absolute top-full mt-3 right-0 w-[240px] bg-black/95 backdrop-blur-md rounded-3xl p-4 shadow-2xl border border-gray-800 lg:hidden flex flex-col space-y-2 origin-top-right z-50">
+                            {[
+                                { name: 'Home', path: '/' },
+                                { name: 'About', path: '/about' },
+                                { name: 'Services', path: '/services' },
+                                { name: 'Programs', path: '/programs' },
+                                { name: 'Projects', path: '/projects' },
+                                { name: 'Contact', path: '/contact' }
+                            ].map((link) => {
+                                const isActive = link.path === '/';
+                                return (
+                                    <Link
+                                        key={link.name}
+                                        to={link.path}
+                                        className={`p-3 font-medium transition-colors rounded-xl text-center ${isActive
+                                            ? 'bg-purple-600 text-white'
+                                            : 'text-gray-400 hover:text-white hover:bg-white/10'
+                                            }`}
+                                        onClick={() => setMobileMenuOpen(false)}
+                                    >
+                                        {link.name}
+                                    </Link>
+                                );
+                            })}
+                            <Link to="/login" onClick={() => setMobileMenuOpen(false)} className="bg-white text-black px-6 py-3 rounded-xl text-center font-bold mt-2 hover:bg-gray-200 shadow-sm">
+                                Login
+                            </Link>
+                        </div>
+                    )}
+                </nav>
+            </header>
+
             {/* 1. Hero Section */}
             <section ref={heroRef} className="hero-section-custom relative flex min-h-screen flex-col justify-center overflow-hidden text-white">
                 <motion.video
@@ -260,50 +342,6 @@ const Home = () => {
                             }}
                         />
                     ))}
-                </div>
-
-                <div className="relative z-10 px-4 sm:px-6 lg:px-12 pt-6">
-                    <nav className="nav-shell mx-auto flex max-w-7xl items-center justify-between px-4 py-2">
-                        <Link to="/" className="flex items-center gap-3 shrink-0">
-                            <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-white shadow-sm">
-                                <img src={logo} alt="Zentro Solutions" className="h-8 w-8 object-contain" />
-                            </div>
-                            <span className="text-sm sm:text-lg md:text-xl font-bold text-white tracking-tight">Zentro Solutions</span>
-                        </Link>
-
-                        <div className="hidden lg:flex items-center justify-center flex-1">
-                            <div className="bg-black rounded-full px-1.5 py-1 flex items-center space-x-1 shadow-[0_0_15px_rgba(0,0,0,0.5)] border border-gray-800">
-                                {[
-                                    { name: 'Home', path: '/' },
-                                    { name: 'About', path: '/about' },
-                                    { name: 'Services', path: '/services' },
-                                    { name: 'Programs', path: '/programs' },
-                                    { name: 'Projects', path: '/projects' },
-                                    { name: 'Contact', path: '/contact' }
-                                ].map((link) => {
-                                    const isActive = link.path === '/';
-                                    return (
-                                        <Link
-                                            key={link.name}
-                                            to={link.path}
-                                            className={`text-sm font-medium transition-all px-4 py-1.5 rounded-full ${isActive ? 'bg-purple-600 text-white shadow-md' : 'text-gray-300 hover:text-white hover:bg-white/10'}`}
-                                        >
-                                            {link.name}
-                                        </Link>
-                                    );
-                                })}
-                            </div>
-                        </div>
-
-                        <div className="flex items-center gap-2 shrink-0">
-                            <Link to="/login" className="hidden lg:flex items-center bg-white px-6 py-2 rounded-full text-sm font-bold text-black border-2 border-transparent hover:border-purple-600 hover:shadow-[0_0_15px_rgba(168,85,247,0.4)] transition-all">
-                                Login
-                            </Link>
-                            <button type="button" className="lg:hidden text-white hover:text-gray-300 p-2 rounded-full transition-colors" aria-label="Open menu">
-                                <ArrowDown size={24} />
-                            </button>
-                        </div>
-                    </nav>
                 </div>
 
                 <motion.div

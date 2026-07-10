@@ -98,7 +98,7 @@ const StudentDashboard = () => {
                     </div>
                     <h2 className="text-2xl font-bold text-gray-800 mb-2">MERN Stack Development</h2>
                     <p className="text-gray-500 mb-6">Mastering MongoDB, Express, React, and Node.js through practical projects.</p>
-                    <div className="flex gap-4">
+                    <div className="flex flex-wrap gap-2">
                         <span className="px-4 py-2 bg-indigo-50 text-indigo-700 font-semibold rounded-lg text-sm border border-indigo-100">Batch: {user?.batch || 'Assigned by admin'}</span>
                         <span className="px-4 py-2 bg-blue-50 text-blue-700 font-semibold rounded-lg text-sm border border-blue-100">Duration: 15 Days</span>
                     </div>
@@ -119,7 +119,7 @@ const StudentDashboard = () => {
 
             {/* 3. Join Live Class & 4. Attendance */}
             <div ref={sectionRefs.live} className="grid md:grid-cols-2 gap-6 scroll-mt-8">
-                <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex items-center justify-between">
+                <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
                         <div className="flex items-center mb-2">
                             <Video className="text-red-500 mr-2" size={24} />
@@ -127,7 +127,7 @@ const StudentDashboard = () => {
                         </div>
                         <p className="text-gray-500 text-sm">Join the daily interactive mentor session.</p>
                     </div>
-                    <button type="button" onClick={handleJoinClass} className="flex items-center px-6 py-3 bg-red-50 text-red-600 font-bold rounded-xl hover:bg-red-100 border border-red-100 transition-colors">
+                    <button type="button" onClick={handleJoinClass} className="w-full sm:w-auto flex items-center justify-center px-6 py-3 bg-red-50 text-red-600 font-bold rounded-xl hover:bg-red-100 border border-red-100 transition-colors">
                         Join Now <ExternalLink size={18} className="ml-2" />
                     </button>
                 </div>
