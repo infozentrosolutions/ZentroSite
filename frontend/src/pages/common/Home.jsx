@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowRight, Code, Users, Award, Briefcase, ArrowDown, XCircle, CheckCircle, GraduationCap, Rocket, Star, Handshake, Mail, Phone, MapPin, ExternalLink, MoreVertical } from 'lucide-react';
+import { ArrowRight, Code, Users, Award, Briefcase, ArrowDown, XCircle, CheckCircle, GraduationCap, Rocket, Star, Handshake, Mail, Phone, MapPin, ExternalLink, MoreVertical, Building2, BookOpen, Layers } from 'lucide-react';
 import './Home.css';
 import Footer from '../../components/Footer';
 
@@ -39,20 +39,20 @@ const Home = () => {
 
     const services = [
         {
-            title: 'Software Development',
-            desc: 'Custom software solutions tailored to business needs with a focus on scalability and reliability.',
+            title: 'Client Project Delivery',
+            desc: 'We take your business requirements and build production-grade software — web apps, portals, and platforms delivered on time.',
+            icon: Building2,
+            accent: 'from-violet-500 to-purple-600'
+        },
+        {
+            title: 'Web & Software Development',
+            desc: 'Modern, responsive websites and custom software built with React, Node.js, and cloud-ready architecture.',
             icon: Code,
-            accent: 'from-indigo-500 to-violet-500'
+            accent: 'from-indigo-500 to-blue-600'
         },
         {
-            title: 'Web Development',
-            desc: 'Modern, responsive websites and web apps built with React, Node.js, and cloud-friendly workflows.',
-            icon: Users,
-            accent: 'from-slate-900 to-slate-600'
-        },
-        {
-            title: 'Internship Training',
-            desc: 'Hands-on training programs designed to help students build real projects and industry-ready skills.',
+            title: 'Student Training Programs',
+            desc: 'Hands-on internship programs that turn students into industry-ready developers through real project experience.',
             icon: GraduationCap,
             accent: 'from-amber-500 to-orange-500'
         }
@@ -179,7 +179,7 @@ const Home = () => {
     }, []);
 
     return (
-        <div ref={comp} className="min-h-screen bg-[#FDFBF7] text-gray-900 font-sans overflow-hidden">
+        <div ref={comp} className="min-h-screen bg-[#FDFBF7] text-gray-900 font-sans overflow-x-hidden">
             <Helmet>
                 <title>Zentro Solutions | Web Development, Software Solutions and Digital Transformation</title>
                 <meta name="description" content="Zentro Solutions delivers innovative IT services, specializing in web development, software solutions, and digital transformation to help businesses scale efficiently." />
@@ -351,23 +351,24 @@ const Home = () => {
                     <div className="grid w-full grid-cols-1 items-center gap-12 md:grid-cols-2 md:gap-16">
                         <div className="flex flex-col items-center text-center md:items-start md:text-left">
                             <h1 className="hero-text text-4xl font-extrabold tracking-tight leading-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
-                                Zentro Solutions Web Development<br className="hidden md:block" />
+                                We Build Software.
+                                <br className="hidden md:block" />
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-violet-400">
-                                    Internships & Final Year Projects
+                                    We Build Developers.
                                 </span>
                             </h1>
 
                             <p className="hero-text mt-6 max-w-xl text-sm leading-relaxed text-indigo-100/80 sm:text-base">
-                                Zentro Solutions, also searched as Zentro Solution in Attur, delivers innovative IT services and practical programs in web development, software solutions, and digital transformation.
+                                Zentro Solutions is a service-based software company <em>and</em> a student training institute in Attur, Salem. We deliver client projects and shape the next generation of developers — both under one roof.
                             </p>
 
                             <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row md:items-start">
-                                <a href="https://forms.gle/VfspwyCfBU6FESDn6" target="_blank" rel="noreferrer" className="hero-btn liquid-glass inline-flex w-full items-center justify-center rounded-xl bg-indigo-600 px-8 py-3.5 text-lg font-bold text-white shadow-xl shadow-indigo-600/20 transition-all duration-300 hover:-translate-y-1 hover:bg-indigo-500 sm:w-auto">
-                                    Apply for Internship <ArrowRight className="ml-2 w-5 h-5" />
-                                </a>
-                                <Link to="/programs" className="hero-btn liquid-glass inline-flex w-full items-center justify-center rounded-xl border border-white/10 bg-white/5 px-8 py-3.5 text-lg font-bold text-white shadow-sm transition-all duration-300 hover:bg-white/10 sm:w-auto">
-                                    Browse Programs
+                                <Link to="/contact" className="hero-btn liquid-glass inline-flex w-full items-center justify-center rounded-xl bg-indigo-600 px-8 py-3.5 text-lg font-bold text-white shadow-xl shadow-indigo-600/20 transition-all duration-300 hover:-translate-y-1 hover:bg-indigo-500 sm:w-auto">
+                                    Hire Us for Your Project <ArrowRight className="ml-2 w-5 h-5" />
                                 </Link>
+                                <a href="https://forms.gle/VfspwyCfBU6FESDn6" target="_blank" rel="noreferrer" className="hero-btn liquid-glass inline-flex w-full items-center justify-center rounded-xl border border-white/10 bg-white/5 px-8 py-3.5 text-lg font-bold text-white shadow-sm transition-all duration-300 hover:bg-white/10 sm:w-auto">
+                                    Join Training Program
+                                </a>
                             </div>
 
                             <div className="mt-10 flex items-center gap-4">
@@ -378,7 +379,7 @@ const Home = () => {
                                     <div className="hero-trust-avatar" style={{ background: '#8b5cf6', zIndex: 1 }}>S</div>
                                 </div>
                                 <div className="text-white text-sm">
-                                    <div className="font-bold flex items-center gap-1">5000+ <span className="font-normal text-indigo-100">students trained</span></div>
+                                    <div className="font-bold flex items-center gap-1">100+ <span className="font-normal text-indigo-100">projects delivered &amp; students trained</span></div>
                                     <div className="flex items-center gap-1 mt-0.5 text-yellow-400">
                                         <Star className="w-3 h-3 fill-current" />
                                         <Star className="w-3 h-3 fill-current" />
@@ -393,25 +394,25 @@ const Home = () => {
 
                         <div className="hidden md:flex justify-center items-center h-full relative z-20 min-h-[520px]">
                             <div className="hero-float-card card-1 z-30">
-                                <div className="hfc-icon bg-primary"><Briefcase size={20} /></div>
+                                <div className="hfc-icon bg-primary"><Building2 size={20} /></div>
                                 <div>
-                                    <div className="hfc-label">New Openings</div>
-                                    <div className="hfc-value">200+ Jobs</div>
+                                    <div className="hfc-label">Client Projects</div>
+                                    <div className="hfc-value">100+ Done</div>
                                 </div>
                             </div>
 
                             <div className="hero-float-card card-2 z-30">
-                                <div className="hfc-icon bg-success"><CheckCircle size={20} /></div>
+                                <div className="hfc-icon bg-success"><GraduationCap size={20} /></div>
                                 <div>
-                                    <div className="hfc-label">Placement Rate</div>
-                                    <div className="hfc-value">95%</div>
+                                    <div className="hfc-label">Students Trained</div>
+                                    <div className="hfc-value">5000+</div>
                                 </div>
                             </div>
 
                             <div className="hero-float-card card-3 z-30">
                                 <div className="hfc-icon bg-warning"><Handshake size={20} /></div>
                                 <div>
-                                    <div className="hfc-label">Partner Companies</div>
+                                    <div className="hfc-label">Happy Clients</div>
                                     <div className="hfc-value">50+</div>
                                 </div>
                             </div>
@@ -445,8 +446,71 @@ const Home = () => {
                 </motion.div>
             </section>
 
-            {/* 2. Problem Section */}
-            <section ref={problemRef} className="pt-32 pb-16 px-4 bg-slate-50 relative overflow-hidden border-b border-gray-100">
+            {/* 2. Two Ways We Serve — Dual Identity Split */}
+            <section className="py-24 px-4 bg-slate-50 border-b border-gray-100">
+                <div className="max-w-7xl mx-auto">
+                    <div className="text-center mb-14">
+                        <span className="inline-flex items-center rounded-full bg-indigo-100 px-4 py-1.5 text-sm font-bold tracking-wider text-indigo-700 uppercase">Who We Serve</span>
+                        <h2 className="mt-4 text-3xl md:text-5xl font-extrabold text-slate-900">Two Ways Zentro Solutions Works</h2>
+                        <p className="mt-4 text-lg text-slate-500 max-w-2xl mx-auto">Whether you're a business needing software built, or a student wanting real skills — Zentro is your partner.</p>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-6">
+                        {/* For Clients */}
+                        <div className="group relative rounded-3xl bg-gradient-to-br from-slate-900 to-indigo-950 p-10 text-white shadow-2xl overflow-hidden">
+                            <div className="absolute top-0 right-0 w-48 h-48 bg-indigo-500/10 rounded-bl-full" />
+                            <div className="relative z-10">
+                                <div className="inline-flex items-center gap-2 rounded-full bg-indigo-500/20 border border-indigo-400/30 px-4 py-1.5 text-sm font-bold text-indigo-300 uppercase tracking-wider mb-6">
+                                    <Building2 size={14} /> For Businesses &amp; Clients
+                                </div>
+                                <h3 className="text-3xl font-extrabold text-white leading-tight">Need Software Built?<br /><span className="text-indigo-400">We Deliver It.</span></h3>
+                                <p className="mt-5 text-indigo-100/80 text-lg leading-relaxed">
+                                    Zentro Solutions is a service-based IT company. We take your project requirements — websites, web apps, portals, or custom tools — and build production-ready software under expert supervision.
+                                </p>
+                                <ul className="mt-6 space-y-3">
+                                    {['Custom web &amp; software development', 'End-to-end project delivery', 'Dedicated team for your project', 'Competitive pricing, quality output'].map((item) => (
+                                        <li key={item} className="flex items-center gap-3 text-indigo-100">
+                                            <CheckCircle size={18} className="text-emerald-400 shrink-0" />
+                                            <span dangerouslySetInnerHTML={{ __html: item }} />
+                                        </li>
+                                    ))}
+                                </ul>
+                                <Link to="/contact" className="mt-8 inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-6 py-3 font-bold text-white transition-all hover:bg-indigo-500 hover:-translate-y-0.5">
+                                    Get a Quote <ArrowRight size={16} />
+                                </Link>
+                            </div>
+                        </div>
+
+                        {/* For Students */}
+                        <div className="group relative rounded-3xl bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-100 p-10 shadow-xl overflow-hidden">
+                            <div className="absolute top-0 right-0 w-48 h-48 bg-amber-200/30 rounded-bl-full" />
+                            <div className="relative z-10">
+                                <div className="inline-flex items-center gap-2 rounded-full bg-amber-100 border border-amber-200 px-4 py-1.5 text-sm font-bold text-amber-700 uppercase tracking-wider mb-6">
+                                    <BookOpen size={14} /> For Students &amp; Freshers
+                                </div>
+                                <h3 className="text-3xl font-extrabold text-slate-900 leading-tight">Want Real Skills?<br /><span className="text-amber-600">We Teach Them.</span></h3>
+                                <p className="mt-5 text-slate-600 text-lg leading-relaxed">
+                                    We run internship training programs where students work on actual projects, guided by industry experts. Build a portfolio, earn a certificate, and become job-ready.
+                                </p>
+                                <ul className="mt-6 space-y-3">
+                                    {['Hands-on project-based learning', 'Expert mentorship &amp; code reviews', 'MERN, Python, Java, Web Dev tracks', 'Verified completion certificate'].map((item) => (
+                                        <li key={item} className="flex items-center gap-3 text-slate-700">
+                                            <CheckCircle size={18} className="text-amber-500 shrink-0" />
+                                            <span dangerouslySetInnerHTML={{ __html: item }} />
+                                        </li>
+                                    ))}
+                                </ul>
+                                <a href="https://forms.gle/VfspwyCfBU6FESDn6" target="_blank" rel="noreferrer" className="mt-8 inline-flex items-center gap-2 rounded-xl bg-amber-500 px-6 py-3 font-bold text-white transition-all hover:bg-amber-400 hover:-translate-y-0.5">
+                                    Apply for Internship <ArrowRight size={16} />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* 3. Problem Section */}
+            <section ref={problemRef} className="pt-32 pb-16 px-4 bg-white relative overflow-hidden border-b border-gray-100">
                 <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, black 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
                 <div className="max-w-5xl mx-auto text-center relative z-10 flex flex-col gap-4">
                     <h2 className="problem-text text-3xl md:text-5xl font-bold text-gray-400">
@@ -455,42 +519,52 @@ const Home = () => {
                     <h2 className="problem-text text-3xl md:text-5xl font-extrabold text-slate-900">
                         Companies demand experience.
                     </h2>
+                    <h2 className="problem-text text-2xl md:text-3xl font-bold text-gray-400 mt-4">
+                        And businesses struggle to find
+                    </h2>
+                    <h2 className="problem-text text-2xl md:text-3xl font-extrabold text-slate-900">
+                        reliable tech teams to build their software.
+                    </h2>
                 </div>
             </section>
 
-            {/* 3. The Gap Section */}
+            {/* 4. The Gap Section */}
             <section ref={gapRef} className="pt-16 pb-12 px-4 relative bg-white">
                 <div className="max-w-4xl mx-auto text-center">
                     <h2 className="gap-text text-3xl md:text-4xl font-extrabold text-slate-900 mb-8 leading-tight">
-                        There's a gap between <br className="hidden md:block" /> <span className="text-indigo-600">learning and earning.</span>
+                        Zentro closes both gaps — <br className="hidden md:block" /> <span className="text-indigo-600">for clients and students.</span>
                     </h2>
                     <p className="gap-text text-lg md:text-xl text-gray-600 leading-relaxed font-medium">
-                        You've watched the tutorials. You've passed the exams. But when it comes to technical interviews and building production-grade software, you feel stuck. Zentro Solutions was built to bridge that exact gap.
+                        We are a service company that delivers software for clients, and a training institute that prepares students for the industry — both powered by real projects and real mentorship. One team. Two missions.
                     </p>
                 </div>
             </section>
 
 
-            {/* 4. Solution Section */}
+            {/* 5. Solution Section */}
             <section ref={solutionRef} className="pt-8 pb-24 px-4 bg-white relative">
                 <div className="max-w-7xl mx-auto">
+                    <div className="text-center mb-14">
+                        <span className="inline-flex items-center rounded-full bg-indigo-100 px-4 py-1.5 text-sm font-bold tracking-wider text-indigo-700 uppercase">Why Zentro Works</span>
+                        <h2 className="mt-4 text-3xl md:text-5xl font-extrabold text-slate-900">What Makes Us Different</h2>
+                    </div>
                     <div className="grid md:grid-cols-3 gap-8">
                         <div className="solution-card bg-[#FDFBF7] p-10 rounded-3xl shadow-lg hover:shadow-[0_0_30px_rgba(255,255,255,0.1)] transition-all duration-500 transform hover:-translate-y-2 group">
                             <div className="w-16 h-16 bg-white border border-gray-100 rounded-2xl flex items-center justify-center mb-8 shadow-sm group-hover:scale-110 transition-transform duration-500">
-                                <Code size={30} className="text-indigo-600" />
+                                <Layers size={30} className="text-violet-600" />
                             </div>
-                            <h3 className="text-2xl font-extrabold text-slate-900 mb-4">Industry Projects</h3>
-                            <p className="text-slate-600 text-lg leading-relaxed">Build actual SaaS applications, scalable backends, and full-stack platforms instead of just basic to-do apps.</p>
+                            <h3 className="text-2xl font-extrabold text-slate-900 mb-4">Real Project Experience</h3>
+                            <p className="text-slate-600 text-lg leading-relaxed">Our students don't just learn — they build actual client deliverables. Real code, real deadlines, real impact.</p>
                         </div>
 
                         <div className="solution-card bg-[#FDFBF7] p-10 rounded-3xl shadow-lg hover:shadow-[0_0_30px_rgba(255,255,255,0.1)] transition-all duration-500 transform hover:-translate-y-2 group relative overflow-hidden">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-50/80 rounded-bl-[100px] -z-0"></div>
                             <div className="relative z-10">
                                 <div className="w-16 h-16 bg-white border border-gray-100 rounded-2xl flex items-center justify-center mb-8 shadow-sm group-hover:scale-110 transition-transform duration-500">
-                                    <Users size={30} className="text-violet-600" />
+                                    <Users size={30} className="text-indigo-600" />
                                 </div>
-                                <h3 className="text-2xl font-extrabold text-slate-900 mb-4">Expert Mentorship</h3>
-                                <p className="text-slate-600 text-lg leading-relaxed">Don't guess. Let senior software engineers review your code, guide your architecture, and unstuck you daily.</p>
+                                <h3 className="text-2xl font-extrabold text-slate-900 mb-4">Expert-Led Delivery</h3>
+                                <p className="text-slate-600 text-lg leading-relaxed">Every client project is overseen by senior engineers. Clients get quality. Students get experience. Win-win.</p>
                             </div>
                         </div>
 
@@ -498,50 +572,72 @@ const Home = () => {
                             <div className="w-16 h-16 bg-white border border-gray-100 rounded-2xl flex items-center justify-center mb-8 shadow-sm group-hover:scale-110 transition-transform duration-500">
                                 <Award size={30} className="text-amber-500" />
                             </div>
-                            <h3 className="text-2xl font-extrabold text-slate-900 mb-4">Verified Certification</h3>
-                            <p className="text-slate-600 text-lg leading-relaxed">Earn a completion certificate that actually proves your capability to employers. verifiable online.</p>
+                            <h3 className="text-2xl font-extrabold text-slate-900 mb-4">Certified Outcomes</h3>
+                            <p className="text-slate-600 text-lg leading-relaxed">Students earn verified certificates. Clients receive deployed, production-ready software. Results you can show.</p>
                         </div>
                     </div>
                 </div>
             </section>
 
             {/* 5. Transformation Section */}
-            <section ref={transformRef} className="py-32 px-4 bg-slate-900 text-white overflow-hidden relative">
+            <section ref={transformRef} className="py-20 px-4 bg-slate-900 text-white overflow-hidden relative">
                 {/* Background lighting */}
                 <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-indigo-600/10 rounded-full filter blur-[100px] -translate-y-1/2"></div>
                 <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-violet-600/10 rounded-full filter blur-[100px] translate-y-1/2"></div>
 
                 <div className="max-w-7xl mx-auto relative z-10">
-                    <div className="text-center mb-20">
-                        <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-6">The Zentro Transformation</h2>
-                        <p className="text-lg text-slate-400 max-w-2xl mx-auto font-medium">See the difference 15 days of intensive, focused, real-world development makes.</p>
+                    <div className="text-center mb-14">
+                        <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4">Why Choose Zentro?</h2>
+                        <p className="text-lg text-slate-400 max-w-2xl mx-auto font-medium">The difference Zentro makes — for businesses that need software built, and students who need real skills.</p>
                     </div>
 
-                    <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-0 relative">
+                    <div className="flex flex-col md:flex-row items-stretch justify-center gap-4 md:gap-0 relative">
                         {/* VS Badge */}
-                        <div className="hidden md:flex absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-slate-800 border-4 border-slate-900 rounded-full items-center justify-center font-black text-xl text-slate-400 z-10 shadow-xl">
+                        <div className="hidden md:flex absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-14 h-14 bg-slate-800 border-4 border-slate-900 rounded-full items-center justify-center font-black text-base text-slate-400 z-10 shadow-xl">
                             VS
                         </div>
 
-                        <div className="transform-left w-full md:w-[45%] bg-white/5 backdrop-blur-lg border border-white/10 p-10 md:p-14 rounded-3xl md:rounded-r-none relative">
-                            <h3 className="text-xl font-bold text-slate-300 mb-8 border-b border-white/10 pb-4">Confused Student</h3>
-                            <ul className="space-y-6">
-                                <li className="flex items-center text-base text-slate-400 font-medium"><XCircle className="w-5 h-5 mr-4 text-red-400/70 shrink-0" /> No real-world portfolio</li>
-                                <li className="flex items-center text-base text-slate-400 font-medium"><XCircle className="w-5 h-5 mr-4 text-red-400/70 shrink-0" /> Fails technical interviews</li>
-                                <li className="flex items-center text-base text-slate-400 font-medium"><XCircle className="w-5 h-5 mr-4 text-red-400/70 shrink-0" /> Stuck in tutorial hell</li>
-                                <li className="flex items-center text-base text-slate-400 font-medium"><XCircle className="w-5 h-5 mr-4 text-red-400/70 shrink-0" /> Lacks system design knowledge</li>
-                            </ul>
+                        {/* Without Zentro */}
+                        <div className="transform-left w-full md:w-[45%] bg-white/5 backdrop-blur-lg border border-white/10 p-8 md:p-12 rounded-3xl md:rounded-r-none relative">
+                            <h3 className="text-lg font-bold text-slate-300 mb-6 border-b border-white/10 pb-4">Without Zentro</h3>
+                            <div className="mb-5">
+                                <p className="text-xs font-bold uppercase tracking-widest text-red-400/70 mb-3">For Clients</p>
+                                <ul className="space-y-3">
+                                    <li className="flex items-start gap-3 text-sm text-slate-400 font-medium"><XCircle className="w-4 h-4 mt-0.5 text-red-400/60 shrink-0" /> Hard to find reliable dev teams</li>
+                                    <li className="flex items-start gap-3 text-sm text-slate-400 font-medium"><XCircle className="w-4 h-4 mt-0.5 text-red-400/60 shrink-0" /> Expensive freelancers, delayed delivery</li>
+                                    <li className="flex items-start gap-3 text-sm text-slate-400 font-medium"><XCircle className="w-4 h-4 mt-0.5 text-red-400/60 shrink-0" /> No quality control or oversight</li>
+                                </ul>
+                            </div>
+                            <div className="border-t border-white/5 pt-5">
+                                <p className="text-xs font-bold uppercase tracking-widest text-red-400/70 mb-3">For Students</p>
+                                <ul className="space-y-3">
+                                    <li className="flex items-start gap-3 text-sm text-slate-400 font-medium"><XCircle className="w-4 h-4 mt-0.5 text-red-400/60 shrink-0" /> Only theory, no real project experience</li>
+                                    <li className="flex items-start gap-3 text-sm text-slate-400 font-medium"><XCircle className="w-4 h-4 mt-0.5 text-red-400/60 shrink-0" /> Stuck in tutorial hell</li>
+                                    <li className="flex items-start gap-3 text-sm text-slate-400 font-medium"><XCircle className="w-4 h-4 mt-0.5 text-red-400/60 shrink-0" /> Fails technical interviews</li>
+                                </ul>
+                            </div>
                         </div>
 
-                        <div className="transform-right w-full md:w-[55%] bg-gradient-to-br from-indigo-900 to-slate-900 border border-indigo-500/30 p-10 md:p-14 rounded-3xl relative shadow-2xl shadow-indigo-500/10 z-0 md:z-20">
+                        {/* With Zentro */}
+                        <div className="transform-right w-full md:w-[55%] bg-gradient-to-br from-indigo-900 to-slate-900 border border-indigo-500/30 p-8 md:p-12 rounded-3xl relative shadow-2xl shadow-indigo-500/10 z-0 md:z-20">
                             <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-indigo-500 to-violet-500 rounded-t-3xl"></div>
-                            <h3 className="text-2xl font-extrabold text-white mb-8 border-b border-white/10 pb-4">Industry-Ready Developer</h3>
-                            <ul className="space-y-6">
-                                <li className="flex items-center text-base lg:text-lg text-indigo-50 font-semibold"><CheckCircle className="w-6 h-6 mr-4 text-emerald-400 shrink-0" /> Production-grade portfolio</li>
-                                <li className="flex items-center text-base lg:text-lg text-indigo-50 font-semibold"><CheckCircle className="w-6 h-6 mr-4 text-emerald-400 shrink-0" /> Confident in interviews</li>
-                                <li className="flex items-center text-base lg:text-lg text-indigo-50 font-semibold"><CheckCircle className="w-6 h-6 mr-4 text-emerald-400 shrink-0" /> Can build apps from scratch</li>
-                                <li className="flex items-center text-base lg:text-lg text-indigo-50 font-semibold"><CheckCircle className="w-6 h-6 mr-4 text-emerald-400 shrink-0" /> Understands scalable architecture</li>
-                            </ul>
+                            <h3 className="text-xl font-extrabold text-white mb-6 border-b border-white/10 pb-4">With Zentro ✓</h3>
+                            <div className="mb-5">
+                                <p className="text-xs font-bold uppercase tracking-widest text-emerald-400/80 mb-3">For Clients</p>
+                                <ul className="space-y-3">
+                                    <li className="flex items-start gap-3 text-sm text-indigo-50 font-semibold"><CheckCircle className="w-4 h-4 mt-0.5 text-emerald-400 shrink-0" /> Expert team, on-time delivery</li>
+                                    <li className="flex items-start gap-3 text-sm text-indigo-50 font-semibold"><CheckCircle className="w-4 h-4 mt-0.5 text-emerald-400 shrink-0" /> Production-ready software, affordable</li>
+                                    <li className="flex items-start gap-3 text-sm text-indigo-50 font-semibold"><CheckCircle className="w-4 h-4 mt-0.5 text-emerald-400 shrink-0" /> Senior engineer oversight on every project</li>
+                                </ul>
+                            </div>
+                            <div className="border-t border-white/10 pt-5">
+                                <p className="text-xs font-bold uppercase tracking-widest text-emerald-400/80 mb-3">For Students</p>
+                                <ul className="space-y-3">
+                                    <li className="flex items-start gap-3 text-sm text-indigo-50 font-semibold"><CheckCircle className="w-4 h-4 mt-0.5 text-emerald-400 shrink-0" /> Real client project experience</li>
+                                    <li className="flex items-start gap-3 text-sm text-indigo-50 font-semibold"><CheckCircle className="w-4 h-4 mt-0.5 text-emerald-400 shrink-0" /> Mentorship + verified certificate</li>
+                                    <li className="flex items-start gap-3 text-sm text-indigo-50 font-semibold"><CheckCircle className="w-4 h-4 mt-0.5 text-emerald-400 shrink-0" /> Job-ready, confident developer</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -568,13 +664,13 @@ const Home = () => {
                             <div className="text-4xl md:text-5xl font-black text-indigo-900 mb-3 font-mono tracking-tight">
                                 <span className="stat-num" data-target="100">0</span>+
                             </div>
-                            <div className="text-xs font-bold text-gray-500 uppercase tracking-widest">Tech Projects</div>
+                            <div className="text-xs font-bold text-gray-500 uppercase tracking-widest">Client Projects Delivered</div>
                         </motion.div>
                         <motion.div variants={itemVariants}>
                             <div className="text-4xl md:text-5xl font-black text-indigo-900 mb-3 font-mono tracking-tight">
                                 <span className="stat-num" data-target="50">0</span>+
                             </div>
-                            <div className="text-xs font-bold text-gray-500 uppercase tracking-widest">Expert Mentors</div>
+                            <div className="text-xs font-bold text-gray-500 uppercase tracking-widest">Happy Clients</div>
                         </motion.div>
                         <motion.div variants={itemVariants}>
                             <div className="text-4xl md:text-5xl font-black text-indigo-900 mb-3 font-mono tracking-tight">
@@ -599,27 +695,27 @@ const Home = () => {
                         <span className="inline-flex items-center rounded-full bg-indigo-100 px-4 py-1.5 text-sm font-bold tracking-wider text-indigo-700 uppercase">About</span>
                         <h2 className="mt-5 text-3xl md:text-5xl font-extrabold text-slate-900 leading-tight">About Zentro Solutions</h2>
                         <p className="mt-6 text-lg text-slate-600 leading-relaxed">
-                            Zentro Solutions is a technology-driven startup focused on empowering students with real-world software development skills. We bridge the gap between academic knowledge and industry expectations through practical, project-based learning.
+                            Zentro Solutions is a <strong>service-based software company and a student training institute</strong> based in Attur, Salem District, Tamil Nadu. We build software for clients and build skills in students — both with the same passion for quality.
                         </p>
                         <p className="mt-4 text-lg text-slate-600 leading-relaxed">
-                            Our internship programs are built to create confident, skilled, and job-ready developers who can work on production-style applications from day one.
+                            Our client projects are delivered by a team of trained developers under senior engineer supervision. Our training programs turn freshers into job-ready developers through real, production-style project experience.
                         </p>
                         <div className="mt-8 flex flex-wrap gap-3">
                             <Link to="/about" className="inline-flex items-center rounded-full bg-slate-900 px-6 py-3 font-semibold text-white transition-transform hover:-translate-y-0.5">
                                 Full About Page <ArrowRight className="ml-2 w-4 h-4" />
                             </Link>
                             <Link to="/services" className="inline-flex items-center rounded-full border border-slate-200 bg-white px-6 py-3 font-semibold text-slate-800 transition-transform hover:-translate-y-0.5">
-                                See Services
+                                Our Services
                             </Link>
                         </div>
                     </motion.div>
 
                     <motion.div variants={sectionVariants} className="grid sm:grid-cols-2 gap-4">
                         {[
-                            { title: 'Hands-on learning', text: 'Build projects, not just notes.' },
-                            { title: 'Industry guidance', text: 'Learn with mentorship and reviews.' },
-                            { title: 'Practical exposure', text: 'Work on real apps and workflows.' },
-                            { title: 'Career readiness', text: 'Prepare for interviews and placements.' }
+                            { title: 'Service Company', text: 'We take client projects and deliver production-grade software.' },
+                            { title: 'Training Institute', text: 'We teach students through real projects and expert mentorship.' },
+                            { title: 'Practical Exposure', text: 'Students work on live client deliverables — not just exercises.' },
+                            { title: 'Quality First', text: 'Every line of code reviewed by senior engineers before delivery.' }
                         ].map((item) => (
                             <motion.div key={item.title} variants={itemVariants} whileHover={{ y: -6, scale: 1.02 }} className="rounded-3xl border border-gray-100 bg-[#FDFBF7] p-6 shadow-sm">
                                 <div className="text-sm font-bold uppercase tracking-wider text-indigo-600">{item.title}</div>
@@ -642,7 +738,7 @@ const Home = () => {
                     <motion.div variants={itemVariants} className="text-center max-w-3xl mx-auto">
                         <span className="inline-flex items-center rounded-full bg-indigo-100 px-4 py-1.5 text-sm font-bold tracking-wider text-indigo-700 uppercase">Services</span>
                         <h2 className="mt-5 text-3xl md:text-5xl font-extrabold text-slate-900">What We Offer</h2>
-                        <p className="mt-4 text-lg text-slate-600">Professional services for businesses and learners, all presented directly on the home page.</p>
+                        <p className="mt-4 text-lg text-slate-600">We serve both businesses needing software built and students wanting to grow their technical skills.</p>
                     </motion.div>
 
                     <motion.div variants={sectionVariants} className="mt-12 grid gap-6 md:grid-cols-3">
@@ -679,14 +775,14 @@ const Home = () => {
                 <div className="max-w-7xl mx-auto">
                     <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] items-start">
                         <motion.div variants={itemVariants}>
-                            <span className="inline-flex items-center rounded-full bg-white/10 px-4 py-1.5 text-sm font-bold tracking-wider text-indigo-200 uppercase">Programs</span>
-                            <h2 className="mt-5 text-3xl md:text-5xl font-extrabold leading-tight">Internship Programs on the Home Page</h2>
+                            <span className="inline-flex items-center rounded-full bg-white/10 px-4 py-1.5 text-sm font-bold tracking-wider text-indigo-200 uppercase">Training Programs</span>
+                            <h2 className="mt-5 text-3xl md:text-5xl font-extrabold leading-tight">Student Training Tracks at Zentro</h2>
                             <p className="mt-4 text-lg text-indigo-100/80 leading-relaxed">
-                                Students can now see the main internship tracks without leaving the landing page.
+                                Learn by building — our programs put students on real projects from day one, guided by industry mentors.
                             </p>
                             <div className="mt-8 flex flex-wrap gap-3">
                                 <Link to="/programs" className="inline-flex items-center rounded-full bg-indigo-600 px-6 py-3 font-semibold text-white transition-transform hover:-translate-y-0.5">
-                                    Full Programs Page <ArrowRight className="ml-2 w-4 h-4" />
+                                    Explore All Programs <ArrowRight className="ml-2 w-4 h-4" />
                                 </Link>
                                 <a href="https://forms.gle/VfspwyCfBU6FESDn6" target="_blank" rel="noreferrer" className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-6 py-3 font-semibold text-white transition-transform hover:-translate-y-0.5">
                                     Apply Now
@@ -721,8 +817,8 @@ const Home = () => {
                 <div className="max-w-7xl mx-auto">
                     <motion.div variants={itemVariants} className="text-center max-w-3xl mx-auto">
                         <span className="inline-flex items-center rounded-full bg-indigo-100 px-4 py-1.5 text-sm font-bold tracking-wider text-indigo-700 uppercase">Projects</span>
-                        <h2 className="mt-5 text-3xl md:text-5xl font-extrabold text-slate-900">Sample Projects</h2>
-                        <p className="mt-4 text-lg text-slate-600">A quick preview of the kinds of projects students build during training.</p>
+                        <h2 className="mt-5 text-3xl md:text-5xl font-extrabold text-slate-900">Projects We Build</h2>
+                        <p className="mt-4 text-lg text-slate-600">A sample of the software we deliver for clients and build with students during training programs.</p>
                     </motion.div>
 
                     <motion.div variants={sectionVariants} className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -752,22 +848,22 @@ const Home = () => {
                 viewport={{ once: true, amount: 0.22 }}
             >
                 <div className="max-w-7xl mx-auto grid gap-8 lg:grid-cols-[1fr_0.9fr] items-stretch">
-                    <motion.div variants={itemVariants} className="rounded-3xl bg-slate-900 p-8 md:p-12 text-white shadow-2xl">
+                    <motion.div variants={itemVariants} className="rounded-3xl bg-slate-900 p-6 sm:p-8 md:p-12 text-white shadow-2xl overflow-hidden">
                         <span className="inline-flex items-center rounded-full bg-white/10 px-4 py-1.5 text-sm font-bold tracking-wider text-indigo-200 uppercase">Contact</span>
-                        <h2 className="mt-5 text-3xl md:text-5xl font-extrabold">Get in Touch</h2>
-                        <p className="mt-4 text-lg text-indigo-100/80 leading-relaxed">Contact details are visible on the home page so visitors can reach you without hunting through another page.</p>
+                        <h2 className="mt-5 text-3xl md:text-5xl font-extrabold">Let's Work Together</h2>
+                        <p className="mt-4 text-lg text-indigo-100/80 leading-relaxed">Whether you're a business looking to build software or a student looking to grow — reach out and let's start the conversation.</p>
 
                         <div className="mt-10 space-y-4">
                             {contactPoints.map((point) => {
                                 const PointIcon = point.icon;
                                 return (
                                     <motion.div key={point.label} variants={itemVariants} whileHover={{ x: 4 }} className="flex items-start gap-4 rounded-2xl border border-white/10 bg-white/5 p-4">
-                                        <div className="mt-0.5 flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 text-indigo-200">
+                                        <div className="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/10 text-indigo-200">
                                             <PointIcon size={18} />
                                         </div>
-                                        <div>
+                                        <div className="min-w-0">
                                             <div className="text-sm font-bold uppercase tracking-wider text-indigo-200">{point.label}</div>
-                                            <div className="mt-1 text-white/90 leading-relaxed">{point.value}</div>
+                                            <div className="mt-1 text-white/90 leading-relaxed break-words">{point.value}</div>
                                         </div>
                                     </motion.div>
                                 );
@@ -777,13 +873,13 @@ const Home = () => {
 
                     <motion.div variants={itemVariants} whileHover={{ y: -6 }} className="rounded-3xl border border-gray-100 bg-white p-8 md:p-12 shadow-[0_10px_40px_rgba(15,23,42,0.08)] flex flex-col justify-between">
                         <div>
-                            <h3 className="text-2xl font-bold text-slate-900">Need to send a message?</h3>
-                            <p className="mt-4 text-slate-600 leading-relaxed">Use the contact page for the full form, or jump directly to it from here.</p>
+                            <h3 className="text-2xl font-bold text-slate-900">Have a project in mind or want to join our program?</h3>
+                            <p className="mt-4 text-slate-600 leading-relaxed">Tell us about your project requirement or training inquiry — we respond fast. Use the contact page or drop us a mail.</p>
                         </div>
 
                         <div className="mt-8 flex flex-wrap gap-3">
                             <Link to="/contact" className="inline-flex items-center rounded-full bg-indigo-600 px-6 py-3 font-semibold text-white transition-transform hover:-translate-y-0.5">
-                                Full Contact Page <ArrowRight className="ml-2 w-4 h-4" />
+                                Contact Us <ArrowRight className="ml-2 w-4 h-4" />
                             </Link>
                             <a href="mailto:info.zentro.solutions@gmail.com" className="inline-flex items-center rounded-full border border-gray-200 bg-white px-6 py-3 font-semibold text-slate-800 transition-transform hover:-translate-y-0.5">
                                 Mail Us

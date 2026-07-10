@@ -1,4 +1,4 @@
-import { Target, Eye, Code, Calendar, CheckCircle, GraduationCap, Users, LayoutDashboard, Award, Settings } from 'lucide-react';
+import { Target, Eye, Code, Calendar, CheckCircle, GraduationCap, Users, LayoutDashboard, Award, Settings, Building2 } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import ScrollReveal from '../../components/ScrollReveal';
@@ -8,8 +8,8 @@ const About = () => {
         <div className="min-h-screen pt-24 pb-20 px-4 sm:px-6 lg:px-8">
             <Helmet>
                 <title>About Zentro Solutions | Experts in Web Development & Training</title>
-                <meta name="description" content="Learn more about Zentro Solutions, a technology-driven startup providing real-world software development skills, internships, and industrial training." />
-                <meta name="keywords" content="about zentro solutions, software development startup, tech training india, student internships" />
+                <meta name="description" content="Zentro Solutions is a service-based software company and student training institute in Attur, Salem. We build software for clients and train students with real project experience." />
+                <meta name="keywords" content="about zentro solutions, software development company, tech training india, student internships, service based company attur" />
                 <link rel="canonical" href="https://zentrosolution.fun/about" />
 
                 {/* Open Graph / Social Media */}
@@ -50,20 +50,30 @@ const About = () => {
                     <span className="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 text-sm font-bold rounded-full mb-4 tracking-wider uppercase">Who We Are</span>
                     <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">About Zentro Solutions</h1>
                     <p className="text-lg text-gray-600 leading-relaxed mb-4">
-                        Zentro Solutions is a technology-driven startup focused on empowering students with real-world software development skills. We believe that true learning happens through hands-on experience, practical implementation, and real project building.
+                        Zentro Solutions is a <strong>service-based software company</strong> and a <strong>student training institute</strong> based in Attur, Salem District, Tamil Nadu. We build software for clients and build skills in students — both with the same passion for quality and real-world impact.
                     </p>
                     <p className="text-lg text-gray-600 leading-relaxed">
-                        Our mission is to bridge the gap between academic knowledge and industry expectations by providing structured internship programs designed to build confident, skilled, and job-ready developers.
+                        Our client projects are delivered by a team of trained developers under senior engineer supervision. Our training programs give students hands-on experience on production-style projects, mentorship, and verified certification — turning freshers into job-ready developers.
                     </p>
+
+                    <div className="mt-8 flex flex-wrap justify-center gap-4">
+                        <div className="flex items-center gap-2 bg-slate-900 text-white px-5 py-2.5 rounded-xl text-sm font-semibold">
+                            <Building2 size={16} /> Service-Based Company
+                        </div>
+                        <div className="flex items-center gap-2 bg-amber-100 text-amber-800 px-5 py-2.5 rounded-xl text-sm font-semibold">
+                            <GraduationCap size={16} /> Student Training Institute
+                        </div>
+                    </div>
                 </motion.div>
 
                 {/* What students build */}
                 <ScrollReveal delay={0.1} className="mb-20">
                     <div className="bg-indigo-50 border border-indigo-100 rounded-2xl p-8 md:p-12 text-center shadow-sm">
-                        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">Real-World Applications</h2>
-                        <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-                            At Zentro Solutions, students don't just learn theory — they build real-world applications in:
+                        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">What We Do &amp; What We Build</h2>
+                        <p className="text-gray-600 mb-2 max-w-2xl mx-auto">
+                            For clients, we deliver production-grade software. For students, we build real-world skills. Both, on real projects.
                         </p>
+                        <p className="text-gray-500 mb-8 max-w-2xl mx-auto text-sm">Student training tracks include:</p>
                         <div className="flex flex-wrap justify-center gap-4">
                             {['Java Development', 'Python Programming', 'Web Development (HTML, CSS, JS)', 'MERN Stack Development', 'Software Project Engineering'].map(skill => (
                                 <span key={skill} className="px-5 py-2.5 bg-white text-primary font-semibold rounded-xl shadow-sm border border-gray-100 flex items-center">
@@ -90,7 +100,7 @@ const About = () => {
                             <h2 className="text-3xl font-bold text-gray-900">Our Mission</h2>
                         </div>
                         <p className="text-gray-600 leading-relaxed text-lg">
-                            To create industry-ready developers by delivering affordable, high-quality internship programs that focus on practical learning and professional growth.
+                            To be the go-to technology partner for businesses needing reliable software delivery, and the #1 training institute for students wanting real-world project experience and mentorship.
                         </p>
                     </motion.div>
 

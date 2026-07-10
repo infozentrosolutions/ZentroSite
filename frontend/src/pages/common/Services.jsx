@@ -1,4 +1,4 @@
-import { Laptop, Code, GraduationCap, Brush, Rocket, Lock, Users } from 'lucide-react';
+import { Laptop, Code, GraduationCap, Brush, Rocket, Lock, Users, Building2 } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -7,19 +7,20 @@ import ScrollReveal from '../../components/ScrollReveal';
 const Services = () => {
     const services = [
         {
-            title: 'Software Development',
-            icon: <Laptop className="w-10 h-10 text-primary" />,
-            desc: 'Custom software solutions tailored to enterprise business needs, ensuring scalability and performance.'
+            title: 'Client Project Delivery',
+            icon: <Building2 className="w-10 h-10 text-primary" />,
+            desc: 'We are a service-based IT company that takes your project requirements and delivers production-ready software. Websites, web apps, portals, and custom tools — built on time, under expert supervision.',
+            highlight: true
         },
         {
-            title: 'Web Development',
+            title: 'Web & Software Development',
             icon: <Code className="w-10 h-10 text-primary" />,
-            desc: 'Modern, responsive, and blazing-fast web applications built using React, Node.js, and Cloud technologies.'
+            desc: 'Modern, responsive, and blazing-fast web applications and custom software built using React, Node.js, and Cloud technologies.'
         },
         {
-            title: 'Internship Training',
+            title: 'Student Training Programs',
             icon: <GraduationCap className="w-10 h-10 text-primary" />,
-            desc: 'Intensive 15-day hands-on tech programs to upskill college students, focusing on real-world projects.'
+            desc: 'Intensive hands-on training programs to upskill college students through real project experience, mentorship, and verified certification.'
         }
     ];
 
@@ -76,7 +77,7 @@ const Services = () => {
                 >
                     <span className="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 text-sm font-bold rounded-full mb-4 tracking-wider uppercase">What We Offer</span>
                     <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Our Services</h1>
-                    <p className="text-xl text-gray-500 max-w-2xl mx-auto">What we offer to businesses and learners worldwide.</p>
+                    <p className="text-xl text-gray-500 max-w-2xl mx-auto">Zentro Solutions serves two audiences — <strong className="text-gray-700">businesses that need software built</strong> and <strong className="text-gray-700">students who want real skills</strong>. One team, two missions.</p>
                 </motion.div>
 
                 <div className="grid md:grid-cols-3 gap-8">
@@ -88,14 +89,25 @@ const Services = () => {
                             viewport={{ once: true }}
                             transition={{ duration: 0.5, delay: idx * 0.15 }}
                             whileHover={{ y: -8, scale: 1.02 }}
-                            className="bg-white rounded-2xl shadow-md border border-gray-100 p-8 transition-all duration-300 hover:shadow-xl relative overflow-hidden group"
+                            className={`rounded-2xl shadow-md border p-8 transition-all duration-300 hover:shadow-xl relative overflow-hidden group ${
+                                svc.highlight
+                                    ? 'bg-gradient-to-br from-slate-900 to-indigo-950 border-indigo-500/30 text-white'
+                                    : 'bg-white border-gray-100'
+                            }`}
                         >
-                            <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                            <div className="w-16 h-16 bg-indigo-50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <div className={`absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${
+                                svc.highlight ? 'from-indigo-500/10 to-transparent' : 'from-indigo-50/50 to-transparent'
+                            }`} />
+                            {svc.highlight && (
+                                <span className="absolute top-4 right-4 text-xs font-bold bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 px-3 py-1 rounded-full uppercase tracking-wider">For Clients</span>
+                            )}
+                            <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 ${
+                                svc.highlight ? 'bg-indigo-500/20' : 'bg-indigo-50'
+                            }`}>
                                 {svc.icon}
                             </div>
-                            <h3 className="text-2xl font-bold text-gray-900 mb-4">{svc.title}</h3>
-                            <p className="text-gray-600 leading-relaxed">{svc.desc}</p>
+                            <h3 className={`text-2xl font-bold mb-4 ${svc.highlight ? 'text-white' : 'text-gray-900'}`}>{svc.title}</h3>
+                            <p className={`leading-relaxed ${svc.highlight ? 'text-indigo-100/80' : 'text-gray-600'}`}>{svc.desc}</p>
                         </motion.div>
                     ))}
                 </div>
@@ -110,14 +122,14 @@ const Services = () => {
                     <div className="relative z-10 px-8 py-16 md:p-16 flex flex-col md:flex-row items-center justify-between gap-12">
                         <div className="w-full md:w-1/2 text-center md:text-left">
                             <h2 className="text-4xl md:text-5xl font-semibold text-white mb-4 leading-tight">
-                                We also build and deliver <br />
-                                <span className="font-extrabold tracking-wide">freelancing projects!</span>
+                                Have a project? <br />
+                                <span className="font-extrabold tracking-wide">We build it for you.</span>
                             </h2>
                             <p className="text-xl text-indigo-100 mb-10 max-w-md opacity-90">
-                                Web Development, Mobile Apps, UX/UI Design, and more.
+                                Zentro Solutions is a service-based software company. Share your requirements and we'll deliver it — web apps, portals, and custom software.
                             </p>
                             <Link to="/contact" className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold rounded-xl text-white bg-indigo-600 hover:bg-indigo-500 shadow-[0_0_20px_rgba(79,70,229,0.4)] hover:shadow-[0_0_30px_rgba(79,70,229,0.6)] transition-all transform hover:-translate-y-1">
-                                Get in Touch
+                                Get a Quote
                             </Link>
                         </div>
 

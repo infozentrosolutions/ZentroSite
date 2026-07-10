@@ -21,17 +21,20 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   body {
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
     font-family: var(--font-body);
+    overflow-x: hidden;
     @apply antialiased;
   }
 
   #root {
     min-height: 100vh;
+    overflow-x: hidden;
   }
 }
 
