@@ -204,21 +204,66 @@ const Home = () => {
                     {`
 {
   "@context": "https://schema.org",
-    "@type": "Organization",
+  "@type": "Organization",
   "name": "Zentro Solutions",
-    "alternateName": ["Zentro Solution", "Zentro Solutions Attur"],
+  "alternateName": ["Zentro Solution", "Zentro Solutions Attur"],
   "url": "https://zentrosolution.fun",
-  "logo": "https://zentrosolution.fun/logo.png",
-    "description": "Zentro Solutions delivers innovative IT services, specializing in web development, software solutions, and digital transformation to help businesses scale efficiently.",
-    "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Attur",
-        "addressRegion": "Tamil Nadu",
-        "postalCode": "636107",
-        "addressCountry": "IN"
-    },
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://zentrosolution.fun/logo.png",
+    "width": 512,
+    "height": 512
+  },
+  "description": "Zentro Solutions is a service-based software company and student training institute based in Attur, Salem District, Tamil Nadu. We deliver production-grade software for clients and provide hands-on internship training programs to bridge the gap between academics and industry.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Attur",
+    "addressRegion": "Tamil Nadu",
+    "postalCode": "636107",
+    "addressCountry": "IN"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+91-9597504603",
+    "email": "info.zentro.solutions@gmail.com",
+    "contactType": "customer support",
+    "areaServed": "IN",
+    "availableLanguage": ["English", "Tamil"]
+  },
+  "founder": {
+    "@type": "Person",
+    "name": "Boopathi P",
+    "jobTitle": "Founder",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Zentro Solutions"
+    }
+  },
+  "employee": [
+    {
+      "@type": "Person",
+      "name": "Mukesh A",
+      "jobTitle": "Chief Executive Officer",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Zentro Solutions"
+      }
+    }
+  ],
+  "knowsAbout": [
+    "Web Development",
+    "Software Development",
+    "MERN Stack",
+    "React",
+    "Node.js",
+    "Python Programming",
+    "Java Development",
+    "Student Internship Training",
+    "Digital Transformation"
+  ],
   "sameAs": [
-    "https://www.linkedin.com/company/zentrosolutions"
+    "https://www.linkedin.com/company/zentrosolutions",
+    "https://github.com/infozentrosolutions"
   ],
   "potentialAction": {
     "@type": "SearchAction",
